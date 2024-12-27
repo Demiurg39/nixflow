@@ -58,6 +58,22 @@
           "$mainMod+Ctrl, bracketright, workspace, r+1"
           "$mainMod+Ctrl, bracketleft, workspace, r-1"
 
+          # Move focused window to a workspace
+          "$mainMod+Shift, 1, movetoworkspace, 1"
+          "$mainMod+Shift, 2, movetoworkspace, 2"
+          "$mainMod+Shift, 3, movetoworkspace, 3"
+          "$mainMod+Shift, 4, movetoworkspace, 4"
+          "$mainMod+Shift, 5, movetoworkspace, 5"
+          "$mainMod+Shift, 6, movetoworkspace, 6"
+          "$mainMod+Shift, 7, movetoworkspace, 7"
+          "$mainMod+Shift, 8, movetoworkspace, 8"
+          "$mainMod+Shift, 9, movetoworkspace, 9"
+          "$mainMod+Shift, 0, movetoworkspace, 10"
+                                                                 
+          # Move focused window to a relative workspace
+          "$mainMod+Shift+Ctrl, bracketright, movetoworkspace, r+1"
+          "$mainMod+Shift+Ctrl, bracketleft, movetoworkspace, r-1"
+
 
           # Move/Switch to special workspace (scratchpad)
           "$mainMod+Shift, S, movetoworkspacesilent, special"
@@ -65,11 +81,11 @@
       ];
       
       binde = [
-      # Resize windows
-      "$mainMod+Shift, M, resizeactive, -30 0" # left
-      "$mainMod+Shift, N, resizeactive, 0 30"  # down
-      "$mainMod+Shift, E, resizeactive, 0 -30" # up
-      "$mainMod+Shift, I, resizeactive, 30 0"  # right
+	  # Resize windows
+	  "$mainMod+Shift, M, resizeactive, -30 0" # left
+	  "$mainMod+Shift, N, resizeactive, 0 30"  # down
+	  "$mainMod+Shift, E, resizeactive, 0 -30" # up
+	  "$mainMod+Shift, I, resizeactive, 30 0"  # right
       ];
 
       bindl = [
@@ -84,15 +100,15 @@
       ];
 
       bindm = [
-      # Scroll through existing workspaces
-      "$mainMod, mouse_down, workspace e+1"
-      "$mainMod, mouse_up, workspace e-1"
+	  # Scroll through existing workspaces
+	  "$mainMod, mouse_down, workspace e+1"
+	  "$mainMod, mouse_up, workspace e-1"
 
-      # Move/Resize focused window
-      "$mainMod, mouse:272, movewindow"
-      "$mainMod, mouse:273, resizewindow"
-      "$mainMod, Z, movewindow"
-      "$mainMod, X, resizewindow"
+	  # Move/Resize focused window
+	  "$mainMod, mouse:272, movewindow"
+	  "$mainMod, mouse:273, resizewindow"
+	  "$mainMod, Z, movewindow"
+	  "$mainMod, X, resizewindow"
       ];
 
   };

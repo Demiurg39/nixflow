@@ -19,6 +19,8 @@
       extraLibraries = pkgs: [
       	protobuf
       	dxvk
+	vkd3d
+	libvdpau
       ];
       extraPkgs = pkgs: [
 	gamescope

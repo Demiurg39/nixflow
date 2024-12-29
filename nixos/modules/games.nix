@@ -11,11 +11,19 @@
   
   # Lutris
   environment.systemPackages = with pkgs; [
-    lutris
-    # (lutris.override {
-    #   extraLibraries = pkgs: [];
-    #   extraPkgs = pkgs: [];
-    # })
+    (lutris.override {
+      extraLibraries = pkgs: [];
+      extraPkgs = pkgs: [
+      	dxvk
+	wineWowPackages.stable
+	protonup-qt
+	gamescope
+	mangohud
+	steamtinkerlaunch
+      ];
+    })
   ];
+
+  programs.gamemode.enable = true;
 
 }

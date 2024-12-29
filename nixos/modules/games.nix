@@ -12,7 +12,9 @@
   # Lutris
   environment.systemPackages = with pkgs; [
     (lutris.override {
-      extraLibraries = pkgs: [];
+      extraLibraries = pkgs: [
+      	protobuf
+      ];
       extraPkgs = pkgs: [
       	dxvk
 	wineWowPackages.stable

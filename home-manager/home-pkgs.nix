@@ -9,6 +9,7 @@
     spotify
     telegram-desktop
     whatsapp-for-linux
+    lutris
 
     # Cli
     brightnessctl

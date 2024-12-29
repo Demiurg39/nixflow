@@ -18,6 +18,7 @@
     fzf
     fastfetch
     htop
+    lazygit
     neovim
     playerctl
     ripgrep

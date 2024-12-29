@@ -8,7 +8,7 @@
     neovide
     spotify
     telegram-desktop
-    lutris
+    whatsapp-for-linux
 
     # Cli
     brightnessctl

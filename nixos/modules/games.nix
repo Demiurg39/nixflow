@@ -1,4 +1,4 @@
-{pkgs, config, ... }: {
+{pkgs, ... }: {
 
   # Steam
   programs.steam = {
@@ -11,17 +11,18 @@
   
   # Lutris
   environment.systemPackages = with pkgs; [
+    wineWowPackages.stable
+    protonup-qt
+    steamtinkerlaunch
+
     (lutris.override {
       extraLibraries = pkgs: [
       	protobuf
+      	dxvk
       ];
       extraPkgs = pkgs: [
-      	dxvk
-	wineWowPackages.stable
-	protonup-qt
 	gamescope
 	mangohud
-	steamtinkerlaunch
       ];
     })
   ];

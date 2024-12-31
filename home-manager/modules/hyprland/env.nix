@@ -14,8 +14,6 @@
       # "OZONE_PLATFORM,wayland"
 
       export MOZ_ENABLE_WAYLAND=1 # enable for librewolf and firefox
-      # "MOZ_DISABLE_RDD_SANDBOX,1"
-      # "GDK_SCALE,1"
 
       # --- Cursor ---
       export HYPRCURSOR_THEME=Bibata-Modern-Classic
@@ -29,8 +27,8 @@
       # See https://wiki.hyprland.org/Nvidia/
       export LIBVA_DRIVER_NAME=nvidia
       export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export GBM_BACKEND=nvidia-drm"
-      # export __GL_VRR_ALLOWED=1"
+      export GBM_BACKEND=nvidia-drm
+      export __GL_VRR_ALLOWED=0
       # "WLR_DRM_NO_ATOMIC,1"
       # "WLR_NO_HARDWARE_CURSORS,1"
   '';

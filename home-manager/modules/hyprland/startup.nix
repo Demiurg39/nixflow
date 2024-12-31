@@ -18,9 +18,9 @@
       # dunst # start notification demon
       # wlsunset -t 5200 -S 8:00 -s 20:30 # NightLight from 8.30pm to 8.00am
 
-      "wl-paste --type text --watch cliphist store"; # clipboard store text data
-      "wl-paste --type image --watch cliphist store"; # clipboard store image data
-      "swww-daemon --format xrgb"; # wallpapers daemon
+      "wl-paste --type text --watch cliphist store" # clipboard store text data
+      "wl-paste --type image --watch cliphist store" # clipboard store image data
+      "swww-daemon --format xrgb" # wallpapers daemon
       # "hypridle"; # idling
 
       # Bar, wallpaper

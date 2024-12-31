@@ -12,7 +12,6 @@
   # Lutris
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
-    wine
     protonup-qt
     steamtinkerlaunch
     gamescope

@@ -19,7 +19,7 @@
     open = false;
     
     # Enable the Nvidia settings menu
-    nvidiaSettings = true;
+    nvidiaSettings = false;
 
     # Select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;

@@ -1,10 +1,10 @@
 {
   imports = [
     ./env.nix
-    # ./startup.nix
-    ./keybinds.nix
-    # ./windowrules.nix
-    # ./colors.nix
     ./hyprland.nix
+    ./keybinds.nix
+    ./startup.nix
+    ./theme.nix
+    # ./windowrules.nix
   ];
 }

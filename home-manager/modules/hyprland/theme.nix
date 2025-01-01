@@ -2,8 +2,9 @@
   wayland.windowManager.hyprland.settings = {
 
     general = {
-      border_size = 3;
-      gaps_in = 8;
+      border_size = 2;
+      gaps_in = 7;
+      gaps_out = 10;
     };
 
     decoration = {

@@ -3,13 +3,16 @@
   home.packages = with pkgs; [
 
     # Desktop apps
+    clapper
     librewolf
+    loupe
+    lutris
     mpv
+    mission-center
     neovide
     spotify
     telegram-desktop
     whatsapp-for-linux
-    lutris
 
     # Cli
     brightnessctl
@@ -40,13 +43,13 @@
     xdg-desktop-portal-hyprland
 
     # Nerdfonts
-    nerd-fonts.jetbrains-mono
+    nerd-fonts.fantasque-sans-mono
     nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.mononoki
+    nerd-fonts.space-mono
     nerd-fonts.ubuntu
     nerd-fonts.ubuntu-mono
-    nerd-fonts.space-mono
-    nerd-fonts.mononoki
-    nerd-fonts.fantasque-sans-mono
 
     # Fonts
     cascadia-code

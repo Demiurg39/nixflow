@@ -123,9 +123,9 @@
     in {
       rebuild = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
       rebuild-test = "nixos-rebuild dry-activate --use-remote-sudo --flake ${flake-dir}";
-      update = "nix flake update ${flake-dir}";
+      update = "nix flake update --flake ${flake-dir}";
       upgrade = "nixos-rebuild switch --upgrade --use-remote-sudo --flake ${flake-dir}";
-      hswitch = "home-manager switch --flake ${flake-dir}";
+      switch = "home-manager switch --flake ${flake-dir}";
       mkdir = "mkdir -p";
       ".." = "cd ..";
       grep="grep --color=auto";
@@ -135,7 +135,7 @@
       uz="unzip";
       yz="yazi";
       diff="diff --color";
-      #stl="steamtinkerlaunch";
+      stl="steamtinkerlaunch";
       open="xdg-open";
       cl = "clear";
       ll = "eza --color=always --hyperlink -l";

@@ -32,12 +32,8 @@
   {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = system;
-      specialArgs = {
-        inherit inputs system pkgs; 
-      };
-      modules = [
-        ./nixos/configuration.nix
-      ];
+      specialArgs = { inherit inputs system pkgs; };
+      modules = [ ./nixos/configuration.nix ];
     };
 
     homeConfigurations.demi = home-manager.lib.homeManagerConfiguration {

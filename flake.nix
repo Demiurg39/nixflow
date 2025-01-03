@@ -3,16 +3,15 @@
   description = "My system configuration flake";
 
   inputs = {
-    #nixpkgs-stable.url = "github:nixos/nixpkgs/nixpkgs-24.11";
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: let
@@ -25,11 +24,6 @@
       specialArgs = { inherit inputs system pkgs; };
       modules = [ ./nixos/configuration.nix ];
     };
-
-    # homeConfigurations.demi = home-manager.lib.homeManagerConfiguration {
-    #   inherit pkgs;
-    #   modules = [ ./home-manager/home.nix ];
-    # };
   };
 
 }

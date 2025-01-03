@@ -1,17 +1,16 @@
-{ inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }: let
+  inherit (inputs) home-manager;
+in {
 
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
-
-  environment.systemPackages = [ pkgs.home-manager ];
+  imports = [ home-manager.nixosModules.home-manager ];
   
   home-manager = {
     backupFileExtension = "old";
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; };
-    users = {
-      demi = import ./../../home-manager/home.nix; 
-    };
   };
+
+  home-manager.users.demi = import ./../../home-manager/home.nix;
 
 }

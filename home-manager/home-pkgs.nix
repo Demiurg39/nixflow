@@ -22,6 +22,7 @@
     fzf
     fastfetch
     htop
+    home-manager
     lazygit
     neovim
     playerctl

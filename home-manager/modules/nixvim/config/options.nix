@@ -1,16 +1,16 @@
 {
 
-  opts = {
+  programs.nixvim.opts = {
     autoindent = true;
     autoread = true;
     autowrite = true;
     backspace = "indent,eol,start";
     backup = false;
     backupskip = "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim";
-    breakat = [[\ \	;:,!?]];
+    breakat = "[[\ \	;:,!?]]";
     breakindentopt = "shift:2,min:20";
     clipboard = "unnamedplus";
-    cmdheight = "1, -- 0, 1, 2";
+    cmdheight = 1;
     cmdwinheight = 5;
     complete = ".,w,b,k";
     completeopt = "menuone,noinsert";
@@ -23,7 +23,7 @@
     encoding = "utf-8";
     equalalways = false;
     errorbells = false;
-    # expandtab = true;
+    expandtab = true;
     fileformats = "unix,mac,dos";
     foldenable = true;
     foldlevelstart = 99;
@@ -79,7 +79,6 @@
     timeoutlen = 300;
     ttimeout = true;
     ttimeoutlen = 0;
-    undodir = "~/.cache/nvim/undo";
     undofile = true;
     updatetime = 200; # -- Please do NOT set `updatetime` to above 500, otherwise most plugins may not function correctly
     viewoptions = "folds,cursor,curdir";

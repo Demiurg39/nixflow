@@ -1,4 +1,4 @@
-{ inputs, ... }: let 
+{ inputs, ... }: let
   inherit (inputs) nixvim;
 in {
   imports = [ 
@@ -8,7 +8,7 @@ in {
 
   programs.nixvim = {
     enable = true;
+    defaultEditor = true;
     viAlias = true;
-    vimAlias = true;
   };
 }

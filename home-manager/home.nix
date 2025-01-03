@@ -12,6 +12,5 @@
 
   # install home-manager and manage itself
   programs.home-manager.enable = true;
-  programs.home-manager.path = "$HOME/nix/home-manager";
 
 }

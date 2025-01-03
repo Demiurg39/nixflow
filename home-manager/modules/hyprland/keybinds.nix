@@ -13,27 +13,28 @@
       "$editor" = "neovide";
       "$file" = "nemo";
       "$browser" = "librewolf";
+      "$sysmon" = "missioncenter";
 
       bind = [
           # "$mainMod, Q, exec, $scrPath/dontkillsteam.sh" # close focused window
           "$mainMod, Q, exec, hyprctl dispatch killactive" # close focused window
-          "Alt,F4, exec, $scrPath/dontkillsteam.sh" # close focused window
+          "Alt,F4, exec, hyprctl dispatch killactive" # close focused window
           "$mainMod, Delete, exit," # kill hyprland session
           "$mainMod, W, togglefloating," # toggle the window between focus and float
           "Alt, Return, fullscreen," # toggle the window between focus and fullscreen
-          "$mainMod, Home, exec, hyprlock" # launch lock screen FIXME
-          "$mainMod, Backspace, exec, $scrPath/logoutlaunch.sh" # launch logout menu FIXME
-          "Ctrl+Alt, W, exec, killall waybar || waybar" # toggle waybar
+          # "$mainMod, Home, exec, hyprlock" # launch lock screen FIXME
+          # "$mainMod, Backspace, exec, $scrPath/logoutlaunch.sh" # launch logout menu FIXME
+          # "Ctrl+Alt, W, exec, killall waybar || waybar" # toggle waybar
 
           "$mainMod, Return, exec, $term" # launch terminal emulator
           "$mainMod, L, exec, $file" # launch file manager 
           "$mainMod, F, exec, $browser" # launch file manager 
-          "$mainMod, U, exec, $editor" # launch text editor FIXME
-          "Ctrl+Shift, Escape, exec, $scrPath/sysmonlaunch.sh" # launch system monitor (htop/btop or fallback to top) FIXME
+          "$mainMod, U, exec, $editor" # launch text editor
+          "Ctrl+Shift, Escape, exec, $sysmon" # launch system monitor (htop/btop or fallback to top)
 
           "$mainMod, R, exec, pkill fuzzel || fuzzel" # launch application launcher FIXME
-          "Super, D, exec, pkill fuzzel || cliphist list | fuzzel  --match-mode fzf --dmenu | cliphist decode | wl-copy" # Clipboard history >> clipboard
-          "Super, Period, exec, pkill fuzzel || ~/.local/bin/fuzzel-emoji" # Pick emoji >> clipboard
+          "$mainMod, D, exec, pkill fuzzel || cliphist list | fuzzel  --match-mode fzf --dmenu | cliphist decode | wl-copy" # Clipboard history >> clipboard
+          "$mainMod, Period, exec, pkill fuzzel || ~/.local/bin/fuzzel-emoji" # Pick emoji >> clipboard
 
           # Move/Change window focus
           "$mainMod, M, movefocus, l"
@@ -89,14 +90,19 @@
       ];
 
       bindl = [
-          "$mainMod, Space, exec, $scrPath/kbdswitch.sh" # switch keyboard layout FIXME
+          # "$mainMod, Space, exec, $scrPath/kbdswitch.sh" # switch keyboard layout FIXME
+          ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # toggle audio mute
+          ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # toggle microphone mute
       ];
 
       bindel = [
-          ", XF86MonBrightnessUp, exec, $scrPath/backlight.sh --inc" # increase brightness FIXME
-          ", XF86MonBrightnessDown, exec, $scrPath/backlight.sh --dec" # decrease brightness FIXME
-          ", XF86AudioMute, exec, $scrPath/volume.sh --toggle" # toggle audio mute
-          ", XF86AudioMicMute, exec, $scrPath/volume.sh --toggle-mic" # toggle microphone mute
+          ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+" # increase volume
+          ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-" # decrease volume
+          ", XF86MonBrightnessUp, exec, brightnessctl s 10%+" # increase brightness
+          ", XF86MonBrightnessDown, exec, brightnessctl s 10%-" # decrease brightness
+
+		
+
       ];
 
       bindm = [

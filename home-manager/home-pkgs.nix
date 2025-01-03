@@ -24,7 +24,6 @@
     htop
     home-manager
     lazygit
-    neovim
     playerctl
     ripgrep
     yazi

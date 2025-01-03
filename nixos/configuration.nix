@@ -23,7 +23,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Home-manager
-  # environment.systemPackages = with pkgs; [ home-manager ];
+  environment.systemPackages = with pkgs; [ git ];
 
   system.stateVersion = "24.11"; # Do not touch
 

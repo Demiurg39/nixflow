@@ -9,8 +9,7 @@ in {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs pkgs; };
+    users.demi = import ./../../home-manager/home.nix;
   };
-
-  home-manager.users.demi = import ./../../home-manager/home.nix;
 
 }

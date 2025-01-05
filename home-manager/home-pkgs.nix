@@ -23,7 +23,6 @@
     fzf
     fastfetch
     htop
-    home-manager
     lazygit
     playerctl
     ripgrep

@@ -19,6 +19,7 @@
     cliphist
     ffmpeg
     git
+    gitleaks
     fzf
     fastfetch
     htop

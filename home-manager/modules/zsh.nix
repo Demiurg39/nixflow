@@ -121,28 +121,30 @@
     shellAliases = let
       flake-dir = "~/nix";
     in {
-      rebuild = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
-      rebuild-test = "nixos-rebuild dry-activate --use-remote-sudo --flake ${flake-dir}";
+      boot = "nixos-rebuild boot --use-remote-sudo --flake ${flake-dir}";
+      build = "nixos-rebuild dry-build --use-remote-sudo --flake ${flake-dir}";
+      switch = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
+      rebuild = "nixos-rebuild test --use-remote-sudo --flake ${flake-dir}";
       update = "nix flake update --flake ${flake-dir}";
-      upgrade = "nixos-rebuild switch --upgrade --use-remote-sudo --flake ${flake-dir}";
-      switch = "home-manager switch --flake ${flake-dir}";
-      mkdir = "mkdir -p";
-      ".." = "cd ..";
+      upgrade = "nixos-rebuild test --upgrade --use-remote-sudo --flake ${flake-dir}";
+      garbage = "nix-env --delete-generations 7d && nix-store --gc";
       grep="grep --color=auto";
+      mkdir = "mkdir -p";
       mv="mv -v";
-      cp="cp -vr";
       rm="rm -vr";
       uz="unzip";
       yz="yazi";
       diff="diff --color";
       stl="steamtinkerlaunch";
       open="xdg-open";
-      cl = "clear";
+      lgit = "lazygit";
       ll = "eza --color=always --hyperlink -l";
       ls = "eza --color=always --hyperlink";
+      cl = "clear";
       tree = "eza --tree --icons --color=always";
       ff = "fastfetch";
       dirh = "dirs -v";
+      ".." = "cd ..";
     };
 
     shellGlobalAliases = {

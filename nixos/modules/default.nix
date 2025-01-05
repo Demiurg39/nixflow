@@ -7,11 +7,11 @@
     ./games.nix
     ./home-manager.nix
     ./hyprland.nix
-    ./nvidia.nix
     ./net.nix
     ./packages.nix
     ./services.nix
     ./user.nix
+    ./videoDriver.nix
     ./xserver.nix
     ./zram.nix
   ];

@@ -2,6 +2,7 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" "amdgpu" ];
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
 
@@ -17,7 +18,7 @@
 
     # Use the NVidia open source kernel module
     open = false;
-    
+
     # Enable the Nvidia settings menu
     nvidiaSettings = false;
 

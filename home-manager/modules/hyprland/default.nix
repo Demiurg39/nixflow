@@ -1,10 +1,4 @@
 {
-  imports = [
-    ./env.nix
-    ./hyprland.nix
-    ./keybinds.nix
-    ./startup.nix
-    ./theme.nix
-    # ./windowrules.nix
-  ];
+  imports = with builtins; map (fn: ./${fn}) 
+            (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
 }

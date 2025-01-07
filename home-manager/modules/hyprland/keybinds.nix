@@ -1,8 +1,8 @@
 {
 
-  home.file = {
-    ".local/bin".source = ./../.local/bin;
-  };
+  # home.file = {
+  #   ".local/bin".source = ./../../dotfiles/local/bin;
+  # };
 
   wayland.windowManager.hyprland.settings = {
       # Main modifier

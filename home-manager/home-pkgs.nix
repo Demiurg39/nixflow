@@ -10,7 +10,6 @@
     mpv
     mission-center
     neovide
-    spotify
     telegram-desktop
     whatsapp-for-linux
 

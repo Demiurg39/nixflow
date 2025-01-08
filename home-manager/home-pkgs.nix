@@ -17,11 +17,12 @@
     brightnessctl
     cliphist
     ffmpeg
-    git
-    gitleaks
     fzf
     fastfetch
+    git
+    gitleaks
     htop
+    jq
     lazygit
     playerctl
     ripgrep

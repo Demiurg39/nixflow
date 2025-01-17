@@ -30,7 +30,7 @@
       export GBM_BACKEND=nvidia-drm
       export __GL_VRR_ALLOWED=0
       # "WLR_DRM_NO_ATOMIC,1"
-      # "WLR_NO_HARDWARE_CURSORS,1"
+      "WLR_NO_HARDWARE_CURSORS,1"
   '';
 
 }

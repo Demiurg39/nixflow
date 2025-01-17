@@ -11,8 +11,8 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
 
-    nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nivix.url = "github:demiurg39/nivix";
+    nivix.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";

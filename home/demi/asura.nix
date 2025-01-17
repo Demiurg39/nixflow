@@ -8,8 +8,6 @@
     ./features/desktop/common/wayland-wm
 
     ./features/games
-
-    ./features/nvim
   ];
 
   features = {

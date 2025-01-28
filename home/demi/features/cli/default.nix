@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   imports = [
     ./atuin.nix
     ./bat.nix
@@ -27,6 +26,7 @@
     mlocate
     p7zip
     ripgrep # Better grep
+    rainfrog
     unzip
     unrar-free
     zip
@@ -49,5 +49,4 @@
     # trekscii # Cute startrek cli printer
     # timer # To help with my ADHD paralysis
   ];
-
 }

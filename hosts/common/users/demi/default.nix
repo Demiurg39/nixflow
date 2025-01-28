@@ -9,6 +9,7 @@ in {
     shell = pkgs.zsh;
     extraGroups = ifTheyExists [
       "audio"
+      "adbusers"
       "gamemode"
       "networkmanager"
       "video"

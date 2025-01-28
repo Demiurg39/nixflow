@@ -10,6 +10,8 @@
       ../common/global
       ../common/users/demi
 
+      ../common/optional/android.nix
+      ../common/optional/gamemode.nix
       ../common/optional/hyprland.nix
       ../common/optional/nvidia-gpu.nix
       ../common/optional/pipewire.nix

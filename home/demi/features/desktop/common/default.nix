@@ -1,6 +1,7 @@
 { pkgs, ... }: {
 
   imports = [
+    ./ferdium.nix
     ./font.nix
     ./gtk.nix
     ./librewolf.nix
@@ -16,7 +17,6 @@
     loupe # image viewer
     mission-center # system monitor
     telegram-desktop
-    whatsapp-for-linux
   ];
 
   # xdg.portal.enable = true;

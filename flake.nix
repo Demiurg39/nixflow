@@ -1,5 +1,4 @@
 {
-
   description = "My system configuration flake";
 
   inputs = {
@@ -18,20 +17,24 @@
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: let
-    inherit (self) outputs;
+  outputs = {
+    nixpkgs,
+    self,
+    ...
+  } @ inputs: let
     inherit (inputs) home-manager;
+    inherit (self) outputs;
 
     # Supported systems for flake packages, shell, etc.
-    systems = [ "x86_64-linux" ];
+    systems = ["x86_64-linux"];
     lib = nixpkgs.lib // home-manager.lib;
     forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs systems (system: import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    });
+    pkgsFor = lib.genAttrs systems (system:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      });
   in {
-
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
@@ -50,18 +53,17 @@
     nixosConfigurations = {
       # asus laptop
       asura = lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/asura ];
+        specialArgs = {inherit inputs outputs;};
+        modules = [./hosts/asura];
       };
     };
 
     homeConfigurations = {
-      "demi@asura" = lib.homeManagerConfiguration {
-        # pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./home/demi/asura.nix ];
+      demi = lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [./home/demi/asura.nix];
       };
     };
   };
-
 }

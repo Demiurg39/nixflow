@@ -1,20 +1,16 @@
-{ inputs, pkgs, lib, ... }: let
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}: let
+  flake = ''(builtins.getFlake "/home/demi/nixflow")'';
   nivix = inputs.nivix.packages.${pkgs.system}.default.extend {
-    config.opts = {
-      border = lib.mkForce "rounded";
-      winblend = lib.mkForce 12;
-      transparent = lib.mkForce true;
-      lsp_format = lib.mkForce "fallback";
-
-      dashboard = {
-        # wall = my-wall; # wallpaper
-        symbols = lib.mkForce "sextant";
-        fg-only = lib.mkForce false;
-      };
+    plugins.lsp.servers.nixd.settings.options = rec {
+      nixos.expr = ''${flake}.nixosConfigurations.asura.options'';
+      home-manager.expr = ''${flake}.homeConfigurations.demi.options'';
     };
   };
 in {
-
-  home.packages = [ nivix ];
-
+  home.packages = [nivix];
 }

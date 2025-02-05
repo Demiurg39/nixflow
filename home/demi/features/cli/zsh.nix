@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }: let
+{ config, lib, ... }: let
   cfg = config.features.cli.zsh;
 in {
 
@@ -58,13 +58,13 @@ in {
         zmodload zsh/complist
         # compinit -ic &
         _comp_options+=(globdots)
-    
+
         autoload -Uz colors && colors
       '';
-    
+
       initExtra = ''
         ZSH_AUTOSUGGEST_USE_ASYNC="true"
-    
+
         extract() {
             if [ -z "$1" ]; then
                 # display usage if no parameters given
@@ -74,7 +74,7 @@ in {
                 for n in "$@"
                 do
                     if [ -f "$n" ]; then
-                        case "''${n$,}" in
+                        case "''${$n}" in
                           *.tar|*.tar.bz2|*.tar.gz|*.tar.xz)
                                     tar xvf "$n"          ;;
                           *.rar)    unrar -x -ad ./"$n"   ;;
@@ -91,17 +91,17 @@ in {
                 done
         fi
         }
-    
+
         # Bindings
         bindkey "^E" history-beginning-search-backward
         bindkey "^N" history-beginning-search-forward
         bindkey "^T" autosuggest-accept
-    
+
         # At shell start command
         # fastfetch -l $(find "$HOME/.config/fastfetch/ascii/" -name "*.txt" | sort -R | head -1)
         fastfetch
       '';
-    
+
       envExtra = ''
         export SUDO_PROMPT=$'\033[32;05;16m %u\033[0m password -> '
         export TERMINAL="kitty"
@@ -109,56 +109,58 @@ in {
         export VISUAL="nvim"
         export EDITOR="nvim"
       '';
-    
+
       antidote = {
         enable = true;
         plugins = [
           "zsh-users/zsh-autosuggestions"
           "zsh-users/zsh-completions"
-      "zdharma-continuum/fast-syntax-highlighting"
-      "zdharma-continuum/history-search-multi-word"
-      "hlissner/zsh-autopair"
-      "MichaelAquilina/zsh-you-should-use"
+          "zdharma-continuum/fast-syntax-highlighting"
+          "zdharma-continuum/history-search-multi-word"
+          "hlissner/zsh-autopair"
+          "MichaelAquilina/zsh-you-should-use"
         ];
       };
-    
-      shellAliases = let
-        flake-dir = "~/nixflow";
-      in {
-        boot = "nixos-rebuild boot --use-remote-sudo --flake ${flake-dir}";
-        switch = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
-        rebuild = "nixos-rebuild test --use-remote-sudo --flake ${flake-dir}";
-        check = "nix flake check ${flake-dir}";
-        update = "nix flake update --flake ${flake-dir}";
-        upgrade = "nixos-rebuild test --upgrade --use-remote-sudo --flake ${flake-dir}";
-        garbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage -d && nix-store --gc";
-        list-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-        grep = "grep --color=auto";
-        g = "git";
-        ga = "git add";
-        gaa = "git add .";
-        glog = "git log --oneline";
-        lgit = "lazygit";
-        mkdir = "mkdir -p";
-        mv = "mv -v";
-        rm = "rm -vr";
-        uz = "unzip";
-        yz = "yazi";
-        diff = "diff --color";
-        stl = "steamtinkerlaunch";
-        open = "xdg-open";
-        ll = "eza --color=always --hyperlink -l";
-        ls = "eza --color=always --hyperlink";
-        cl = "clear";
-        tree = "eza --tree --icons --color=always";
-        ff = "fastfetch";
-        dirh = "dirs -v";
-        ".." = "cd ..";
-      };
+
+      shellAliases =
+        let
+          flake-dir = "~/nixflow";
+        in
+        {
+          boot = "nixos-rebuild boot --use-remote-sudo --flake ${flake-dir}";
+          switch = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
+          rebuild = "nixos-rebuild test --use-remote-sudo --flake ${flake-dir}";
+          check = "nix flake check ${flake-dir}";
+          update = "nix flake update --flake ${flake-dir}";
+          upgrade = "nixos-rebuild test --upgrade --use-remote-sudo --flake ${flake-dir}";
+          garbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage -d && nix-store --gc";
+          list-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
+          grep = "grep --color=auto";
+          g = "git";
+          ga = "git add";
+          gaa = "git add .";
+          glog = "git log --oneline";
+          lgit = "lazygit";
+          mkdir = "mkdir -p";
+          mv = "mv -v";
+          rm = "rm -vr";
+          uz = "unzip";
+          yz = "yazi";
+          diff = "diff --color";
+          stl = "steamtinkerlaunch";
+          open = "xdg-open";
+          ll = "eza --color=always --hyperlink -l";
+          ls = "eza --color=always --hyperlink";
+          cl = "clear";
+          tree = "eza --tree --icons --color=always";
+          ff = "fastfetch";
+          dirh = "dirs -v";
+          ".." = "cd ..";
+        };
 
       shellGlobalAliases = {
-        "-h"="-h 2>&1 | bat --language=help --style=plain";
-        "--help"="--help 2>&1 | bat --language=help --style=plain";
+        "-h" = "-h 2>&1 | bat --language=help --style=plain";
+        "--help" = "--help 2>&1 | bat --language=help --style=plain";
       };
 
     };

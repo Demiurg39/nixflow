@@ -11,6 +11,7 @@
   home.packages = with pkgs; [
     clapper # media player
     ferdium
+    gimp
     loupe # image viewer
     mission-center # system monitor
     pavucontrol

@@ -25,15 +25,13 @@
     jq # JSON pretty printer and manipulator
     mlocate
     p7zip
+    playerctl
     ripgrep # Better grep
     rainfrog
     unzip
     unrar-free
     zip
 
-    # nixd # Nix LSP
-    # alejandra # Nix formatter
-    # nixfmt-rfc-style
     # nvd # Differ
     # nix-diff # Differ, more detailed
     # nix-output-monitor

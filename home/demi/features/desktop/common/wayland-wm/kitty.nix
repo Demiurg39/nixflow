@@ -1,9 +1,7 @@
-{ config, ... }: {
-
+{config, ...}: {
   programs.kitty = {
     enable = true;
-    keybindings = { };
-    settings = { };
+    keybindings = {};
+    settings = {};
   };
-
 }

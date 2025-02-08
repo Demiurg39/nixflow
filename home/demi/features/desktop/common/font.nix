@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Nerdfonts
     nerd-fonts.fantasque-sans-mono
@@ -20,5 +19,4 @@
     powerline-fonts
     powerline-symbols
   ];
-
 }

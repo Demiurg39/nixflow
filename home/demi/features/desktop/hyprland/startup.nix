@@ -1,14 +1,12 @@
-{ ... }: {
-
+{...}: {
   wayland.windowManager.hyprland.settings.exec-once = [
-
     # █░░ ▄▀█ █░█ █▄░█ █▀▀ █░█
     # █▄▄ █▀█ █▄█ █░▀█ █▄▄ █▀█
-   
+
     # See https://wiki.hyprland.org/Configuring/Keywords/
 
     # "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP" # for XDPH
-   
+
     # waybar # launch the system bar
     # hypridle # handles afk(low brightness, lock session, turn off screen)
     # blueman-applet # systray app for Bluetooth
@@ -25,7 +23,7 @@
     # Bar, wallpaper
     # /usr/lib/geoclue-2.0/demos/agent & gammastep
     # ags &
-    
+
     # # Core components (authentication, lock screen, notification daemon)
     # gnome-keyring-daemon --start --components=secrets
     # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 || /usr/libexec/polkit-gnome-authentication-agent-1
@@ -34,7 +32,5 @@
 
     # # Audio
     # easyeffects --gapplication-service
-
-    ];
-
+  ];
 }

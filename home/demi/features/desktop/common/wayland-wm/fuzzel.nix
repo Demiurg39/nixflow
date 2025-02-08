@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -21,8 +20,7 @@
         radius = 17;
         width = 2;
       };
-      dmenu = { exit-immediately-if-empty = "yes"; };
+      dmenu = {exit-immediately-if-empty = "yes";};
     };
   };
-
 }

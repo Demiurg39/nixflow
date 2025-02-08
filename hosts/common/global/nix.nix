@@ -1,11 +1,14 @@
-{ lib, inputs, ... }: let
+{
+  lib,
+  inputs,
+  ...
+}: let
   flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
 in {
-
   nix = {
     settings = {
       auto-optimise-store = lib.mkDefault true;
-      experimental-features = [ "nix-command" "flakes" ]; # Enable flakes support
+      experimental-features = ["nix-command" "flakes"]; # Enable flakes support
       warn-dirty = false;
     };
 
@@ -15,8 +18,7 @@ in {
       options = "--delete-older-than +3";
     };
 
-    registry = lib.mapAttrs (_: flake: { inherit flake;}) flakeInputs;
+    registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
   };
-
 }

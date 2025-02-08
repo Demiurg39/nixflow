@@ -1,11 +1,13 @@
-{ config, lib, ... }: let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.features.cli.zsh;
 in {
-
   options.features.cli.zsh.enable = lib.mkEnableOption "enable zshell with configuration";
 
   config = lib.mkIf cfg.enable {
-
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -122,48 +124,44 @@ in {
         ];
       };
 
-      shellAliases =
-        let
-          flake-dir = "~/nixflow";
-        in
-        {
-          boot = "nixos-rebuild boot --use-remote-sudo --flake ${flake-dir}";
-          switch = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
-          rebuild = "nixos-rebuild test --use-remote-sudo --flake ${flake-dir}";
-          check = "nix flake check ${flake-dir}";
-          update = "nix flake update --flake ${flake-dir}";
-          upgrade = "nixos-rebuild test --upgrade --use-remote-sudo --flake ${flake-dir}";
-          garbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage -d && nix-store --gc";
-          list-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-          grep = "grep --color=auto";
-          g = "git";
-          ga = "git add";
-          gaa = "git add .";
-          glog = "git log --oneline";
-          lgit = "lazygit";
-          mkdir = "mkdir -p";
-          mv = "mv -v";
-          rm = "rm -vr";
-          uz = "unzip";
-          yz = "yazi";
-          diff = "diff --color";
-          stl = "steamtinkerlaunch";
-          open = "xdg-open";
-          ll = "eza --color=always --hyperlink -l";
-          ls = "eza --color=always --hyperlink";
-          cl = "clear";
-          tree = "eza --tree --icons --color=always";
-          ff = "fastfetch";
-          dirh = "dirs -v";
-          ".." = "cd ..";
-        };
+      shellAliases = let
+        flake-dir = "~/nixflow";
+      in {
+        boot = "nixos-rebuild boot --use-remote-sudo --flake ${flake-dir}";
+        switch = "nixos-rebuild switch --use-remote-sudo --flake ${flake-dir}";
+        rebuild = "nixos-rebuild test --use-remote-sudo --flake ${flake-dir}";
+        check = "nix flake check ${flake-dir}";
+        update = "nix flake update --flake ${flake-dir}";
+        upgrade = "nixos-rebuild test --upgrade --use-remote-sudo --flake ${flake-dir}";
+        garbage = "sudo nix-collect-garbage --delete-older-than 7d && nix-collect-garbage -d && nix-store --gc";
+        list-generations = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
+        grep = "grep --color=auto";
+        g = "git";
+        ga = "git add";
+        gaa = "git add .";
+        glog = "git log --oneline";
+        lgit = "lazygit";
+        mkdir = "mkdir -p";
+        mv = "mv -v";
+        rm = "rm -vr";
+        uz = "unzip";
+        yz = "yazi";
+        diff = "diff --color";
+        stl = "steamtinkerlaunch";
+        open = "xdg-open";
+        ll = "eza --color=always --hyperlink -l";
+        ls = "eza --color=always --hyperlink";
+        cl = "clear";
+        tree = "eza --tree --icons --color=always";
+        ff = "fastfetch";
+        dirh = "dirs -v";
+        ".." = "cd ..";
+      };
 
       shellGlobalAliases = {
         "-h" = "-h 2>&1 | bat --language=help --style=plain";
         "--help" = "--help 2>&1 | bat --language=help --style=plain";
       };
-
     };
   };
-
 }

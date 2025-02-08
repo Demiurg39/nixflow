@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   services.cliphist = {
     enable = true;
     extraOptions = [
@@ -9,5 +8,4 @@
       "500"
     ];
   };
-
 }

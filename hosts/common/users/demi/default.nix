@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   ifTheyExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   programs.zsh.enable = true;

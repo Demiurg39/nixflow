@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   imports = [
     ./global
 
@@ -16,5 +15,4 @@
       zsh.enable = true;
     };
   };
-
 }

@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -10,5 +9,4 @@
 
   # make pipewire realtime-capable
   security.rtkit.enable = true;
-
 }

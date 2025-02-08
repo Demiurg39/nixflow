@@ -1,7 +1,11 @@
-{ config, options, lib, ... }: let 
+{
+  config,
+  options,
+  lib,
+  ...
+}: let
   cfg = config.features.cli.nushell;
 in {
-
   options.features.cli.nushell = {
     enable = lib.mkEnableOption "enable Nushell with configuration";
   };
@@ -11,5 +15,4 @@ in {
       enable = true;
     };
   };
-
 }

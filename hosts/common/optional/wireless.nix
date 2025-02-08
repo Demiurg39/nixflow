@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
@@ -10,5 +9,4 @@
   networking = {
     networkmanager.enable = true;
   };
-
 }

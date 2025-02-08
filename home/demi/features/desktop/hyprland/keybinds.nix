@@ -1,5 +1,4 @@
-{ ... }: {
-
+{...}: {
   # home.file = {
   #   ".local/bin".source = ./../../dotfiles/local/bin;
   # };
@@ -27,8 +26,8 @@
       # "Ctrl+Alt, W, exec, killall waybar || waybar" # toggle waybar
 
       "$mainMod, Return, exec, $term" # launch terminal emulator
-      "$mainMod, L, exec, $file" # launch file manager 
-      "$mainMod, F, exec, $browser" # launch file manager 
+      "$mainMod, L, exec, $file" # launch file manager
+      "$mainMod, F, exec, $browser" # launch file manager
       "$mainMod, U, exec, $editor" # launch text editor
       "Ctrl+Shift, Escape, exec, $sysmon" # launch system monitor (htop/btop or fallback to top)
 
@@ -75,7 +74,6 @@
       "$mainMod+Shift+Ctrl, bracketright, movetoworkspace, r+1"
       "$mainMod+Shift+Ctrl, bracketleft, movetoworkspace, r-1"
 
-
       # Move/Switch to special workspace (scratchpad)
       "$mainMod+Shift, S, movetoworkspacesilent, special"
       "$mainMod, S, togglespecialworkspace,"
@@ -84,9 +82,9 @@
     binde = [
       # Resize windows
       "$mainMod+Shift, M, resizeactive, -30 0" # left
-      "$mainMod+Shift, N, resizeactive, 0 30"  # down
+      "$mainMod+Shift, N, resizeactive, 0 30" # down
       "$mainMod+Shift, E, resizeactive, 0 -30" # up
-      "$mainMod+Shift, I, resizeactive, 30 0"  # right
+      "$mainMod+Shift, I, resizeactive, 30 0" # right
     ];
 
     bindl = [
@@ -115,5 +113,4 @@
       "$mainMod, X, resizewindow"
     ];
   };
-
 }

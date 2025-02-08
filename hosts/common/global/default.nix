@@ -1,18 +1,22 @@
-{ inputs, outputs, ... }: {
-
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    ./locale.nix
-    ./nix-ld.nix
-    ./nix.nix
-    ./openssh.nix
-    ./sops.nix
-  ] ++ builtins.attrValues outputs.nixosModules;
-
+{
+  outputs,
+  inputs,
+  ...
+}: {
+  imports =
+    [
+      inputs.home-manager.nixosModules.home-manager
+      ./locale.nix
+      ./nix-ld.nix
+      ./nix.nix
+      ./openssh.nix
+      ./sops.nix
+    ]
+    ++ builtins.attrValues outputs.nixosModules;
 
   home-manager.backupFileExtension = "old";
   home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = { inherit inputs outputs; };
+  home-manager.extraSpecialArgs = {inherit inputs outputs;};
 
   nixpkgs.config.allowUnfree = true;
 
@@ -26,5 +30,4 @@
   };
 
   console.useXkbConfig = true;
-
 }

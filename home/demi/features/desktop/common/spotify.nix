@@ -1,10 +1,13 @@
-{ inputs, pkgs, ... }: let
+{
+  inputs,
+  pkgs,
+  ...
+}: let
   inherit (inputs) spicetify-nix;
   spicepkgs = spicetify-nix.legacyPackages.${pkgs.system};
   spotifyTheme = spicepkgs.themes.text;
 in {
-
-  imports = [ spicetify-nix.homeManagerModules.default ];
+  imports = [spicetify-nix.homeManagerModules.default];
 
   programs.spicetify = {
     enable = true;
@@ -16,5 +19,4 @@ in {
 
     theme = spotifyTheme;
   };
-
 }

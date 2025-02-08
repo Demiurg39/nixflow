@@ -1,7 +1,11 @@
-{ config, lib, ... }: let
+{
+  config,
+  lib,
+  ...
+}: let
   nvidiaPackage = config.hardware.nvidia.package;
 in {
-  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+  services.xserver.videoDrivers = lib.mkDefault ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = lib.mkDefault true;

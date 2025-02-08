@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-  
+{pkgs, ...}: {
   imports = [
     ./cliphist.nix
     ./fuzzel.nix
@@ -7,5 +6,4 @@
     ./wlogout.nix
     ./zathura.nix
   ];
-
 }

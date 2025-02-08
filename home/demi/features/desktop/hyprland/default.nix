@@ -1,8 +1,11 @@
-{ inputs, pkgs, ... }: {
-
-  imports = with builtins; map (fn: ./${fn}) 
-            (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
-
+{
+  inputs,
+  pkgs,
+  ...
+}: {
+  imports = with builtins;
+    map (fn: ./${fn})
+    (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -19,5 +22,4 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
   ];
-
 }

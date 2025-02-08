@@ -9,6 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     nivix.url = "github:demiurg39/nivix";
     nivix.inputs.nixpkgs.follows = "nixpkgs";

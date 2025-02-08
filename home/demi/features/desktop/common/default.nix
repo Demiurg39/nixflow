@@ -13,6 +13,7 @@
     ferdium
     file-roller
     gimp
+    keepassxc
     loupe # image viewer
     mission-center # system monitor
     nemo

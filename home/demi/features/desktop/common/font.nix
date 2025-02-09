@@ -10,9 +10,19 @@
     nerd-fonts.ubuntu-mono
 
     # Fonts
+    (pkgs.google-fonts.override {
+      fonts = [
+        "Gabarito"
+        "Lexend"
+        "Chakra Petch"
+        "Crimson Text"
+        "Alfa Slab One"
+      ];
+    })
     cascadia-code
     dejavu_fonts
     font-awesome
+    material-symbols
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji

@@ -21,8 +21,10 @@
     coreutils # base utils
     fd # Better find
     gitleaks # git secrets scaner
+    glib
     htop # system monitor
     jq # JSON pretty printer and manipulator
+    libnotify
     mlocate
     p7zip
     playerctl
@@ -30,6 +32,8 @@
     rainfrog
     unzip
     unrar-free
+    ydotool
+    yad
     zip
 
     # nvd # Differ

@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = with builtins;
     map (fn: ./${fn})
     (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
@@ -15,9 +11,19 @@
 
   home.packages = with pkgs; [
     brightnessctl
-    libnotify
+    blueberry
+    ddcutil
+    easyeffects
+    grim
+    gnome-control-center
+    gnome-tweaks
+    hyprpicker
     swww
+    slurp
+    tesseract
     wl-clipboard
+    wf-recorder
+    wlsunset
     xdg-desktop-portal
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland

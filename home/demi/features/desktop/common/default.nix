@@ -1,10 +1,10 @@
 {pkgs, ...}: {
   imports = [
     ./font.nix
-    ./gtk.nix
     ./librewolf.nix
     ./qt.nix
     ./spotify.nix
+    ./theme.nix
     ./xdg-mime.nix
   ];
 
@@ -21,6 +21,4 @@
     pavucontrol
     telegram-desktop
   ];
-
-  # xdg.portal.enable = true;
 }

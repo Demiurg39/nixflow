@@ -16,6 +16,8 @@ in {
       "adbusers"
       "gamemode"
       "networkmanager"
+      "input"
+      "uinput"
       "video"
       "wheel"
     ];

@@ -11,6 +11,7 @@
     ../common/optional/android.nix
     ../common/optional/gamemode.nix
     ../common/optional/hyprland.nix
+    ../common/optional/kanata.nix
     ../common/optional/nvidia-gpu.nix
     ../common/optional/pipewire.nix
     ../common/optional/polkit.nix

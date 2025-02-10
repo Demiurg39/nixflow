@@ -16,6 +16,9 @@
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    ags.url = "github:Aylur/ags/v1";
+    ags.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {

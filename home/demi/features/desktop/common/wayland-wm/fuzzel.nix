@@ -3,18 +3,19 @@
     enable = true;
     settings = {
       main = {
+        font = "Gabarito";
         terminal = "kitty -e";
-        prompt = "\">>  \"";
+        prompt = ''">>  "'';
         layer = "overlay";
       };
       colors = {
-        background = "000000ff";
-        text = "e2e2e2ff";
-        selection = "242424ff";
-        selection-text = "e2e2e2ff";
-        border = "242424ff";
-        match = "e2e2e2ff";
-        selection-match = "e2e2e2ff";
+        background = "1D1011ff";
+        text = "F7DCDEff";
+        selection = "574144ff";
+        selection-text = "DEBFC2ff";
+        border = "574144dd";
+        match = "FFB2BCff";
+        selection-match = "FFB2BCff";
       };
       border = {
         radius = 17;

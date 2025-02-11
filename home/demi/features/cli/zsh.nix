@@ -65,6 +65,12 @@ in {
       '';
 
       initExtra = ''
+        # Use the generated color scheme
+
+        if [ -f ~/.cache/ags/user/generated/terminal/sequences.txt ]; then
+            cat ~/.cache/ags/user/generated/terminal/sequences.txt
+        fi
+
         ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
         extract() {

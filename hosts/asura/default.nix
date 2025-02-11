@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
@@ -19,8 +16,8 @@
     ../common/optional/sddm.nix
     ../common/optional/ssd.nix
     ../common/optional/steam.nix
+    ../common/optional/warp.nix
     ../common/optional/wireless.nix
-    # ../common/optional/xremap.nix
   ];
 
   # hostname

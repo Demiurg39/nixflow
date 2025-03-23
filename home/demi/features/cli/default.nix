@@ -19,17 +19,16 @@
   home.packages = with pkgs; [
     bc # Calculator
     coreutils # base utils
+    comma # Install and run programs by sticking a , before them
     fd # Better find
-    gitleaks # git secrets scaner
     glib
-    htop # system monitor
+    htop # System monitor
     jq # JSON pretty printer and manipulator
-    libnotify
+    libnotify # Notification lib
     mlocate
     p7zip
-    playerctl
+    playerctl # For controlling media
     ripgrep # Better grep
-    rainfrog
     unzip
     unrar-free
     ydotool
@@ -38,10 +37,9 @@
 
     # nvd # Differ
     # nix-diff # Differ, more detailed
-    # nix-output-monitor
-    # nh # Nice wrapper for NixOS and HM
+    # nix-output-monitor # While building provide nice ui
 
-    # comma # Install and run programs by sticking a , before them
+    # rainfrog # Lazygit like util for db control
     # distrobox # Nice escape hatch, integrates docker images with my environment
 
     # bottom # System viewer

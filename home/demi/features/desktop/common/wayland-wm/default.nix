@@ -1,9 +1,5 @@
-{pkgs, ...}: {
-  imports = [
-    ./cliphist.nix
-    ./fuzzel.nix
-    ./kitty.nix
-    ./wlogout.nix
-    ./zathura.nix
-  ];
+{...}: {
+  imports = with builtins;
+    map (fn: ./${fn})
+    (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
 }

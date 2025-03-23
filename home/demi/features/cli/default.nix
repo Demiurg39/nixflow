@@ -1,20 +1,7 @@
 {pkgs, ...}: {
-  imports = [
-    ./atuin.nix
-    ./bat.nix
-    ./direnv.nix
-    ./eza.nix
-    ./fastfetch
-    ./fzf.nix
-    ./git.nix
-    ./lazygit.nix
-    ./nivix.nix
-    ./nushell.nix
-    ./starship.nix
-    ./yazi.nix
-    ./zoxide.nix
-    ./zsh.nix
-  ];
+  imports = with builtins;
+    map (fn: ./${fn})
+    (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
 
   home.packages = with pkgs; [
     bc # Calculator

@@ -1,20 +1,18 @@
 {
-  pkgs,
   config,
+  pkgs,
   ...
 }: let
   ifTheyExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
-  programs.zsh.enable = true;
-  # environment.pathsToLink = [ "/share/zsh" ];
-
   users.users.demi = {
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
     extraGroups = ifTheyExists [
       "audio"
       "adbusers"
       "gamemode"
+      "libvirtd"
       "networkmanager"
       "input"
       "uinput"
@@ -22,6 +20,4 @@ in {
       "wheel"
     ];
   };
-
-  home-manager.users.demi = import ../../../../home/demi/${config.networking.hostName}.nix;
 }

@@ -1,1 +1,3 @@
 nivix
+.direnv
+.pre-commit-config.yaml

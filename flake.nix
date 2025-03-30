@@ -2,8 +2,11 @@
   description = "My system configuration flake";
 
   inputs = {
+    systems.url = "github:nix-systems/default-linux";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,53 +24,55 @@
     ags.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    nixpkgs,
-    self,
-    ...
-  } @ inputs: let
-    inherit (inputs) home-manager;
-    inherit (self) outputs;
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
 
-    # Supported systems for flake packages, shell, etc.
-    systems = ["x86_64-linux"];
-    lib = nixpkgs.lib // home-manager.lib;
-    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs systems (system:
-      import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      });
-  in {
-    # Your custom packages
-    # Accessible through 'nix build', 'nix shell', etc
-    packages = forEachSystem (pkgs: import ./pkgs {inherit pkgs;});
+      imports = [
+        # TODO:
+        # ./hosts
+        # ./pre-commit-hooks.nix
+      ];
 
-    # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
+      perSystem = {
+        config,
+        pkgs,
+        ...
+      }: {
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            alejandra
+            git
+          ];
+          name = "flake-dots";
+          DIRENV_LOG_FORMAT = "";
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
+        };
 
-    # Reusable nixos modules you might want to export
-    # These are usually stuff you would upstream into nixpkgs
-    nixosModules = import ./modules/nixos;
-
-    # Reusable home-manager modules you might want to export
-    # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./modules/home-manager;
-
-    nixosConfigurations = {
-      # asus laptop
-      asura = lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [./hosts/asura];
+        formatter = pkgs.alejandra;
       };
-    };
 
-    homeConfigurations = {
-      demi = lib.homeManagerConfiguration {
-        pkgs = pkgsFor.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [./home/demi/asura.nix];
-      };
+      # nixosConfigurations = {
+      #   # asus laptop
+      #   asura = lib.nixosSystem {
+      #     specialArgs = {
+      #       inherit inputs;
+      #       inherit outputs;
+      #       inherit username;
+      #       inherit hostname;
+      #     };
+      #     modules = [./hosts/asura];
+      #   };
+      # };
+
+      # homeConfigurations = {
+      #   demi = lib.homeManagerConfiguration {
+      #     pkgs = pkgsFor.x86_64-linux;
+      #     extraSpecialArgs = {inherit inputs outputs;};
+      #     modules = [./home/demi/asura.nix];
+      #   };
+      # };
     };
-  };
 }

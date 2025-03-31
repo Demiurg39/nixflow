@@ -7,7 +7,7 @@
 
       imports = [
         ./hosts
-        ./pre-commit-hooks.nix
+        # ./pre-commit-hooks.nix
       ];
 
       perSystem = {
@@ -22,9 +22,9 @@
           ];
           name = "flake-dots";
           DIRENV_LOG_FORMAT = "";
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
+          # shellHook = ''
+          #   ${config.pre-commit.installationScript}
+          # '';
         };
 
         formatter = pkgs.alejandra;
@@ -60,6 +60,9 @@
 
     nivix.url = "github:demiurg39/nivix";
     nivix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";

@@ -1,7 +1,7 @@
 {
+  modulesPath,
   config,
   lib,
-  modulesPath,
   ...
 }: {
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
@@ -11,12 +11,6 @@
   boot.kernelParams = ["acpi_backlight=native"];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
-
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    device = "nodev";
-  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/6d47afaa-d20d-4cb5-a72e-4342c710f8be";
@@ -34,18 +28,6 @@
     fsType = "ext4";
   };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "lz4";
-    priority = 999;
-  };
-
-  networking.useDHCP = lib.mkDefault true;
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
 }

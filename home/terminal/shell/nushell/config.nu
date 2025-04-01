@@ -16,7 +16,7 @@ $env.config.edit_mode = "vi"
 $env.config.show_banner = false
 
 const NU_LIB_DIRS = [
-  ($nu.home-path | path join "nixflow/home/demi/features/cli/nushell")
+  ($nu.home-path | path join "nixflow/home/terminal/shell/nushell")
 ]
 
 const NU_PLUGIN_DIRS = [
@@ -51,7 +51,7 @@ $env.config = ($env.config | upsert hooks {
 
   command_not_found: {
     |command_name|
-    print (command-not-found $command_name | str trim)
+    print (nix-index $command_name | str trim)
   }
 })
 

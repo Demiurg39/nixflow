@@ -3,6 +3,8 @@
     wineWowPackages.stable
     protonup-qt
     steamtinkerlaunch
+    osu-lazer-bin
+    prismlauncher
 
     (lutris.override {
       extraLibraries = pkgs: [

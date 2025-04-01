@@ -5,7 +5,7 @@
     settings.excludes = ["flake.lock"];
 
     settings.hooks = {
-      alejadra.enable = true;
+      alejandra.enable = true;
     };
   };
 }

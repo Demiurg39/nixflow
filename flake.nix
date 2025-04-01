@@ -7,7 +7,7 @@
 
       imports = [
         ./hosts
-        # ./pre-commit-hooks.nix
+        ./pre-commit-hooks.nix
       ];
 
       perSystem = {
@@ -20,11 +20,11 @@
             alejandra
             git
           ];
-          name = "flake-dots";
+          name = "flake";
           DIRENV_LOG_FORMAT = "";
-          # shellHook = ''
-          #   ${config.pre-commit.installationScript}
-          # '';
+          shellHook = ''
+            ${config.pre-commit.installationScript}
+          '';
         };
 
         formatter = pkgs.alejandra;
@@ -32,8 +32,6 @@
     };
 
   inputs = {
-    # systems.url = "github:nix-systems/default-linux";
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     flake-parts.url = "github:hercules-ci/flake-parts";

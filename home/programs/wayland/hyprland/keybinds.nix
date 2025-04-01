@@ -1,6 +1,10 @@
-{pkgs, ...}: let
-  kbdswitch = import ../scripts/kbdswitch {inherit pkgs;};
-  adjust-volume = import ../scripts/adjust-volume {inherit pkgs;};
+{
+  pkgs,
+  self,
+  ...
+}: let
+  kbdswitch = import "${self}/pkgs/bin/kbdswitch" {inherit pkgs;};
+  adjust-volume = import "${self}/pkgs/bin/adjust-volume" {inherit pkgs;};
 in {
   home.packages = [
     kbdswitch

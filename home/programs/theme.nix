@@ -1,18 +1,19 @@
 {
-  pkgs,
   inputs,
+  self,
+  pkgs,
   ...
 }: let
   ags = inputs.ags.packages.${pkgs.system}.default.override {
     extraPackages = with pkgs; [
       gtksourceview
       gtksourceview4
-      webkitgtk
+      webkitgtk_4_0
       webp-pixbuf-loader
       ydotool
     ];
   };
-  selfPkgs = import ../../../../../pkgs/illogical-impulse.nix {
+  selfPkgs = import "${self}/pkgs/illogical-impulse.nix" {
     inherit pkgs ags;
   };
 in {

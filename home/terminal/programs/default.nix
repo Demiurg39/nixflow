@@ -4,24 +4,19 @@
     (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
 
   home.packages = with pkgs; [
-    bc # Calculator
-    coreutils # base utils
-    comma # Install and run programs by sticking a , before them
-    fd # Better find
-    glib
-    htop # System monitor
-    jq # JSON pretty printer and manipulator
     libnotify # Notification lib
-    mlocate
-    p7zip
-    playerctl # For controlling media
-    ripgrep # Better grep
-    unzip
-    unrar-free
-    ydotool
-    yad
-    zip
 
+    fd # Better find
+    file # Checks filetype
+    jq # JSON pretty printer and manipulator
+    ripgrep # Better grep
+    yad # GUI dialog
+
+    p7zip # # 7z archives
+    unzip # zip archives
+    unrar-free # rar archives
+
+    # playerctl # For controlling media
     # nvd # Differ
     # nix-diff # Differ, more detailed
     # nix-output-monitor # While building provide nice ui

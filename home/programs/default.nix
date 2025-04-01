@@ -3,6 +3,7 @@
     ./browsers/librewolf.nix
     ./media
     ./office
+    ./fonts.nix
     ./fuzzel.nix
     ./spotify.nix
     ./theme.nix

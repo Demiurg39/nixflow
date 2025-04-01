@@ -54,7 +54,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
-    # lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
     nivix.url = "github:demiurg39/nivix";
     nivix.inputs.nixpkgs.follows = "nixpkgs";

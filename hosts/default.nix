@@ -23,7 +23,7 @@
         ++ [
           ./asura
 
-          # "${mod}/boot/lanzaboote.nix"
+          "${mod}/core/lanzaboote.nix"
 
           "${mod}/programs/gamemode.nix"
           "${mod}/programs/gaming.nix"

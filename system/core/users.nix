@@ -7,6 +7,7 @@
 in {
   users.users.demi = {
     isNormalUser = true;
+    useDefaultShell = true;
     shell = pkgs.nushell;
     extraGroups = ifTheyExists [
       "audio"

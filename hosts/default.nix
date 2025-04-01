@@ -35,7 +35,6 @@
           {
             home-manager = {
               users.demi.imports = homeImports."demi@asura";
-              backupFileExtension = ".hm-backup";
               extraSpecialArgs = specialArgs;
             };
           }

@@ -1,5 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, gradience, python3, bc, xdg-user-dirs, pywal, dart-sass, makeWrapper }:
-
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gradience,
+  python3,
+  bc,
+  xdg-user-dirs,
+  pywal,
+  dart-sass,
+  makeWrapper,
+}:
 stdenv.mkDerivation {
   pname = "illogical-impulse-ags";
   version = "latest";
@@ -11,12 +21,12 @@ stdenv.mkDerivation {
     sha256 = "sha256-EMhcIApxaV7X2H88eNWekKDpd56OU7CeWImftlkoM8o=";
   };
 
-  patches = [ 
+  patches = [
     ./0001-Use-system-python-environment.patch
     ./0002-Kill-session-instead-of-kill-Hyprland.patch
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     mkdir -p $out
@@ -27,19 +37,20 @@ stdenv.mkDerivation {
     # Wrap all scripts to use the correct environment
     for prog in $(find $out -type f -name "*.sh" -executable); do
       wrapProgram $prog \
-        --prefix PATH : ${lib.makeBinPath [ 
-          bc
-          xdg-user-dirs
-          pywal
-          dart-sass
-          gradience
-          (python3.withPackages (p: with p; [
-            setproctitle
-            materialyoucolor
-            material-color-utilities
-            pywayland
-          ]))
-        ]}
+        --prefix PATH : ${lib.makeBinPath [
+      bc
+      xdg-user-dirs
+      pywal
+      dart-sass
+      gradience
+      (python3.withPackages (p:
+        with p; [
+          setproctitle
+          materialyoucolor
+          material-color-utilities
+          pywayland
+        ]))
+    ]}
     done
   '';
 

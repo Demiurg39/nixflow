@@ -1,12 +1,24 @@
-{ lib, stdenv, fish, ollama, ags, gradience, python3, bc, xdg-user-dirs, pywal, dart-sass, makeWrapper }:
-
+{
+  lib,
+  stdenv,
+  fish,
+  ollama,
+  ags,
+  gradience,
+  python3,
+  bc,
+  xdg-user-dirs,
+  pywal,
+  dart-sass,
+  makeWrapper,
+}:
 stdenv.mkDerivation {
   pname = "illogical-impulse-ags-launcher";
   version = "latest";
 
   src = ./.;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -15,22 +27,23 @@ stdenv.mkDerivation {
 
   fixupPhase = ''
     wrapProgram $out/bin/illogical-impulse-ags-launcher \
-      --prefix PATH : ${lib.makeBinPath [ 
-        fish
-        ollama
-        ags
-        bc
-        xdg-user-dirs
-        pywal
-        dart-sass
-        gradience
-        (python3.withPackages (p: with p; [
+      --prefix PATH : ${lib.makeBinPath [
+      fish
+      ollama
+      ags
+      bc
+      xdg-user-dirs
+      pywal
+      dart-sass
+      gradience
+      (python3.withPackages (p:
+        with p; [
           setproctitle
           materialyoucolor
           material-color-utilities
           pywayland
         ]))
-      ]}
+    ]}
   '';
 
   meta = {

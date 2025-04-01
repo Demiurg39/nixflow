@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, stdenv }:
-
+{
+  lib,
+  fetchFromGitHub,
+  stdenv,
+}:
 stdenv.mkDerivation {
   pname = "illogical-impulse-kvantum";
   version = "latest";

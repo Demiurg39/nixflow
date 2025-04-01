@@ -1,12 +1,14 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }: {
   # greetd display manager
   services.greetd = let
+    hyprland = "${lib.getExe config.programs.uwsm.package} start hyprland-uwsm.desktop";
     session = {
-      command = "${lib.getExe config.programs.uwsm.package} start hyprland-uwsm.desktop";
+      command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd '${hyprland}'";
       user = "demi";
     };
   in {

@@ -11,8 +11,7 @@ let
 
     ./programs
 
-    ./services
-    ./services/sddm.nix
+    ./services/greetd.nix
     ./services/pipewire.nix
   ];
 

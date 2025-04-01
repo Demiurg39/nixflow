@@ -25,41 +25,37 @@ const NU_PLUGIN_DIRS = [
   ($nu.config-path | path dirname | path join 'plugins')
 ]
 
-{
+load-env {
   SUDO_PROMPT: $"(ansi blue)%u(ansi reset) password -> ",
   FLAKE: ($env.home | path join "nixflow"),
   TERMINAL: "kitty",
   BROWSER: "librewolf",
   VISUAL: "vi",
   EDITOR: "vi",
-} | load-env
+}
+
+    $env.config = ($env.config | upsert hooks {
+        pre_prompt: [
+        {
+            # Use the generated color scheme
+            let color_file = "/home/demi/.cache/ags/user/generated/terminal/sequences.txt"
+            if ( $color_file | path exists) {
+            open $color_file | print
+            }
+        }
+        ]
+#        command_not_found: {
+ #       |command_name|
+  #      print (${lib.getExe pkgs.zsh} -c "${pkgs.nix-index}/etc/profile.d/command-not-found.sh $command_name" | str trim)
+   #     }
+    })
 
 # }
 
-# Hooks {
-
-$env.config = ($env.config | upsert hooks {
-  pre_prompt: [
-    {
-      # Use the generated color scheme
-      let color_file = "/home/demi/.cache/ags/user/generated/terminal/sequences.txt"
-      if ( $color_file | path exists) {
-        open $color_file | print
-      }
-    }
-  ]
-
-  command_not_found: {
-    |command_name|
-    print (nix-index $command_name | str trim)
-  }
-})
-
-# }
-
-# Custom commands {
+# Sources {
 
 source extract.nu
+source completions.nu
 
 # }
 
@@ -68,7 +64,6 @@ source extract.nu
 
 alias "cl" = clear
 alias "grep" = grep --color=auto;
-alias "git log" = git log --oneline;
 alias "lgit" = lazygit;
 alias "mv" = mv -v;
 alias "rm" = rm -v;

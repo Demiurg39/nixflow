@@ -44,7 +44,7 @@
 
     # agenix.url = "github:ryantm/agenix";
     # agenix.inputs.nixpkgs.follows = "nixpkgs";
-    #
+
     # disko.url = "github:nix-community/disko";
     # disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -59,6 +59,15 @@
 
     nivix.url = "github:demiurg39/nivix";
     nivix.inputs.nixpkgs.follows = "nixpkgs";
+
+    nvim-dots.url = "github:demiurg39/nvchad";
+    nvim-dots.flake = false;
+
+    nvchad4nix = {
+      url = "github:nix-community/nix4nvchad";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nvchad-starter.follows = "nvim-dots";
+    };
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";

@@ -31,6 +31,7 @@
           "${mod}/programs/adb.nix"
 
           "${mod}/services/kanata"
+          "${mod}/services/warp.nix"
 
           {
             home-manager = {

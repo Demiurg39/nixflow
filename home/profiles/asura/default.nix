@@ -2,21 +2,21 @@
   home = "${self}/home";
 in {
   imports = [
-    "${home}/editors/nivix.nix"
+    "${home}/editors/nvchad.nix"
 
     "${home}/programs"
     "${home}/programs/games"
 
     "${home}/programs/wayland"
     "${home}/programs/wayland/hyprland"
-    #
+
     "${home}/terminal/programs"
     "${home}/terminal/emulators/kitty.nix"
 
     "${home}/terminal/shell/nushell"
     "${home}/terminal/shell/atuin.nix"
     "${home}/terminal/shell/zoxide.nix"
-    #
+
     "${home}/services/media/playerctl.nix"
 
     "${home}/services/system/polkit-agent.nix"

@@ -1,4 +1,6 @@
-{...}: {
+{pkgs, ...}: let
+  lock = "${pkgs.systemd}/bin/loginctl lock-session";
+in {
   services.hypridle = {
     enable = true;
     settings = {
@@ -20,7 +22,7 @@
         }
         {
           timeout = 300;
-          on-timeout = "pidof hyprlock || hypridle-background";
+          on-timeout = lock;
         }
         {
           timeout = 480;
@@ -28,7 +30,7 @@
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = 540;
+          timeout = 500;
           on-timeout = "pidof steam || systemctl suspend || loginctl suspend";
         }
       ];

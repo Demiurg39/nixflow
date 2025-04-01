@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   hyprlock-background = pkgs.writeShellScriptBin "hyprlock-background" ''
-    #!${pkgs.bash}/bin/bash
+    #!/usr/bin/env bash
 
     # Find current background image path
     image_path=$(swww query | awk -F 'image: ' '{print $2}')

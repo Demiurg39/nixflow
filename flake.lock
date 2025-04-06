@@ -968,11 +968,11 @@
     "nvim-dots": {
       "flake": false,
       "locked": {
-        "lastModified": 1736643544,
-        "narHash": "sha256-PoThdeLgPIFrqVMgwOyWsPDD01K4qEFT6Q5LHz6n5DM=",
+        "lastModified": 1744545633,
+        "narHash": "sha256-vpp9uMgoqHlvnjV/Iqe65u94AU/X2AFQdH2yAmZWYfk=",
         "owner": "demiurg39",
         "repo": "nvchad",
-        "rev": "c3d1fb646a04aaa97b2929b90269f8a7bf8e8dc4",
+        "rev": "a49e63a18074908a1c2815eed305b54619940605",
         "type": "github"
       },
       "original": {

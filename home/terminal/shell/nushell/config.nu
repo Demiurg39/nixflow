@@ -11,7 +11,7 @@
 
 # Variables {
 
-$env.config.buffer_editor = "vi"
+$env.config.buffer_editor = "nvim"
 $env.config.edit_mode = "vi"
 $env.config.show_banner = false
 
@@ -30,20 +30,20 @@ load-env {
   FLAKE: ($env.home | path join "nixflow"),
   TERMINAL: "kitty",
   BROWSER: "librewolf",
-  VISUAL: "vi",
-  EDITOR: "vi",
+  VISUAL: "nvim",
+  EDITOR: "nvim",
 }
 
     $env.config = ($env.config | upsert hooks {
-        pre_prompt: [
+      pre_prompt: [
         {
-            # Use the generated color scheme
-            let color_file = "/home/demi/.cache/ags/user/generated/terminal/sequences.txt"
-            if ( $color_file | path exists) {
-            open $color_file | print
-            }
+          # Use the generated color scheme
+          let color_file = "/home/demi/.cache/ags/user/generated/terminal/sequences.txt"
+          if ( $color_file | path exists) {
+          open $color_file | print
+          }
         }
-        ]
+      ]
 #        command_not_found: {
  #       |command_name|
   #      print (${lib.getExe pkgs.zsh} -c "${pkgs.nix-index}/etc/profile.d/command-not-found.sh $command_name" | str trim)

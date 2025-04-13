@@ -44,10 +44,11 @@ load-env {
           }
         }
       ]
-#        command_not_found: {
- #       |command_name|
-  #      print (${lib.getExe pkgs.zsh} -c "${pkgs.nix-index}/etc/profile.d/command-not-found.sh $command_name" | str trim)
-   #     }
+#      FIXME:
+#      command_not_found: {
+#        |command_name|
+#        print (${lib.getExe pkgs.zsh} -c "${pkgs.nix-index}/etc/profile.d/command-not-found.sh $command_name" | str trim)
+#      }
     })
 
 # }
@@ -58,7 +59,6 @@ source extract.nu
 source completions.nu
 
 # }
-
 
 # Aliases {
 
@@ -72,6 +72,8 @@ alias "stl" = steamtinkerlaunch;
 alias "ll" = ls -l;
 alias "cl" = clear;
 alias "ff" = fastfetch;
+alias "vi" = nvim;
+alias "vim" = nvim;
 
 # # Nixos specific
 alias "boot" = nh os boot;

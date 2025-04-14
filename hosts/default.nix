@@ -25,6 +25,10 @@
 
           "${mod}/core/lanzaboote.nix"
 
+          "${mod}/hardware/nvidia-laptop.nix"
+
+          "${mod}/network/localsend.nix"
+
           "${mod}/programs/gamemode.nix"
           "${mod}/programs/gaming.nix"
           "${mod}/programs/hyprland"

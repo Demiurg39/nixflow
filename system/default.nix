@@ -7,7 +7,6 @@ let
     ./hardware/graphics.nix
 
     ./network
-    ./network/localsend.nix
 
     ./programs
 

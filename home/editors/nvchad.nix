@@ -10,6 +10,7 @@
   programs.nvchad = {
     enable = true;
     extraPackages = with pkgs; [
+      alejandra
       cargo
       clang-tools
       gcc

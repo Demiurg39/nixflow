@@ -35,7 +35,7 @@
           "${mod}/programs/adb.nix"
 
           "${mod}/services/kanata"
-          "${mod}/services/warp.nix"
+          "${mod}/services/syncthing.nix"
 
           {
             home-manager = {

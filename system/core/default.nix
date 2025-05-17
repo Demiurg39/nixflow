@@ -15,7 +15,7 @@
   };
 
   # Timezone
-  time.timeZone = "Europe/Istanbul";
+  time.timeZone = "Asia/Bishkek";
 
   zramSwap = {
     enable = true;

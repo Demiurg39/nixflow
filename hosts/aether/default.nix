@@ -1,4 +1,4 @@
-configuration = { pkgs, ... }: {
+{ pkgs, self, ... }: {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [ 
@@ -22,4 +22,4 @@ configuration = { pkgs, ... }: {
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
-};
+}

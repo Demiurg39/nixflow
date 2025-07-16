@@ -2,9 +2,9 @@
   self,
   inputs,
   ...
-}: {
-  flake.nixosConfigurations = let
+}: let
     inherit (inputs.nixpkgs.lib) nixosSystem;
+    inherit (inputs.nix-darwin.lib) darwinSystem;
 
     homeImports = import "${self}/home/profiles";
 
@@ -16,6 +16,7 @@
     # get these into the module system
     specialArgs = {inherit inputs self;};
   in {
+  flake.nixosConfigurations = {
     asura = nixosSystem {
       inherit specialArgs;
       modules =
@@ -44,6 +45,14 @@
             };
           }
         ];
+    };
+  };
+  flake.darwinConfigurations = {
+    aether = darwinSystem {
+      inherit specialArgs;
+      modules = [
+	./aether
+      ];
     };
   };
 }

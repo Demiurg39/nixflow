@@ -7,7 +7,7 @@
 
       imports = [
         ./hosts
-        ./pre-commit-hooks.nix
+#        ./pre-commit-hooks.nix
       ];
 
       perSystem = {
@@ -22,9 +22,9 @@
           ];
           name = "flake";
           DIRENV_LOG_FORMAT = "";
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
+#          shellHook = ''
+#            ${config.pre-commit.installationScript}
+#          '';
         };
 
         formatter = pkgs.alejandra;

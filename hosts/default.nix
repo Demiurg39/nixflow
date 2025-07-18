@@ -3,19 +3,19 @@
   inputs,
   ...
 }: let
-    inherit (inputs.nixpkgs.lib) nixosSystem;
-    inherit (inputs.nix-darwin.lib) darwinSystem;
+  inherit (inputs.nixpkgs.lib) nixosSystem;
+  inherit (inputs.nix-darwin.lib) darwinSystem;
 
-    homeImports = import "${self}/home/profiles";
+  homeImports = import "${self}/home/profiles";
 
-    mod = "${self}/system";
+  mod = "${self}/system";
 
-    # get the basic config to build on top of
-    inherit (import mod) desktop laptop;
+  # get the basic config to build on top of
+  inherit (import mod) desktop laptop;
 
-    # get these into the module system
-    specialArgs = {inherit inputs self;};
-  in {
+  # get these into the module system
+  specialArgs = {inherit inputs self;};
+in {
   flake.nixosConfigurations = {
     asura = nixosSystem {
       inherit specialArgs;
@@ -51,7 +51,7 @@
     aether = darwinSystem {
       inherit specialArgs;
       modules = [
-	./aether
+        ./aether
       ];
     };
   };

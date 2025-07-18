@@ -5,6 +5,7 @@
 }: let
   inherit (inputs.nixpkgs.lib) nixosSystem;
   inherit (inputs.nix-darwin.lib) darwinSystem;
+  inherit (inputs) home-manager;
 
   homeImports = import "${self}/home/profiles";
 
@@ -52,6 +53,18 @@ in {
       inherit specialArgs;
       modules = [
         ./aether
+
+        home-manager.darwinModules.home-manager
+
+        {
+          home-manager = {
+            backupFileExtension = "hm-backup";
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = specialArgs;
+            users.demi.imports = homeImports."demi@aether";
+          };
+        }
       ];
     };
   };

@@ -3,4 +3,8 @@
     ../.
     ./asura
   ];
+
+  "demi@aether" = [
+    ./aether
+  ];
 }

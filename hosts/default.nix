@@ -26,6 +26,7 @@
           "${mod}/core/lanzaboote.nix"
 
           "${mod}/hardware/nvidia-laptop.nix"
+          "${mod}/hardware/asusctl.nix"
 
           "${mod}/network/localsend.nix"
 

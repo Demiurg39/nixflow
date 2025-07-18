@@ -52,6 +52,18 @@ in {
       inherit specialArgs;
       modules = [
         ./aether
+
+        home-manager.darwinModules.home-manager
+
+        {
+          home-manager = {
+            backupFileExtension = "hm-backup";
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = specialArgs;
+            users.demi.imports = homeImports."demi@aether";
+          };
+        }
       ];
     };
   };

@@ -65,6 +65,8 @@ in {
 
       "$mainMod, Period, exec, ags run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'"
       "$mainMod+Shift, M, exec, ags run-js 'openMusicControls.value = (!mpris.getPlayer() ? false : !openMusicControls.value);'"
+      "$mainMod+Shift, <, exec, playerctl volume 0.1-"
+      "$mainMod+Shift, >, exec, playerctl volume 0.1+"
       "$mainMod+Shift, K, exec, playerctl play-pause"
       "$mainMod+Shift, J, exec, playerctl previous"
       ''$mainMod+Shift, L, exec, playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"` ''

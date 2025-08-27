@@ -15,7 +15,13 @@
 
     resolved = {
       enable = true;
-      dnsovertls = "opportunistic";
+      domains = [
+        "45.90.28.0#a6d793.dns.nextdns.io"
+        "2a07:a8c0::#a6d793.dns.nextdns.io"
+        "45.90.30.0#a6d793.dns.nextdns.io"
+        "2a07:a8c1::#a6d793.dns.nextdns.io"
+      ];
+      dnsovertls = "true";
     };
   };
 }

@@ -25,4 +25,8 @@
     hm-activation = false;
     backup = false;
   };
+
+  home.packages = with pkgs; [
+    neovide
+  ];
 }

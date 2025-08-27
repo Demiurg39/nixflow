@@ -36,6 +36,7 @@
           "${mod}/programs/gaming.nix"
           "${mod}/programs/hyprland"
           "${mod}/programs/adb.nix"
+          "${mod}/programs/diagnostics.nix"
 
           "${mod}/services/kanata"
           "${mod}/services/syncthing.nix"

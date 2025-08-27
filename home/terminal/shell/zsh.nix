@@ -156,6 +156,8 @@ in {
           diff = "diff --color";
           stl = "steamtinkerlaunch";
           open = "xdg-open";
+          v = "nvim";
+          vi = "nvim";
           ll = "eza --color=always --hyperlink -l";
           ls = "eza --color=always --hyperlink";
           cl = "clear";

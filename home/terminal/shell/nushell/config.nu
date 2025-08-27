@@ -72,6 +72,7 @@ alias "stl" = steamtinkerlaunch;
 alias "ll" = ls -l;
 alias "cl" = clear;
 alias "ff" = fastfetch;
+alias "v" = nvim;
 alias "vi" = nvim;
 alias "vim" = nvim;
 

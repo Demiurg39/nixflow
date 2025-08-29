@@ -37,6 +37,7 @@
           "${mod}/programs/hyprland"
           "${mod}/programs/adb.nix"
           "${mod}/programs/diagnostics.nix"
+          "${mod}/programs/virt-manager.nix"
 
           "${mod}/services/kanata"
           "${mod}/services/syncthing.nix"

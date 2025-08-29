@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
+    ./disko-config.nix
   ];
 
   # nh default flake

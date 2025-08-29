@@ -8,6 +8,7 @@
   imports = [
     ./nh.nix
     ./nix-ld.nix
+    ./disko.nix
   ];
 
   environment.systemPackages = [pkgs.git];

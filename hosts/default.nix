@@ -5,6 +5,7 @@
 }: {
   flake.nixosConfigurations = let
     inherit (inputs.nixpkgs.lib) nixosSystem;
+    inherit (inputs) disko;
 
     homeImports = import "${self}/home/profiles";
 
@@ -24,6 +25,7 @@
           ./asura
 
           "${mod}/core/lanzaboote.nix"
+          disko.nixosModules.disko
 
           "${mod}/hardware/nvidia-laptop.nix"
           # BUG: cause some problems with booting and poweroff

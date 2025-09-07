@@ -29,6 +29,18 @@
     ];
     casks = [];
     masApps = [];
+    onActivation = {
+      # cleanup = "zap";
+      autoUpdate = true;
+      upgrade = true;
+    };
+  };
+
+  system.defaults = {
+    dock.autoHide = true;
+    NSGlobalDomain = {
+      AppleInterfaceStyle = "Dark";
+    };
   };
 
   # Set Git commit hash for darwin-version.

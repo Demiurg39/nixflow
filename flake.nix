@@ -3,11 +3,11 @@
 
   outputs = {flake-parts, ...} @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux" "aarch64-darwin" ];
+      systems = ["x86_64-linux" "aarch64-darwin"];
 
       imports = [
         ./hosts
-#        ./pre-commit-hooks.nix
+        #        ./pre-commit-hooks.nix
       ];
 
       perSystem = {
@@ -22,9 +22,9 @@
           ];
           name = "flake";
           DIRENV_LOG_FORMAT = "";
-#          shellHook = ''
-#            ${config.pre-commit.installationScript}
-#          '';
+          #          shellHook = ''
+          #            ${config.pre-commit.installationScript}
+          #          '';
         };
 
         formatter = pkgs.alejandra;
@@ -35,7 +35,12 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
+    homebrew-core.url = "github:homebrew/homebrew-core";
+    homebrew-core.flake = false;
+    homebrew-cask.url = "github:homebrew/homebrew-cask";
+    homebrew-cask.flake = false;
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 

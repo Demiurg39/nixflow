@@ -6,7 +6,6 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    neovim
     git
     gh
   ];
@@ -16,6 +15,21 @@
 
   # Enable alternative shell support in nix-darwin.
   # programs.fish.enable = true;
+
+  font.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
+  ];
+
+  homebrew = {
+    enable = true;
+    brews = [
+      "mas"
+      "kanata"
+    ];
+    casks = [];
+    masApps = [];
+  };
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = self.rev or self.dirtyRev or null;

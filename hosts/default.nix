@@ -44,6 +44,7 @@
 
           "${mod}/services/kanata"
           "${mod}/services/syncthing.nix"
+          "${mod}/services/postgresql.nix"
           inputs.agenix.nixosModules.default
 
           {

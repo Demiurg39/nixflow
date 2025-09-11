@@ -4,5 +4,6 @@ let
 
   pubKeys = [asura demi];
 in {
+  "pgadmin_pass.age".publicKeys = pubKeys;
   "demi_pass.age".publicKeys = pubKeys;
 }

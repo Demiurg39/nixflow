@@ -31,6 +31,7 @@
           # "${mod}/hardware/asusctl.nix"
 
           "${mod}/network/localsend.nix"
+          "${mod}/network/packettracer.nix"
 
           "${mod}/programs/gamemode.nix"
           "${mod}/programs/gaming.nix"

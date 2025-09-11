@@ -7,6 +7,7 @@
 in {
   users.users.demi = {
     isNormalUser = true;
+    hashedPasswordFile = config.age.secrets.demi_pass.path;
     useDefaultShell = true;
     shell = pkgs.nushell;
     extraGroups = ifTheyExists [

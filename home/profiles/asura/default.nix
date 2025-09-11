@@ -1,4 +1,8 @@
-{self, ...}: let
+{
+  inputs,
+  self,
+  ...
+}: let
   home = "${self}/home";
 in {
   imports = [
@@ -24,6 +28,7 @@ in {
 
     "${home}/services/wayland/hypridle.nix"
     "${home}/services/wayland/wlsunset.nix"
+    inputs.agenix.homeManagerModules.default
   ];
 
   wayland.windowManager.hyprland.settings.monitor = [

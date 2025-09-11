@@ -1,5 +1,6 @@
 {
   self,
+  pkgs,
   inputs,
   ...
 }: {
@@ -22,6 +23,7 @@
         laptop
         ++ [
           ./asura
+          ./asura/secrets.nix
 
           "${mod}/core/lanzaboote.nix"
 
@@ -42,6 +44,13 @@
 
           "${mod}/services/kanata"
           "${mod}/services/syncthing.nix"
+          inputs.agenix.nixosModules.default
+
+          {
+            environment.systemPackages = [
+              inputs.agenix.packages.x86_64-linux.default
+            ];
+          }
 
           {
             home-manager = {

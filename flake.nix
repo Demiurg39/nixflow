@@ -42,8 +42,9 @@
     ags.url = "github:Aylur/ags/v1";
     ags.inputs.nixpkgs.follows = "nixpkgs";
 
-    # agenix.url = "github:ryantm/agenix";
-    # agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.inputs.darwin.follows = "";
 
     # disko.url = "github:nix-community/disko";
     # disko.inputs.nixpkgs.follows = "nixpkgs";

@@ -53,12 +53,11 @@ in {
       "$mainMod+Ctrl+Alt, R, exec, ~/.config/ags/scripts/record-script.sh --fullscreen"
 
       # Screenshots
-      ''$mainMod+Ctrl+Shift+Alt, P,exec, grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm"tmp.png" ''
-      ''$mainMod+Ctrl+Shift, P,exec, grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract "tmp.png" - | wl-copy && rm"tmp.png" ''
+      ''$mainMod+Ctrl+Shift, P,exec, grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm"tmp.png" ''
       ''$mainMod+Shift+Alt, S, exec, grim -g"$(slurp)" - | swappy -f - ''
       ''$mainMod+Shift+Alt, P, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy area''
-      ''$mainMod+Alt, P, exec, mkdir -p ~/Pictures/Screenshots && ~/.config/ags/scripts/grimblast.sh copysave screen ~/Pictures/Screenshots/Screenshot_"$(date '+%Y-%m-%d_%H.%M.%S')".png ''
-      ''$mainMod, Print, exec, mkdir -p ~/Pictures/Screenshots && ~/.config/ags/scripts/grimblast.sh copysave screen ~/Pictures/Screenshots/Screenshot_"$(date '+%Y-%m-%d_%H.%M.%S')".png ''
+      ''$mainMod+Alt, S, exec, mkdir -p ~/Pictures/Screenshots && ~/.config/ags/scripts/grimblast.sh copysave screen ~/Pictures/Screenshots/Screenshot_"$(date '+%Y-%m-%d_%H.%M.%S')".png ''
+      '', Print, exec, mkdir -p ~/Pictures/Screenshots && ~/.config/ags/scripts/grimblast.sh copysave screen ~/Pictures/Screenshots/Screenshot_"$(date '+%Y-%m-%d_%H.%M.%S')".png ''
 
       "$mainMod, I, exec, ags -t 'sideright'"
       "$mainMod, M, exec, ags -t 'sideleft'"

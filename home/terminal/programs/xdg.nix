@@ -1,6 +1,6 @@
 {config, ...}: let
-  editor = ["nvim"];
-  browser = ["librewolf"];
+  editor = ["neovide"];
+  browser = ["org.qutebrowser.qutebrowser"];
   imageViewer = ["org.gnome.Loupe"];
   videoPlayer = ["io.github.celluloid_player.Celluloid"];
   audioPlayer = ["io.bassi.Amberol"];

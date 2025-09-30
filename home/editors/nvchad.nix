@@ -11,16 +11,18 @@
     enable = true;
     extraPackages = with pkgs; [
       alejandra
+      nixd
       cargo
       clang-tools
       gcc
       gdb
       ghostscript
       fd
-      openjdk
+      openjdk21
       ripgrep
       rustc
       tectonic
+      python39
     ];
     hm-activation = false;
     backup = false;

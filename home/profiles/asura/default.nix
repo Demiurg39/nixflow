@@ -11,6 +11,8 @@ in {
     "${home}/programs"
     "${home}/programs/games"
 
+    "${home}/programs/browsers/qutebrowser.nix"
+
     "${home}/programs/wayland"
     "${home}/programs/wayland/hyprland"
 

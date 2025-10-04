@@ -1,6 +1,5 @@
 {
   self,
-  pkgs,
   inputs,
   ...
 }: {
@@ -12,7 +11,7 @@
     mod = "${self}/system";
 
     # get the basic config to build on top of
-    inherit (import mod) desktop laptop;
+    inherit (import mod) laptop;
 
     # get these into the module system
     specialArgs = {inherit inputs self;};
@@ -28,9 +27,6 @@
           "${mod}/core/lanzaboote.nix"
 
           "${mod}/hardware/nvidia-laptop.nix"
-          # BUG: cause some problems with booting and poweroff
-          # or not?
-          # "${mod}/hardware/asusctl.nix"
 
           "${mod}/network/localsend.nix"
           "${mod}/network/packettracer.nix"
@@ -40,7 +36,6 @@
           "${mod}/programs/hyprland"
           "${mod}/programs/adb.nix"
           "${mod}/programs/diagnostics.nix"
-          "${mod}/programs/virt-manager.nix"
 
           "${mod}/services/kanata"
           "${mod}/services/syncthing.nix"

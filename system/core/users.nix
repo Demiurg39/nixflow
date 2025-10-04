@@ -13,10 +13,12 @@ in {
     extraGroups = ifTheyExists [
       "audio"
       "adbusers"
+      "docker"
       "gamemode"
+      "input"
       "libvirtd"
       "networkmanager"
-      "input"
+      "podman"
       "uinput"
       "video"
       "wheel"

@@ -10,6 +10,7 @@ in {
 
     "${home}/programs"
     "${home}/programs/games"
+    "${home}/programs/media/obs.nix"
 
     "${home}/programs/browsers/qutebrowser.nix"
 

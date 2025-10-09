@@ -1,46 +1,38 @@
 {
   description = "My system configuration flake";
 
-  outputs = {flake-parts, ...} @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
+  outputs = {
+    nixpkgs,
+    systems,
+    ...
+  } @ inputs: let
+    eachSystem = nixpkgs.lib.genAttrs (import systems);
+  in {
+    imports = [
+      # ./hosts
+      # ./pre-commit-hooks.nix
+    ];
 
-      imports = [
-        ./hosts
-        ./pre-commit-hooks.nix
-      ];
+    devShells = eachSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      default = import ./devshells/flakeShell.nix {inherit system inputs pkgs;};
+    });
 
-      perSystem = {
-        config,
-        pkgs,
-        ...
-      }: {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            alejandra
-            git
-          ];
-          name = "flake";
-          DIRENV_LOG_FORMAT = "";
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
-        };
-
-        formatter = pkgs.alejandra;
-      };
-    };
+    formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    # flake-parts.url = "github:hercules-ci/flake-parts";
 
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    # pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    # pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
 
-    ags.url = "github:Aylur/ags/v1";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
+    # ags.url = "github:Aylur/ags/v1";
+    # ags.inputs.nixpkgs.follows = "nixpkgs";
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
@@ -55,11 +47,11 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    # lanzaboote.url = "github:nix-community/lanzaboote";
+    # lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
 
-    nivix.url = "github:demiurg39/nivix";
-    nivix.inputs.nixpkgs.follows = "nixpkgs";
+    # nivix.url = "github:demiurg39/nivix";
+    # nivix.inputs.nixpkgs.follows = "nixpkgs";
 
     nvim-dots.url = "github:demiurg39/nvchad";
     nvim-dots.flake = false;
@@ -70,8 +62,8 @@
       inputs.nvchad-starter.follows = "nvim-dots";
     };
 
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    # nix-index-database.url = "github:nix-community/nix-index-database";
+    # nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";

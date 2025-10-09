@@ -12,22 +12,25 @@
   boot.kernelModules = ["kvm-amd" "nvidia_uvm"];
   boot.extraModulePackages = [];
 
+  # TODO: make subvolumes for /nix cause' most root files are symlinks from /nix/store
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/6d47afaa-d20d-4cb5-a72e-4342c710f8be";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6F72-425D";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    device = "/dev/disk/by-uuid/b9eae7f6-9aab-428e-88dc-a9df3dbd72fb";
+    fsType = "btrfs";
+    options = ["subvol=@" "compress=zstd"];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/70691b8f-bb45-4239-b9dd-a4dd0d86ea20";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/b9eae7f6-9aab-428e-88dc-a9df3dbd72fb";
+    fsType = "btrfs";
+    options = ["subvol=@home"];
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  fileSystems."/boot" = {
+    # device = "/dev/disk/by-uuid/BAB0-8E75";
+    device = "/dev/disk/by-label/ESP";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
+
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

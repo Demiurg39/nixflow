@@ -8,17 +8,21 @@
   } @ inputs: let
     eachSystem = nixpkgs.lib.genAttrs (import systems);
   in {
-    imports = [
-      # ./hosts
-      # ./pre-commit-hooks.nix
-    ];
+    nixosConfigurations = import ./hosts inputs;
 
-    devShells = eachSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      default = import ./devshells/flakeShell.nix {inherit system inputs pkgs;};
-    });
+    nixosModules = {
+      # system = import ./system;
+    };
 
+    devShells = eachSystem (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = import ./devshells/flakeShell.nix {inherit system inputs pkgs;};
+      }
+    );
+
+    packages = eachSystem (system: (nixpkgs.legacyPackages.${system}));
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 
@@ -41,11 +45,11 @@
     # disko.url = "github:nix-community/disko";
     # disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # home-manager.url = "github:nix-community/home-manager";
+    # home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
     # lanzaboote.url = "github:nix-community/lanzaboote";
     # lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +69,8 @@
     # nix-index-database.url = "github:nix-community/nix-index-database";
     # nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    # spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    # spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
+    # spicetify-nix.inputs.systems.follows = "systems";
   };
 }

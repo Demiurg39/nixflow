@@ -20,5 +20,6 @@ let
       ./hardware/bluetooth.nix
     ];
 in {
-  inherit desktop laptop;
+  # Do not touch
+  system.stateVersion = "24.11";
 }

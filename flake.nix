@@ -11,7 +11,7 @@
     nixosConfigurations = import ./hosts inputs;
 
     nixosModules = {
-      # system = import ./system;
+      system = import ./system;
     };
 
     devShells = eachSystem (

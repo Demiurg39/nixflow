@@ -4,7 +4,7 @@
   inputs,
   ...
 }:
-pkgs.mkShell {
+pkgs.mkShell rec {
   packages = with pkgs; [
     alejandra
     git
@@ -15,4 +15,8 @@ pkgs.mkShell {
   ];
   name = "flake";
   DIRENV_LOG_FORMAT = "";
+  shellHooks = ''
+    echo "${name}-shell is started..."
+    export EDITOR=nvim
+  '';
 }

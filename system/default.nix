@@ -1,4 +1,5 @@
 {
+  options,
   config,
   lib,
   ...
@@ -31,8 +32,8 @@ with lib; {
       uid = 1000;
     };
     users.users.${config.user.name} = mkAliasDefinitions options.user;
-  };
 
-  # Do not touch
-  system.stateVersion = "24.11";
+    # Do not touch
+    system.stateVersion = "24.11";
+  };
 }

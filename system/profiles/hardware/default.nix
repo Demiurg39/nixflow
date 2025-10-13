@@ -5,5 +5,6 @@
     ./gpu/nvidia.nix
     ./audio.nix
     ./bluetooth.nix
+    ./ssd.nix
   ];
 }

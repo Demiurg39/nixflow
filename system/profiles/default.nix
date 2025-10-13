@@ -1,9 +1,7 @@
 {lib, ...}:
 with lib; {
   imports = [
-    ./cpu/amd.nix
-    ./gpu/amd.nix
-    ./gpu/nvidia.nix
+    ./hardware
   ];
 
   options.profiles = with types; {

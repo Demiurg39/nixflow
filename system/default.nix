@@ -1,25 +1,38 @@
-let
-  desktop = [
-    ./core
-    ./core/boot.nix
-
-    ./hardware/fwupd.nix
-    ./hardware/graphics.nix
-
-    ./network
-
-    ./programs
-
-    ./services/greetd.nix
-    ./services/pipewire.nix
+{
+  config,
+  lib,
+  ...
+}:
+with lib; {
+  imports = [
+    ./profiles
   ];
+  options = with types; {
+    user = mkOption {
+      type = attrs;
+      default = {name = "";};
+    };
+  };
 
-  laptop =
-    desktop
-    ++ [
-      ./hardware/bluetooth.nix
+  config = {
+    assertions = [
+      {
+        assertion = config.user ? name;
+        message = "config.user.name is not set!";
+      }
     ];
-in {
+
+    user = {
+      description = mkDefault "The primary user account";
+      extraGroups = ["wheel"];
+      isNormalUser = true;
+      home = "/home/${config.user.name}";
+      group = "users";
+      uid = 1000;
+    };
+    users.users.${config.user.name} = mkAliasDefinitions options.user;
+  };
+
   # Do not touch
   system.stateVersion = "24.11";
 }

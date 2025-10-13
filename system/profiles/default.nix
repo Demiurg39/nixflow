@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./hardware
+    ./users
   ];
 
   options.profiles = with types; {
@@ -9,6 +10,12 @@ with lib; {
       type = listOf str;
       default = [];
       description = ''A list of hardware-specific modules to import'';
+    };
+
+    user = mkOption {
+      type = str;
+      default = "";
+      description = ''Main system user'';
     };
 
     nvidia.prime = {

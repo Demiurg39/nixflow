@@ -42,6 +42,4 @@
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
-
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

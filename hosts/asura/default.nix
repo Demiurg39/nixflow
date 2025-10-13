@@ -12,8 +12,6 @@
 
   #         "${mod}/core/lanzaboote.nix"
   #
-  #         "${mod}/hardware/nvidia-laptop.nix"
-  #
   #         "${mod}/network/localsend.nix"
   #         "${mod}/network/packettracer.nix"
   #
@@ -28,15 +26,44 @@
   #         "${mod}/services/syncthing.nix"
   #         "${mod}/services/postgresql.nix"
 
-  # profiles = {
-  #   hardware = [
-  #     "bluetooth"
-  #     "nvidia"
-  #   ];
+  profiles = {
+    user = "demi";
+    hardware = [
+      "cpu/amd"
+      "gpu/amd"
+      "gpu/nvidia"
+      "audio"
+      "bluetooth"
+      "ssd"
+      "wifi"
+      "zram"
+    ];
+
+    nvidia.prime = {
+      enable = true;
+      amdgpuBusId = "PCI:05:0:0";
+      nvidiaBusId = "PCI:01:0:0";
+    };
+  };
+
+  # desktop = {
+  #   hyprland = {
+  #     enable = true;
+  #     monitor = ["eDP-1,1920x1080@144,0x0,1"];
+  #   };
+  #   TODO: or make it default using idk
+  #   need to implement it somehow
+  #   systemdBoot.enable = true;
+
+  #   kanata.enable = true;
+  #   gaming.enable = true;
+  #   syncthing.enable = true;
   # };
 
-  console.keyMap = "mod-dh-ansi-us";
-
-  # for SSD/NVME health
-  services.fstrim.enable = true;
+  # development = {
+  #   docker-compose.enable = true;
+  #   databases.postgresql.enable = true;
+  #   packettracer.enable = true;
+  #   adb.enable = true;
+  # };
 }

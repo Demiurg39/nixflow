@@ -7,5 +7,6 @@
     ./bluetooth.nix
     ./ssd.nix
     ./wifi.nix
+    ./zram.nix
   ];
 }

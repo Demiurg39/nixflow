@@ -22,7 +22,6 @@
       }
     );
 
-    packages = eachSystem (system: (nixpkgs.legacyPackages.${system}));
     formatter = eachSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 

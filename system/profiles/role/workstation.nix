@@ -64,8 +64,7 @@ in
       })
 
     (mkIf (hasPrefix "workstation/laptop" role) {
-      services.tlp.enable = mkDefault true;
-      services.power-profiles-daemon.enable = mkDefault false;
+      services.tlp.enable = !config.services.power-profiles-daemon.enable;
 
       # For deep-suspend mod
       boot.kernelParams = ["mem_sleep_default=deep"];

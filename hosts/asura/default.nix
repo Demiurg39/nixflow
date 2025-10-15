@@ -47,15 +47,18 @@
     };
   };
 
-  # desktop = {
-  #   hyprland = {
-  #     enable = true;
-  #     monitor = ["eDP-1,1920x1080@144,0x0,1"];
-  #   };
-  #   kanata.enable = true;
-  #   gaming.enable = true;
-  #   syncthing.enable = true;
-  # };
+  desktop = {
+    # hyprland = {
+    #   enable = true;
+    #   monitor = ["eDP-1,1920x1080@144,0x0,1"];
+    # };
+    gnome = {
+      enable = true;
+    };
+    # kanata.enable = true;
+    # games.enable = true;
+    # syncthing.enable = true;
+  };
 
   # development = {
   #   docker-compose.enable = true;

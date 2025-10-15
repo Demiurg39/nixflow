@@ -8,6 +8,7 @@ with lib; {
   imports = [
     ./profiles
     ./security
+    ./desktop
   ];
 
   options = with types; {

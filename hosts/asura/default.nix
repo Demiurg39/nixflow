@@ -1,4 +1,4 @@
-{...}: {
+{
   imports = [
     ./hardware-configuration.nix
     ./secrets.nix
@@ -61,6 +61,7 @@
       # telegram.enable = true;
     };
     browsers.qutebrowser.enable = true;
+    terminal.kitty.enable = true;
     # games.enable = true;
   };
 

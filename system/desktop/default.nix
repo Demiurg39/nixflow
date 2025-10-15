@@ -3,6 +3,7 @@ with lib; {
   imports = [
     ./app/kanata.nix
     ./app/syncthing.nix
+    ./terminal/kitty.nix
     ./browser
     ./gnome.nix
   ];

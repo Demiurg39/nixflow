@@ -1,1 +1,6 @@
-{imports = [./packettracer.nix];}
+{
+  imports = [
+    ./packettracer.nix
+    ./editor/nvchad.nix
+  ];
+}

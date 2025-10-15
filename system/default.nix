@@ -9,6 +9,7 @@ with lib; {
     ./profiles
     ./security
     ./desktop
+    ./development
   ];
 
   options = with types; {

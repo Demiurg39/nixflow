@@ -64,10 +64,10 @@
     # games.enable = true;
   };
 
-  # development = {
-  #   docker-compose.enable = true;
-  #   databases.postgresql.enable = true;
-  #   packettracer.enable = true;
-  #   adb.enable = true;
-  # };
+  development = {
+    #   docker-compose.enable = true;
+    #   databases.postgresql.enable = true;
+    networks.packettracer.enable = true;
+    #   adb.enable = true;
+  };
 }

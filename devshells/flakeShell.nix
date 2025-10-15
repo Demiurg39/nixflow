@@ -9,7 +9,7 @@ pkgs.mkShell rec {
     alejandra
     git
     nixd
-    inputs.nvchad4nix.packages.${system}.default
+    inputs.nix4nvchad.packages.${system}.default
     ripgrep
     lazygit
   ];

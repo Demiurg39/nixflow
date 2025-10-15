@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.editor.nvchad;
+  cfg = config.development.editor.nvchad;
 in {
-  options.desktop.editor.nvchad = with types; {
+  options.development.editor.nvchad = with types; {
     enable = mkEnableOption "Enable nushell";
   };
 
@@ -30,7 +30,7 @@ in {
       ripgrep
       rustc
       tectonic
-      python39
+      python3
     ];
   };
 }

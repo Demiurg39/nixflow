@@ -66,6 +66,7 @@
   };
 
   development = {
+    editor.nvchad.enable = true;
     #   docker-compose.enable = true;
     #   databases.postgresql.enable = true;
     networks.packettracer.enable = true;

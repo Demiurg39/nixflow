@@ -59,7 +59,7 @@
     nvim-dots.url = "github:demiurg39/nvchad";
     nvim-dots.flake = false;
 
-    nvchad4nix = {
+    nix4nvchad = {
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nvchad-starter.follows = "nvim-dots";

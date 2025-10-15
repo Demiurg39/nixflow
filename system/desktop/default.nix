@@ -3,6 +3,7 @@ with lib; {
   imports = [
     ./gnome.nix
     ./app/kanata.nix
+    ./browser
   ];
   options.desktop = with types; {
     type = mkOption {

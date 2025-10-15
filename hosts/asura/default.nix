@@ -60,6 +60,7 @@
       # syncthing.enable = true;
       # telegram.enable = true;
     };
+    browsers.qutebrowser.enable = true;
     # games.enable = true;
   };
 

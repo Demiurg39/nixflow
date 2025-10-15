@@ -7,7 +7,9 @@
 with lib; {
   imports = [
     ./profiles
+    ./security
   ];
+
   options = with types; {
     user = mkOption {
       type = attrs;

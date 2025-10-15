@@ -4,6 +4,7 @@ with lib; {
     ./app/kanata.nix
     ./app/syncthing.nix
     ./terminal/kitty.nix
+    ./terminal/nushell.nix
     ./browser
     ./gnome.nix
   ];

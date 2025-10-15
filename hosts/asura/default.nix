@@ -62,6 +62,7 @@
     };
     browsers.qutebrowser.enable = true;
     terminal.kitty.enable = true;
+    terminal.shell.nushell.enable = true;
     # games.enable = true;
   };
 

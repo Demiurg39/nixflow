@@ -1,9 +1,10 @@
 {lib, ...}:
 with lib; {
   imports = [
-    ./gnome.nix
     ./app/kanata.nix
+    ./app/syncthing.nix
     ./browser
+    ./gnome.nix
   ];
   options.desktop = with types; {
     type = mkOption {

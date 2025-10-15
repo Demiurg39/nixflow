@@ -57,7 +57,7 @@
     };
     app = {
       kanata.enable = true;
-      # syncthing.enable = true;
+      syncthing.enable = true;
       # telegram.enable = true;
     };
     browsers.qutebrowser.enable = true;

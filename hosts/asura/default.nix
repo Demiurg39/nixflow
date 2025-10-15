@@ -28,6 +28,7 @@
 
   profiles = {
     user = "demi";
+    role = "workstation/laptop";
     hardware = [
       "cpu/amd"
       "gpu/amd"
@@ -51,10 +52,6 @@
   #     enable = true;
   #     monitor = ["eDP-1,1920x1080@144,0x0,1"];
   #   };
-  #   TODO: or make it default using idk
-  #   need to implement it somehow
-  #   systemdBoot.enable = true;
-
   #   kanata.enable = true;
   #   gaming.enable = true;
   #   syncthing.enable = true;

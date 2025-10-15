@@ -3,6 +3,7 @@ with lib; {
   imports = [
     ./hardware
     ./users
+    ./role
   ];
 
   options.profiles = with types; {
@@ -16,6 +17,13 @@ with lib; {
       type = str;
       default = "";
       description = ''Main system user'';
+    };
+
+    role = mkOption {
+      type = str;
+      default = "";
+      description = ''Host role'';
+      example = "workstation";
     };
 
     nvidia.prime = {

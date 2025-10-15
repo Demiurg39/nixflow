@@ -1,6 +1,9 @@
 {lib, ...}:
 with lib; {
-  imports = [./gnome.nix];
+  imports = [
+    ./gnome.nix
+    ./app/kanata.nix
+  ];
   options.desktop = with types; {
     type = mkOption {
       type = nullOr str;

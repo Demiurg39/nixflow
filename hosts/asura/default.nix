@@ -55,9 +55,12 @@
     gnome = {
       enable = true;
     };
-    # kanata.enable = true;
+    app = {
+      kanata.enable = true;
+      # syncthing.enable = true;
+      # telegram.enable = true;
+    };
     # games.enable = true;
-    # syncthing.enable = true;
   };
 
   # development = {

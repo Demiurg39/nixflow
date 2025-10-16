@@ -31,11 +31,12 @@
     options = ["subvol=@home" "compress=zstd" "noatime"];
   };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/b9eae7f6-9aab-428e-88dc-a9df3dbd72fb";
-    fsType = "btrfs";
-    options = ["subvol=@nix" "compress=zstd" "noatime"];
-  };
+  # TODO: fix this, cause its not working
+  # fileSystems."/nix" = {
+  #   device = "/dev/disk/by-uuid/b9eae7f6-9aab-428e-88dc-a9df3dbd72fb";
+  #   fsType = "btrfs";
+  #   options = ["subvol=@nix" "compress=zstd" "noatime"];
+  # };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/ESP";

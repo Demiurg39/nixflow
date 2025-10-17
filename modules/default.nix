@@ -51,8 +51,8 @@ with lib; {
       registry = mapAttrs (_: v: {flake = v;}) filteredInputs;
       nixPath = nixPathInputs;
 
-      # gc kills ssds
-      gc.automatic = false;
+      gc.automatic = true;
+
       settings = {
         auto-optimise-store = true;
         # use binary cache, its not gentoo
@@ -61,12 +61,12 @@ with lib; {
         experimental-features = ["nix-command" "flakes"];
         warn-dirty = false;
         http2 = true;
+
         trusted-users = ["root" config.user.name];
         allowed-users = ["root" config.user.name];
 
         # use binary cache, its not gentoo
         substituters = ["https://cache.nixos.org"];
-
         trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
       };
     };

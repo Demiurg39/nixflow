@@ -21,13 +21,17 @@
     # set the path for channels compat
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
+    # gc kills ssds
+    gc.automatic = false;
+
     settings = {
       auto-optimise-store = lib.mkDefault true;
       experimental-features = ["nix-command" "flakes"]; # Enable flakes support
       warn-dirty = false;
       flake-registry = "/etc/nix/registry.json";
 
-      trusted-users = ["root" "@wheel"];
+      trusted-users = ["root" config.user.name];
+      allowed-users = ["root" config.user.name];
     };
   };
 

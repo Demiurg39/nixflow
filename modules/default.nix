@@ -1,6 +1,7 @@
 {
   options,
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -28,7 +29,7 @@ with lib; {
     ];
 
     user = {
-      description = mkDefault "The primary user account";
+      description = mkDefault "Primary user";
       extraGroups = ["wheel"];
       isNormalUser = true;
       home = "/home/${config.user.name}";
@@ -36,6 +37,9 @@ with lib; {
       uid = 1000;
     };
     users.users.${config.user.name} = mkAliasDefinitions options.user;
+    environment.systemPackages = [pkgs.git];
+
+    time.timeZone = "Asia/Bishkek";
 
     # Do not touch
     system.stateVersion = "24.11";

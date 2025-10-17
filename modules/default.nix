@@ -37,6 +37,7 @@ with lib; {
       uid = 1000;
     };
     users.users.${config.user.name} = mkAliasDefinitions options.user;
+    environment.variables.FLAKE = "${config.user.home}/nixflow";
     environment.systemPackages = [pkgs.git];
 
     time.timeZone = "Asia/Bishkek";

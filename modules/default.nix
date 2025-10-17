@@ -1,6 +1,7 @@
 {
   options,
   config,
+  inputs,
   pkgs,
   lib,
   ...
@@ -40,23 +41,38 @@ with lib; {
     environment.variables.FLAKE = "${config.user.home}/nixflow";
     environment.systemPackages = [pkgs.git];
 
+    programs.nix-ld.enable = true;
+
     nix = let
       filteredInputs = filterAttrs (_: v: isType "flake" v) inputs;
       nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
     in {
-      nixPath = nixPathInputs;
+      # pin the registry to avoid downloading and evaling a new nixpkgs version every time
       registry = mapAttrs (_: v: {flake = v;}) filteredInputs;
+      nixPath = nixPathInputs;
+
+      # gc kills ssds
+      gc.automatic = false;
       settings = {
-        experimental-features = ["nix-command" "flakes"]; # Enable flakes support
+        auto-optimise-store = true;
+        # use binary cache, its not gentoo
+        builders-use-substitutes = true;
+        # Enable flakes support
+        experimental-features = ["nix-command" "flakes"];
         warn-dirty = false;
         http2 = true;
         trusted-users = ["root" config.user.name];
         allowed-users = ["root" config.user.name];
-        auto-optimise-store = true;
+
+        # use binary cache, its not gentoo
+        substituters = ["https://cache.nixos.org"];
+
+        trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
       };
     };
 
     time.timeZone = "Asia/Bishkek";
+    nixpkgs.config.allowUnfree = true;
 
     # Do not touch
     system.stateVersion = "24.11";

@@ -61,7 +61,6 @@ in
 
         services.openssh.enable = true;
         services.fwupd.enable = true;
-        programs.nix-ld.enable = true;
       })
 
     (mkIf (hasPrefix "workstation/laptop" role) {

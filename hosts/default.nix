@@ -11,8 +11,6 @@
           {
             networking.hostName = nixpkgs.lib.mkDefault name;
             nixpkgs.hostPlatform = nixpkgs.lib.mkDefault system;
-            nixpkgs.config.allowUnfree = true;
-            nix.settings.experimental-features = ["nix-command" "flakes"];
             environment.systemPackages = [
               inputs.agenix.packages.${system}.default
             ];

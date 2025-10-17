@@ -14,6 +14,7 @@ in
       (any (mod: hasPrefix "gpu/nvidia" mod) hardware)
       {
         services.xserver.videoDrivers = mkDefault ["nvidia"];
+        user.extraGroups = ["video"];
 
         hardware = {
           graphics.extraPackages = [pkgs.vaapiVdpau];

@@ -4,10 +4,6 @@
     ./secrets.nix
   ];
 
-  # TODO: move this somewhere more suited for this
-  # cause flake might be used not by just this host
-  # maybe exporting it somewhere else
-
   #         "${mod}/network/localsend.nix"
   #
   #         "${mod}/programs/gamemode.nix"

@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.development.editor.nvchad;
+  cfg = config.modules.development.editor.nvchad;
 in {
-  options.development.editor.nvchad = with types; {
+  options.modules.development.editor.nvchad = with types; {
     enable = mkEnableOption "Enable nushell";
   };
 

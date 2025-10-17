@@ -5,9 +5,8 @@
   ...
 }:
 with lib; let
-  hardware = config.profiles.hardware;
-  cfg = config.profiles.nvidia;
-  # primeCfg = config.profiles.nvidia.prime;
+  hardware = config.modules.profiles.hardware;
+  cfg = config.modules.nvidia;
 in
   mkMerge [
     # For ampere(30 series) and later

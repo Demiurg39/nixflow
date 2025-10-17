@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  username = config.profiles.user;
+  username = config.modules.profiles.user;
 in
   mkIf (username == "demi") {
     user = {

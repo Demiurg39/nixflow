@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.gnome;
+  cfg = config.modules.desktop.gnome;
 in {
-  options.desktop.gnome = with types; {
+  options.modules.desktop.gnome = with types; {
     enable = mkEnableOption "Enable gnome de as primary";
   };
 

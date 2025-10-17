@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.app.syncthing;
+  cfg = config.modules.desktop.app.syncthing;
 in {
-  options.desktop.app.syncthing = {
+  options.modules.desktop.app.syncthing = {
     enable = mkEnableOption "Enable syncthing";
   };
 

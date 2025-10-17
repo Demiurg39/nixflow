@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.browsers.qutebrowser;
+  cfg = config.modules.desktop.browsers.qutebrowser;
 in {
-  options.desktop.browsers.qutebrowser = {
+  options.modules.desktop.browsers.qutebrowser = {
     enable = mkEnableOption "Enable qutebrowser";
   };
 

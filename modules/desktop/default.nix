@@ -8,7 +8,7 @@ with lib; {
     ./browser
     ./gnome.nix
   ];
-  options.desktop = with types; {
+  options.modules.desktop = with types; {
     type = mkOption {
       type = nullOr str;
       default = null;

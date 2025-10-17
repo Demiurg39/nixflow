@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.terminal.shell.nushell;
+  cfg = config.modules.desktop.terminal.shell.nushell;
 in {
-  options.desktop.terminal.shell.nushell = with types; {
+  options.modules.desktop.terminal.shell.nushell = with types; {
     enable = mkEnableOption "Enable nushell";
   };
 

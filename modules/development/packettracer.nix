@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.development.networks.packettracer;
+  cfg = config.modules.development.networks.packettracer;
 in {
-  options.development.networks.packettracer = with types; {
+  options.modules.development.networks.packettracer = with types; {
     enable = mkEnableOption "Enable Cisco packet tracer";
 
     withoutLogin = mkOption {

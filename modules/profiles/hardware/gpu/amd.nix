@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  hardware = config.profiles.hardware;
+  hardware = config.modules.profiles.hardware;
 in
   mkIf (any (mod: hasPrefix "gpu/amd" mod) hardware) {
     # graphics drivers / HW accel

@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.desktop.app.kanata;
+  cfg = config.modules.desktop.app.kanata;
 in {
-  options.desktop.app.kanata = {
+  options.modules.desktop.app.kanata = {
     enable = mkEnableOption "Enable kanata remapping";
   };
 

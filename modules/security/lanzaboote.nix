@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  hardware = config.profiles.hardware;
+  cfg = config.modules.security.lanzaboote;
 in
-  mkIf (any (mod: hasPrefix "security/lanzaboote" mod) hardware) {
+  mkIf (cfg.enable) {
     imports = [inputs.lanzaboote.nixosModules.lanzaboote];
 
     boot = {

@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./usbguard.nix
+  ];
+
   ## System security tweaks
   # tmpfs = /tmp is mounted in ram. Doing so makes temp file management speedy
   # on ssd systems and more secure (and volatile!) because it's wiped on reboot.
@@ -69,7 +73,6 @@
     '';
   };
 
-  services.usbguard.enable = true;
   services.openssh = {
     settings = {
       PasswordAuthentication = false;
@@ -87,7 +90,7 @@
               command = "/run/current-system/sw/bin/${command}";
               options = ["NOPASSWD"];
             })
-            ["poweroff" "reboot" "nixos-rebuild" "nix-env"];
+            ["poweroff" "reboot" "nixos-rebuild" "nix"];
           groups = ["wheel"];
         }
       ];

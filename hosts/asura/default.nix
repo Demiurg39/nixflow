@@ -1,8 +1,4 @@
 {
-  config,
-  lib,
-  ...
-}: {
   imports = [
     ./hardware-configuration.nix
     ./secrets.nix
@@ -69,6 +65,18 @@
       #   databases.postgresql.enable = true;
       networks.packettracer.enable = true;
       #   adb.enable = true;
+    };
+
+    security = {
+      usbguard = {
+        enable = true;
+        rules = [
+          ''allow id 346d:5678 serial "3025821295868437616"''
+          ''allow id 048d:1234 serial "2491551056425020931"''
+          ''allow id 090c:1000 serial "1112043700002018"''
+          ''allow id 04e8:6860 serial "RFCX41GVWJK"'' # S24
+        ];
+      };
     };
   };
 }

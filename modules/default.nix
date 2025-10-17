@@ -40,6 +40,22 @@ with lib; {
     environment.variables.FLAKE = "${config.user.home}/nixflow";
     environment.systemPackages = [pkgs.git];
 
+    nix = let
+      filteredInputs = filterAttrs (_: v: isType "flake" v) inputs;
+      nixPathInputs = mapAttrsToList (n: v: "${n}=${v}") filteredInputs;
+    in {
+      nixPath = nixPathInputs;
+      registry = mapAttrs (_: v: {flake = v;}) filteredInputs;
+      settings = {
+        experimental-features = ["nix-command" "flakes"]; # Enable flakes support
+        warn-dirty = false;
+        http2 = true;
+        trusted-users = ["root" config.user.name];
+        allowed-users = ["root" config.user.name];
+        auto-optimise-store = true;
+      };
+    };
+
     time.timeZone = "Asia/Bishkek";
 
     # Do not touch

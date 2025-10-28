@@ -25,10 +25,9 @@
       # This allows to easily access flake inputs and outputs
       # from nixos modules, so it's a little bit cleaner
       specialArgs = {
-        inherit inputs;
+        inherit inputs self;
         # TODO: make my theme module
         # theme = (import ../user).theme nixpkgs.legacyPackages.${system};
-        flake = self;
       };
     };
 in {

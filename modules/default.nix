@@ -3,6 +3,7 @@
   config,
   inputs,
   pkgs,
+  self,
   lib,
   ...
 }:
@@ -16,6 +17,12 @@ with lib; {
   ];
 
   options = with types; {
+    flake.configDir = mkOption {
+      type = path;
+      readOnly = true;
+      default = "${self}/config";
+      description = "Path to flake config directory";
+    };
     user = mkOption {
       type = attrs;
       default = {name = "";};

@@ -10,29 +10,28 @@ in
   mkMerge [
     (mkIf (hasPrefix "workstation" role)
       {
-        # services.resolved = {
-        #   enable = true;
-        #   dnsovertls = "true";
-        #   # See systemd/systemd#10579
-        #   dnssec = "false";
+        services.resolved = {
+          enable = true;
+          dnsovertls = "true";
+          # See systemd/systemd#10579
+          dnssec = "false";
 
-        # TODO: insert my nextdns server
-        # global.dns_servers = [];
+          # TODO: insert my nextdns server
+          extraConfig = ''
+            # Quad9 by default
+            DNS=9.9.9.9 2620:fe::fe
+            TLSHostname=dns.quad9.net
+          '';
 
-        # fallbackDns = [
-        #   "9.9.9.9#dns.quad9.net" # Quad9
-        #   "1.1.1.1#cloudflare-dns.com" # Cloudflare
-        # ];
-        #
-        # extraConfig = ''
-        #   DNSStubListenerExtra=127.0.0.1
-        # '';
-        # };
+          fallbackDns = [
+            "1.1.1.1#cloudflare-dns.com"
+          ];
+        };
 
         networking.networkmanager = {
           enable = true;
           # Tell NM to let resolved handle DNS
-          # dns = "systemd-resolved";
+          dns = "systemd-resolved";
           settings = {
             connection.ethernet-cloned-mac-address = "stable";
           };
@@ -64,7 +63,8 @@ in
       })
 
     (mkIf (hasPrefix "workstation/laptop" role) {
-      services.tlp.enable = !(config.services.power-profiles-daemon.enable || config.services.desktopManager.gnome.enable);
+      services.power-profiles-daemon.enable = mkForce false;
+      services.tlp.enable = true;
 
       # For deep-suspend mod
       boot.kernelParams = ["mem_sleep_default=deep"];

@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -12,6 +11,13 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    environment.systemPackages = [pkgs.kitty];
+    home.programs.kitty = {
+      enable = true;
+      keybindings = {};
+      settings = {
+        font_family = "FiraCode Nerd Font";
+        font_size = 14;
+      };
+    };
   };
 }

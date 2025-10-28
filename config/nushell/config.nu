@@ -14,8 +14,6 @@
 $env.config.buffer_editor = "nvim"
 $env.config.edit_mode = "vi"
 $env.config.show_banner = false
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash' # optional
-$env.XDG_CACHE_HOME = $nu.home-path + "/.cache"  # optional
 
 const NU_LIB_DIRS = [
   ($nu.home-path | path join "nixflow/home/terminal/shell/nushell")
@@ -45,16 +43,6 @@ load-env {
     #         open $color_file | print
     #       }
     #     }
-        {
-          if (which direnv | is-empty) {
-            return
-          }
-
-          direnv export json | from json | default {} | load-env
-          if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
-            $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
-          }
-        }
       ]
 #      FIXME:
 #      command_not_found: {
@@ -97,19 +85,4 @@ alias "check" = nix flake check ($env.FLAKE);
 # alias "garbage" = sudo nix-collect-garbage --delete-older-than 7d ; nix-collect-garbage -d ; nix-store --gc;
 alias "list-generations" = sudo nix-env -p /nix/var/nix/profiles/system --list-generations;
 
-def --env yy [...args] {
-	let tmp = (mktemp -t "yazi-cwd.XXXXXX")
-	yazi ...$args --cwd-file $tmp
-	let cwd = (open $tmp)
-	if $cwd != "" and $cwd != $env.PWD {
-		cd $cwd
-	}
-	rm -fp $tmp
-}
-
 # }
-
-source zoxide.nu
-source nh.nu
-source ~/.local/share/atuin/init.nu
-source ~/.local/share/atuin/completions.nu

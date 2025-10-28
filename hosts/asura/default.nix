@@ -51,7 +51,7 @@
       };
       browsers.qutebrowser.enable = true;
       terminal.kitty.enable = true;
-      terminal.shell.nushell.enable = true;
+      terminal.shells.nushell.enable = true;
       # games.enable = true;
       # office.zathura.enable = true;
       # office.openOffice.enable = true;

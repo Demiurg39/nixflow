@@ -13,24 +13,34 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    environment.systemPackages = with pkgs; [
-      inputs.nix4nvchad.packages.${system}.default
-      alejandra
-      unzip
-      nodejs
-      nixd
-      cargo
-      clang-tools
-      gcc
-      gdb
-      ghostscript
-      fd
-      lazygit
-      openjdk21
-      ripgrep
-      rustc
-      tectonic
-      python3
+    home.extraConfig = {imports = [inputs.nix4nvchad.homeManagerModule];};
+
+    home.programs.nvchad = {
+      enable = true;
+      extraPackages = with pkgs; [
+        alejandra
+        nixd
+        nodejs
+        cargo
+        clang-tools
+        gcc
+        gdb
+        ghostscript
+        fd
+        openjdk21
+        ripgrep
+        rustc
+        python3
+        tectonic
+        unzip
+        lazygit
+      ];
+      hm-activation = false;
+      backup = false;
+    };
+
+    home.packages = with pkgs; [
+      neovide
     ];
   };
 }

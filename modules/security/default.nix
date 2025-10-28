@@ -80,20 +80,18 @@
     };
   };
 
-  security = {
-    sudo = {
-      enable = true;
-      extraRules = [
-        {
-          commands =
-            builtins.map (command: {
-              command = "/run/current-system/sw/bin/${command}";
-              options = ["NOPASSWD"];
-            })
-            ["poweroff" "reboot" "nixos-rebuild" "nix"];
-          groups = ["wheel"];
-        }
-      ];
-    };
+  security.sudo = {
+    enable = true;
+    extraRules = [
+      {
+        commands =
+          builtins.map (command: {
+            command = "/run/current-system/sw/bin/${command}";
+            options = ["NOPASSWD"];
+          })
+          ["poweroff" "reboot" "nixos-rebuild" "nix"];
+        groups = ["wheel"];
+      }
+    ];
   };
 }

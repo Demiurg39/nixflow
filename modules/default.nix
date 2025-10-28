@@ -8,6 +8,7 @@
 }:
 with lib; {
   imports = [
+    ./home.nix
     ./profiles
     ./security
     ./desktop

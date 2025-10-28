@@ -18,6 +18,7 @@
           ./${name}
 
           inputs.agenix.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
         ]
         ++ builtins.attrValues self.nixosModules;
 

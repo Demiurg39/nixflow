@@ -2,9 +2,8 @@
 with lib; {
   imports = [
     ./app/kanata.nix
-    ./app/syncthing.nix
     ./terminal/kitty.nix
-    ./terminal/nushell.nix
+    ./terminal/shells/nushell.nix
     ./browser
     ./gnome.nix
   ];

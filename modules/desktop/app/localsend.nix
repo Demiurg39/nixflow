@@ -4,15 +4,16 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.services.warp;
+  cfg = config.modules.desktop.app.localsend;
 in {
-  options.modules.services.warp = {
+  options.modules.desktop.app.localsend = {
     enable = mkEnableOption "TODO";
   };
 
   config = mkIf (cfg.enable) {
-    services.cloudflare-warp = {
+    programs.localsend = {
       enable = true;
+      openFirewall = true;
     };
   };
 }

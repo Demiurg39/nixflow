@@ -6,14 +6,15 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.development.editor.nvchad;
+  cfg = config.modules.development.editors.nvchad;
 in {
-  options.modules.development.editor.nvchad = with types; {
+  options.modules.development.editors.nvchad = with types; {
     enable = mkEnableOption "Enable nushell";
   };
 
   config = mkIf (cfg.enable) {
-    home.extraConfig = {imports = [inputs.nix4nvchad.homeManagerModule];};
+    # home-manager.users.${config.user.name}.imports = [inputs.nix4nvchad.homeManagerModule];
+    home.extraConfig.imports = [inputs.nix4nvchad.homeManagerModule];
 
     home.programs.nvchad = {
       enable = true;

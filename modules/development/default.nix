@@ -1,7 +1,7 @@
 {
   imports = [
     ./packettracer.nix
-    ./editor/nvchad.nix
+    ./editors/nvchad.nix
     ./docker_compose_arion.nix
   ];
 }

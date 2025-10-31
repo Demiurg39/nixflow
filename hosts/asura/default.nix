@@ -4,12 +4,6 @@
     ./secrets.nix
   ];
 
-  #         "${mod}/network/localsend.nix"
-  #
-  #         "${mod}/programs/gamemode.nix"
-  #         "${mod}/programs/gaming.nix"
-  #         "${mod}/programs/diagnostics.nix"
-
   modules = {
     profiles = {
       user = "demi";
@@ -48,7 +42,7 @@
         kanata.enable = true;
         obs-studio.enable = true;
         # syncthing.enable = true;
-        # telegram.enable = true;
+        ayugram.enable = true;
       };
       browsers.qutebrowser.enable = true;
       terminal.kitty.enable = true;

@@ -5,7 +5,7 @@ with lib; {
     ./programs/obs.nix
     ./terminal/kitty.nix
     ./terminal/shells/nushell.nix
-    ./browser
+    ./browsers
     ./gnome.nix
   ];
   options.modules.desktop = with types; {

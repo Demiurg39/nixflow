@@ -1,16 +1,16 @@
 {
-  nixpkgs,
+  inputs,
   self,
+  lib,
   ...
 }: let
-  inherit (self) inputs;
   mkHost = name: system:
-    nixpkgs.lib.nixosSystem {
+    lib.nixosSystem {
       modules =
         [
           {
-            networking.hostName = nixpkgs.lib.mkDefault name;
-            nixpkgs.hostPlatform = nixpkgs.lib.mkDefault system;
+            networking.hostName = lib.mkDefault name;
+            nixpkgs.hostPlatform = lib.mkDefault system;
             environment.systemPackages = [
               inputs.agenix.packages.${system}.default
             ];
@@ -24,11 +24,8 @@
 
       # This allows to easily access flake inputs and outputs
       # from nixos modules, so it's a little bit cleaner
-      specialArgs = {
-        inherit inputs self;
-        # TODO: make my theme module
-        # theme = (import ../user).theme nixpkgs.legacyPackages.${system};
-      };
+      # TODO: make my theme module
+      specialArgs = {inherit inputs self lib;};
     };
 in {
   asura = mkHost "asura" "x86_64-linux";

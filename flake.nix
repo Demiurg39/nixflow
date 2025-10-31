@@ -4,15 +4,15 @@
   outputs = {
     nixpkgs,
     systems,
+    self,
     ...
   } @ inputs: let
     eachSystem = nixpkgs.lib.genAttrs (import systems);
+    lib = import ./lib {lib = nixpkgs.lib;};
   in {
-    nixosConfigurations = import ./hosts inputs;
+    nixosConfigurations = import ./hosts {inherit inputs self lib nixpkgs;};
 
-    nixosModules = {
-      modules = import ./modules;
-    };
+    nixosModules.modules = import ./modules;
 
     devShells = eachSystem (
       system: let
@@ -61,6 +61,11 @@
       url = "github:nix-community/nix4nvchad";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nvchad-starter.follows = "nvim-dots";
+    };
+
+    mango = {
+      url = "github:DreamMaoMao/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # nix-index-database.url = "github:nix-community/nix-index-database";

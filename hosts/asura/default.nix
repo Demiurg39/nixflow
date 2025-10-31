@@ -44,7 +44,7 @@
       #   monitor = ["eDP-1,1920x1080@144,0x0,1"];
       # };
       gnome.enable = true;
-      app = {
+      programs = {
         kanata.enable = true;
         # syncthing.enable = true;
         # telegram.enable = true;

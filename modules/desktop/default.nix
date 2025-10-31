@@ -1,7 +1,7 @@
 {lib, ...}:
 with lib; {
   imports = [
-    ./app/kanata.nix
+    ./programs/kanata.nix
     ./terminal/kitty.nix
     ./terminal/shells/nushell.nix
     ./browser

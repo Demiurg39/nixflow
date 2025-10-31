@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.app.localsend;
+  cfg = config.modules.desktop.programs.localsend;
 in {
-  options.modules.desktop.app.localsend = {
+  options.modules.desktop.programs.localsend = {
     enable = mkEnableOption "TODO";
   };
 

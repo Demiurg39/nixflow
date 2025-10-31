@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./programs/kanata.nix
+    ./programs/obs.nix
     ./terminal/kitty.nix
     ./terminal/shells/nushell.nix
     ./browser

@@ -46,6 +46,7 @@
       gnome.enable = true;
       programs = {
         kanata.enable = true;
+        obs-studio.enable = true;
         # syncthing.enable = true;
         # telegram.enable = true;
       };

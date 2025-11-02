@@ -15,16 +15,6 @@
 }:
 with lib; let
   cfg = config.home;
-  mkOpt = type: default:
-    mkOption {inherit type default;};
-  mkOpt' = type: default: description:
-    mkOption {inherit type default description;};
-
-  userHmCfg = {
-    programs = config.home.programs;
-    services = config.home.services;
-    home.packages = config.home.packages;
-  };
 in {
   options.home = with types; {
     file = mkOpt' attrs {} "Files to place directly in $HOME";
@@ -76,6 +66,7 @@ in {
         lib.recursiveUpdate {
           home = {
             file = mkAliasDefinitions options.home.file;
+            packages = mkAliasDefinitions options.home.packages;
             # Necessary for home-manager to work with flakes, otherwise it will
             # look for a nixpkgs channel.
             stateVersion = config.system.stateVersion;
@@ -92,11 +83,12 @@ in {
             dataHome = mkForce cfg.dataDir;
             stateHome = mkForce cfg.stateDir;
           };
+          programs = mkAliasDefinitions options.home.programs;
+          services = mkAliasDefinitions options.home.services;
           # make HM-managed GTK stuff work
           dconf.enable = true;
         }
-        (lib.recursiveUpdate userHmCfg
-          config.home.extraConfig);
+        config.home.extraConfig;
     };
   };
 }

@@ -13,8 +13,7 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    # home-manager.users.${config.user.name}.imports = [inputs.nix4nvchad.homeManagerModule];
-    home.extraConfig.imports = [inputs.nix4nvchad.homeManagerModule];
+    home-manager.users.${config.user.name}.imports = [inputs.nix4nvchad.homeManagerModule];
 
     home.programs.nvchad = {
       enable = true;

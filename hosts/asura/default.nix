@@ -45,8 +45,16 @@
         ayugram.enable = true;
       };
       browsers.qutebrowser.enable = true;
-      terminal.kitty.enable = true;
-      terminal.shells.nushell.enable = true;
+      terminal = {
+        kitty.enable = true;
+        shells.nushell.enable = true;
+        programs = {
+          atuin.enable = true;
+          direnv.enable = true;
+          yazi.enable = true;
+          zoxide.enable = true;
+        };
+      };
       # games.enable = true;
       # office.zathura.enable = true;
       # office.openOffice.enable = true;

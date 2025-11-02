@@ -4,16 +4,17 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.terminal.direnv;
+  cfg = config.modules.desktop.terminal.programs.direnv;
+  nushellCfg = config.modules.desktop.terminal.shells.nushell;
 in {
-  options.modules.desktop.terminal.direnv = with types; {
-    enable = mkEnableOption "Whether to enable direnv or not";
+  options.modules.desktop.terminal.programs.direnv = with types; {
+    enable = mkEnableOption "Whether to enable direnv";
   };
 
   config = mkIf (cfg.enable) {
     home.programs.direnv = {
       enable = true;
-      enableNushellIntegration = config.modules.desktop.terminal.shell.nushell.enable;
+      enableNushellIntegration = nushellCfg.enable;
       nix-direnv.enable = true;
     };
   };

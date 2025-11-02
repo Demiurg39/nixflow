@@ -4,8 +4,7 @@ with lib; {
     ./programs/kanata.nix
     ./programs/obs.nix
     ./programs/telegram.nix
-    ./terminal/kitty.nix
-    ./terminal/shells/nushell.nix
+    ./terminal
     ./browsers
     ./gnome.nix
   ];

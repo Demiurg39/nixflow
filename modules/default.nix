@@ -9,11 +9,11 @@
 }:
 with lib; {
   imports = [
-    ./home.nix
-    ./profiles
-    ./security
     ./desktop
     ./development
+    ./profiles
+    ./security
+    ./home.nix
   ];
 
   options = with types; {
@@ -47,7 +47,7 @@ with lib; {
     };
     users.users.${config.user.name} = mkAliasDefinitions options.user;
     environment.variables.FLAKE = "${config.user.home}/nixflow";
-    environment.systemPackages = [pkgs.git];
+    environment.systemPackages = [pkgs.git pkgs.just];
 
     programs.nix-ld.enable = true;
 

@@ -8,7 +8,6 @@ with lib; let
 in {
   options.modules.desktop.games.gamescope = {
     enable = mkEnableOption "TODO";
-    wayland.enable = mkEnableOption "TODO";
   };
 
   config = mkIf (cfg.enable) {
@@ -20,13 +19,13 @@ in {
         # failed to inherit capabilities: Operation not permitted
         # check https://discourse.nixos.org/t/unable-to-activate-gamescope-capsysnice-option/37843
         capSysNice = true;
-        args = [
-          "--rt"
-          # TODO: make option like wayland.enable and insert in that list
-          # "--expose-wayland"
-          "--grab"
-          "--force-grab-cursor"
-        ];
+        args =
+          [
+            "--rt"
+            "--grab"
+            "--force-grab-cursor"
+          ]
+          ++ optionals (config.modules.desktop.type) ["--expose-wayland"];
       };
     };
   };

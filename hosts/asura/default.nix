@@ -32,11 +32,10 @@
     };
 
     desktop = {
-      # NOTE: maybe try mangowc - https://github.com/DreamMaoMao/mangowc
-      # hyprland = {
-      #   enable = true;
-      #   monitor = ["eDP-1,1920x1080@144,0x0,1"];
-      # };
+      mangowc = {
+        enable = true;
+        # monitor = ["eDP-1,1920x1080@144,0x0,1"];
+      };
       gnome.enable = true;
       programs = {
         kanata.enable = true;

@@ -7,6 +7,7 @@ with lib; {
     ./terminal
     ./browsers
     ./gnome.nix
+    ./mangowc.nix
   ];
   options.modules.desktop = with types; {
     type = mkOption {

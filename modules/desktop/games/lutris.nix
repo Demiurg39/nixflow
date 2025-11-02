@@ -10,8 +10,8 @@ with lib; let
 in {
   options.modules.desktop.games.lutris = {
     enable = mkEnableOption "TODO";
-    protonPackages = mkOption {};
-    winePackages = mkOption {};
+    protonPackages = mkOpt' (types.listOf packages) [] "TODO";
+    winePackages = mkOpt' (types.listOf packages) [] "TODO";
   };
 
   config = mkIf (cfg.enable) {
@@ -22,10 +22,8 @@ in {
         if (steamCfg.enable)
         then osConfig.programs.steam.package
         else pkgs.steam;
-      # TODO: insert here cfg.protonPackages ? [pkgs.proton-ge-bin]
-      protonPackages = [pkgs.proton-ge-bin];
-      # TODO: winePackages = cfg.winePackages ? [pkgs.wineWow64Packages.full];
-      winePackages = [pkgs.wineWow64Packages.full];
+      protonPackages = [(cfg.protonPackages ? pkgs.proton-ge-bin)];
+      winePackages = [(winePackages ? pkgs.wineWow64Packages.full)];
     };
 
     home.packages = [pkgs.protonup-qt];

@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./browsers
+    ./office
     ./terminal
     ./programs
     ./gnome.nix

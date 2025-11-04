@@ -56,7 +56,7 @@
       };
       # games.enable = true;
       # office.zathura.enable = true;
-      # office.openOffice.enable = true;
+      office.onlyoffice.enable = true;
     };
 
     development = {

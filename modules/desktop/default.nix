@@ -1,11 +1,9 @@
 {lib, ...}:
 with lib; {
   imports = [
-    ./programs/kanata.nix
-    ./programs/obs.nix
-    ./programs/telegram.nix
-    ./terminal
     ./browsers
+    ./terminal
+    ./programs
     ./gnome.nix
     ./mangowc.nix
   ];

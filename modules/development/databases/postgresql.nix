@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.development.database.postgres;
+  cfg = config.modules.development.databases.postgresql;
 in {
-  options.modules.development.database.postgres = {
+  options.modules.development.databases.postgresql = {
     enable = mkEnableOption "TODO";
   };
   config = mkIf (cfg.enable) {

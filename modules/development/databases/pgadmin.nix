@@ -5,11 +5,11 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.development.database.postgres.pgadmin;
-  postgresCfg = config.modules.development.database.postgres;
+  cfg = config.modules.development.databases.postgresql.pgadmin;
+  postgresCfg = config.modules.development.databases.postgresql;
   initialEmail = "admin@email.com";
 in {
-  options.modules.development.database.postgres.pgadmin = {
+  options.modules.development.databases.postgresql.pgadmin = {
     enable = mkEnableOption "TODO";
   };
   config = mkIf (cfg.enable && postgresCfg.enable) {

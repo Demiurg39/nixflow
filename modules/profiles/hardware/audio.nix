@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -14,6 +15,8 @@ in
       pulse.enable = true;
       wireplumber.enable = true;
     };
+
+    environment.systemPackages = [pkgs.pavucontrol];
 
     user.extraGroups = ["audio"];
 

@@ -21,6 +21,7 @@ in {
     configFile = mkOpt' attrs {} "Files to place in $XDG_CONFIG_HOME";
     dataFile = mkOpt' attrs {} "Files to place in $XDG_DATA_HOME";
     fakeFile = mkOpt' attrs {} "Files to place in $XDG_FAKE_HOME";
+    mutableConfigFile = mkOpt' attrs {} "Mutable symlinks in $XDG_CONFIG_HOME";
 
     dir = mkOpt str "${config.user.home}";
     binDir = mkOpt str "${cfg.dir}/.local/bin";
@@ -48,7 +49,7 @@ in {
       XDG_DATA_HOME = cfg.dataDir;
       XDG_STATE_HOME = cfg.stateDir;
 
-      # This is not in the XDG standard. It's my jail for stubborn programs,
+      # This is not in the XDG standard. It's my jail stubborn programs,
       # like Firefox, Steam, and LMMS.
       XDG_FAKE_HOME = cfg.fakeDir;
       XDG_DESKTOP_DIR = cfg.fakeDir;
@@ -62,33 +63,38 @@ in {
       backupFileExtension = "hm-backup";
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.${config.user.name} =
-        lib.recursiveUpdate {
-          home = {
-            file = mkAliasDefinitions options.home.file;
-            packages = mkAliasDefinitions options.home.packages;
-            # Necessary for home-manager to work with flakes, otherwise it will
-            # look for a nixpkgs channel.
-            stateVersion = config.system.stateVersion;
-          };
-          xdg = {
-            # enable = true;
-            configFile = mkAliasDefinitions options.home.configFile;
-            dataFile = mkAliasDefinitions options.home.dataFile;
+      users.${config.user.name} = {...} @ hmArgs:
+        lib.mkMerge [
+          {
+            home = {
+              file = mkAliasDefinitions options.home.file;
+              packages = mkAliasDefinitions options.home.packages;
+              stateVersion = config.system.stateVersion;
+            };
+            xdg = {
+              configFile = mkAliasDefinitions options.home.configFile;
+              dataFile = mkAliasDefinitions options.home.dataFile;
 
-            # Force these, since it'll be considered an abstraction leak to use
-            # home-manager's API anywhere outside this module.
-            cacheHome = mkForce cfg.cacheDir;
-            configHome = mkForce cfg.configDir;
-            dataHome = mkForce cfg.dataDir;
-            stateHome = mkForce cfg.stateDir;
-          };
-          programs = mkAliasDefinitions options.home.programs;
-          services = mkAliasDefinitions options.home.services;
-          # make HM-managed GTK stuff work
-          dconf.enable = true;
-        }
-        config.home.extraConfig;
+              cacheHome = mkForce cfg.cacheDir;
+              configHome = mkForce cfg.configDir;
+              dataHome = mkForce cfg.dataDir;
+              stateHome = mkForce cfg.stateDir;
+            };
+            programs = mkAliasDefinitions options.home.programs;
+            services = mkAliasDefinitions options.home.services;
+            dconf.enable = true;
+          }
+
+          {
+            xdg.configFile =
+              mapAttrs (name: path: {
+                source = hmArgs.config.lib.file.mkOutOfStoreSymlink path;
+              })
+              cfg.mutableConfigFile;
+          }
+
+          cfg.extraConfig
+        ];
     };
   };
 }

@@ -17,11 +17,19 @@ with lib; {
   ];
 
   options = with types; {
-    flake.configDir = mkOption {
-      type = path;
-      readOnly = true;
-      default = "${self}/config";
-      description = "Path to flake config directory";
+    flake = {
+      configDir = mkOption {
+        type = path;
+        readOnly = true;
+        default = "${self}/config";
+        description = "Path to flake config directory (nix-store path)";
+      };
+      configDirStr = mkOption {
+        type = str;
+        readOnly = true;
+        default = "/home/${config.user.name}/nixflow/config";
+        description = "String path to flake config directory (primarly use for mutable links)";
+      };
     };
     user = mkOption {
       type = attrs;

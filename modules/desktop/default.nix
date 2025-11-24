@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 with lib; let
   desktop_types = ["wayland" "x11"];
 in {
@@ -18,4 +22,20 @@ in {
       description = ''Desktop type for defining which using now'';
     };
   };
+
+  config = mkMerge [
+    (mkIf (config.modules.desktop.type == "wayland") {
+      home.services.cliphist = {
+        enable = true;
+        extraOptions = [
+          "-max-dedupe-search"
+          "20"
+          "-max-items"
+          "500"
+        ];
+      };
+    })
+
+    (mkIf (config.modules.desktop.type == "x11") {})
+  ];
 }

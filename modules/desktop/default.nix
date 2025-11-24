@@ -1,5 +1,7 @@
 {lib, ...}:
-with lib; {
+with lib; let
+  desktop_types = ["wayland" "x11"];
+in {
   imports = [
     ./browsers
     ./office
@@ -10,7 +12,7 @@ with lib; {
   ];
   options.modules.desktop = with types; {
     type = mkOption {
-      type = nullOr str;
+      type = nullOr (enum desktop_types);
       default = null;
       example = "wayland";
       description = ''Desktop type for defining which using now'';

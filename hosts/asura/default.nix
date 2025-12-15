@@ -34,7 +34,17 @@
     desktop = {
       mangowc = {
         enable = true;
-        # monitor = ["eDP-1,1920x1080@144,0x0,1"];
+        monitors = [
+          {
+            output = "eDP-1";
+            width = "1920";
+            height = "1080";
+            refresh_rate = "144";
+            x = 0;
+            y = 0;
+            scale = 1.0;
+          }
+        ];
       };
       gnome.enable = true;
       programs = {
@@ -55,7 +65,7 @@
         };
       };
       # games.enable = true;
-      # office.zathura.enable = true;
+      office.zathura.enable = true;
       office.onlyoffice.enable = true;
     };
 

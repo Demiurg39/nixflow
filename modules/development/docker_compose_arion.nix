@@ -12,7 +12,11 @@ in {
     enable = mkEnableOption "Whether to enable docker compose wia arion";
   };
   config = mkIf (cfg.enable) {
-    environment.systemPackages = [pkgs.arion pkgs.docker-client];
+    environment.systemPackages = [
+      pkgs.arion
+      pkgs.docker-client
+      pkgs.podman-compose
+    ];
     user.extraGroups = ["docker"];
 
     virtualisation.docker.enable = false;

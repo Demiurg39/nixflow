@@ -13,6 +13,7 @@ in {
     ./programs
     ./gnome.nix
     ./mangowc.nix
+    ./virt/virt-manager.nix
   ];
   options.modules.desktop = with types; {
     type = mkOption {

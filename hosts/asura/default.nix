@@ -67,6 +67,8 @@
       # games.enable = true;
       office.zathura.enable = true;
       office.onlyoffice.enable = true;
+
+      virtualisation.qemu.enable = true;
     };
 
     development = {

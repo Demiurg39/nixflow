@@ -16,7 +16,7 @@ $env.config.edit_mode = "vi"
 $env.config.show_banner = false
 
 const NU_LIB_DIRS = [
-  ($nu.home-path | path join "nixflow/home/terminal/shell/nushell")
+  "~/nixflow/config/nushell"
 ]
 
 const NU_PLUGIN_DIRS = [

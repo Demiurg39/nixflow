@@ -31,6 +31,10 @@ with lib; {
         description = "String path to flake config directory (primarly use for mutable links)";
       };
     };
+    hostPlatform = mkOption {
+      type = str;
+      default = "";
+    };
     user = mkOption {
       type = attrs;
       default = {name = "";};

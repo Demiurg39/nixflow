@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  pkgs,
   lib,
   ...
 }:
@@ -15,18 +14,19 @@ in {
   config = mkIf (cfg.enable) {
     home-manager.users.${config.user.name}.imports = [inputs.spicetify-nix.homeManagerModules.default];
 
-    programs.spicetify = let
-      spicepkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+    home.programs.spicetify = let
+      spicepkgs = inputs.spicetify-nix.legacyPackages.${config.hostPlatform};
       spotifyTheme = spicepkgs.themes.dribbblish;
     in {
       enable = true;
-      wayland = true; 
+      # wayland = true; 
       enabledExtensions = with spicepkgs.extensions; [
         # adblock
-        aiBandBlocker
-        simpleBeautifulLyrics
-        betterGenres
-        playlisticons
+        # aiBandBlocker
+        # simpleBeautifulLyrics
+        # betterGenres
+        # powerBar
+        # playlistIcons
         keyboardShortcut
         shuffle
       ];

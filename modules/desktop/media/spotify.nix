@@ -16,22 +16,17 @@ in {
 
     home.programs.spicetify = let
       spicepkgs = inputs.spicetify-nix.legacyPackages.${config.hostPlatform};
-      spotifyTheme = spicepkgs.themes.dribbblish;
     in {
       enable = true;
-      # wayland = true; 
+      wayland = true;
       enabledExtensions = with spicepkgs.extensions; [
-        # adblock
-        # aiBandBlocker
-        # simpleBeautifulLyrics
-        # betterGenres
-        # powerBar
-        # playlistIcons
+        aiBandBlocker
+        playlistIcons
         keyboardShortcut
         shuffle
       ];
 
-      theme = spotifyTheme;
+      theme = spicepkgs.themes.hazy;
     };
   };
 }

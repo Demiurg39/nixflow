@@ -65,6 +65,7 @@
         };
       };
       # games.enable = true;
+      media.spotify.enable = true;
       office.zathura.enable = true;
       office.onlyoffice.enable = true;
 

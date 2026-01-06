@@ -8,6 +8,7 @@ with lib; let
 in {
   imports = [
     ./browsers
+    ./media
     ./office
     ./terminal
     ./programs

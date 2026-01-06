@@ -12,9 +12,11 @@ in {
     ./office
     ./terminal
     ./programs
-    ./gnome.nix
-    ./mangowc.nix
     ./virt/virt-manager.nix
+    ./axshell.nix
+    ./gnome.nix
+    ./hyprland.nix
+    ./mangowc.nix
   ];
   options.modules.desktop = with types; {
     type = mkOption {

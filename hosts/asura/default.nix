@@ -46,6 +46,17 @@
           }
         ];
       };
+      hyprland.enable = {
+        enable = true;
+        # ax-shell.enable = true;
+        monitors = [
+          {
+            output = "eDP-1";
+            resolution = "1920x1080@144";
+            primary = true;
+          }
+        ];
+      };
       gnome.enable = true;
       programs = {
         kanata.enable = true;

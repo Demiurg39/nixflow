@@ -23,5 +23,7 @@ in {
       configFile.source = "${config.flake.configDir}/nushell/config.nu";
       extraEnv = builtins.readFile "${config.flake.configDir}/nushell/env.nu";
     };
+
+    environment.shells = [pkgs.nushell];
   };
 }

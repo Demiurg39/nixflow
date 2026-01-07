@@ -1,30 +1,31 @@
 {
   config,
   inputs,
+  pkgs,
   lib,
   ...
 }:
 with lib; let
   cfg = config.modules.desktop.hyprland;
   axshellCfg = config.modules.desktop.hyprland.ax-shell;
-  axshellSettings = config.home.programs.ax-shell;
+  axshellSettings =
+    if axshellCfg.enable
+    then config.home-manager.users.${config.user.name}.programs.ax-shell
+    else {};
 
   animation_type =
-    if
-      builtins.elem axshellSettings.bar.position [
-        "Left"
-        "Right"
-      ]
+    if axshellCfg.enable && (builtins.elem axshellSettings.bar.position ["Left" "Right"])
     then "slidefadevert"
     else "slidefade";
 in {
-  options.modules.desktop.hyprland = {
+  options.modules.desktop.hyprland = with types; {
     enable = mkEnableOption "TODO: ";
     extraConfig = mkOpt lines "";
     monitors = mkOpt (listOf (submodule {
       options = {
         output = mkOpt str "";
         resolution = mkOpt str "preferred";
+        refresh_rate = mkOpt int 60;
         position = mkOpt str "auto";
         scale = mkOpt int 1;
         disable = mkOpt bool false;
@@ -41,20 +42,67 @@ in {
       package = inputs.hyprland.packages.${config.hostPlatform}.hyprland;
       portalPackage = inputs.hyprland.packages.${config.hostPlatform}.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
+      withUWSM = true;
     };
 
-    hardware.graphics = {
-      package = pkgs.unstable.mesa;
-      package32 = pkgs.unstable.pkgsi686Linux.mesa;
-    };
+    # hardware.graphics = {
+    #   package = pkgs.unstable.mesa;
+    #   package32 = pkgs.unstable.pkgsi686Linux.mesa;
+    # };
 
     environment.sessionVariables = {
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       NIXOS_OZONE_WL = "1";
       MOZ_ENABLE_WAYLAND = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
     };
 
     security.pam.services.hyprlock = {};
+
+    # home.file.".config/uwsm/env".text = ''
+    #   # --- Toolkit backend vars ---
+    #   export GDK_BACKEND=wayland,x11,*
+    #   export QT_QPA_PLATFORM=wayland;xcb
+    #   # "_JAVA_AWT_WM_NONREPARENTING,1"
+    #
+    #   # --- Qt vars ---
+    #   export QT_AUTO_SCREEN_SCALE_FACTOR=1
+    #   export QT_QPA_PLATFORMTHEME=qt5ct
+    #   export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+    # '';
+
+    # # --- Cursor ---
+    # export HYPRCURSOR_THEME=Bibata-Modern-Classic
+    # export HYPRCURSOR_SIZE=24
+    # export XCURSOR_THEME=Bibata-Modern-Classic
+    # export XCURSOR_SIZE=24
+
+    # # █▄░█ █░█ █ █▀▄ █ ▄▀█
+    # # █░▀█ ▀▄▀ █ █▄▀ █ █▀█
+    #
+    # # See https://wiki.hyprland.org/Nvidia/
+    # export LIBVA_DRIVER_NAME=nvidia
+    #   export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    #   export GBM_BACKEND=nvidia-drm
+    #   export __GL_VRR_ALLOWED=0
+    #   # "WLR_DRM_NO_ATOMIC,1"
+    #   "WLR_NO_HARDWARE_CURSORS,1"
+    #
+    home.extraConfig.gtk = {
+      enable = true;
+
+      colorScheme = "dark";
+
+      theme = {
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
+      };
+
+      iconTheme = {
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus-Dark";
+      };
+    };
 
     ## Bootloader.
     # services.greetd = {
@@ -81,7 +129,14 @@ in {
       };
 
       extraConfig = ''
-        source = ${axshellSettings.hyprlandColorsConfPath}
+        ${
+          if axshellCfg.enable
+          then "source = ${axshellSettings.hyprlandColorsConfPath}"
+          else ''
+            $primary = "rgba(0DB7D4FF)";
+            $surface = "rgba(31313600)";
+          ''
+        }
 
         general {
           col.active_border = rgb($primary)
@@ -99,9 +154,14 @@ in {
 
         # See https://wiki.hyprland.org/Configuring/Monitors/
 
-        monitor = [
-          ",preferred,auto,auto"
-        ]; # NOTE: add here monitor from module config
+        monitor = let
+          mkMonitorString = m:
+            if m.disable
+            then "${m.output},disable"
+            else "${m.output},${m.resolution}@${toString m.refresh_rate},${m.position},${toString m.scale}";
+        in
+          (map mkMonitorString config.modules.desktop.hyprland.monitors)
+          ++ [",preferred,auto,1"];
 
         # █ █▄░█ █▀█ █░█ ▀█▀
         # █ █░▀█ █▀▀ █▄█ ░█░
@@ -358,7 +418,11 @@ in {
             "$mainMod+Shift+Ctrl, S, movetoworkspacesilent, special"
           ]
           # --- Ax-Shell Integration ---
-          ++ (mkIf (axshellCfg.enable) axshellSettings.hyprlandBinds);
+          ++ (
+            if axshellCfg.enable
+            then axshellSettings.hyprlandBinds
+            else []
+          );
 
         binde = [
           # Resize windows
@@ -381,9 +445,7 @@ in {
 
         bindl = [
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle" # toggle audio mute
-          # ", XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
           ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle" # toggle microphone mute
-          # "$mainMod+Shift, V, exec, ags run-js 'indicator.popup(1);'"
         ];
 
         bindel = [
@@ -422,7 +484,11 @@ in {
             "easyeffects --gapplication-service"
           ]
           # Merge Ax-Shell's startup commands with your own.
-          ++ (mkIf (axshellCfg.enable) axshellSettings.hyprlandExecOnce);
+          ++ (
+            if axshellCfg.enable
+            then axshellSettings.hyprlandExecOnce
+            else []
+          );
       };
     };
   };

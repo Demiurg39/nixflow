@@ -15,6 +15,7 @@ in
       {
         services.xserver.videoDrivers = mkDefault ["nvidia"];
         user.extraGroups = ["video"];
+        boot.kernelModules = ["nvidia_uvm"];
 
         hardware = {
           graphics.extraPackages = [pkgs.vaapiVdpau];

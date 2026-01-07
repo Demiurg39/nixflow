@@ -9,7 +9,7 @@
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelParams = ["acpi_backlight=native"];
-  boot.kernelModules = ["kvm-amd" "nvidia_uvm"];
+  boot.kernelModules = [];
   boot.supportedFilesystems = ["btrfs"];
   boot.extraModulePackages = [];
 

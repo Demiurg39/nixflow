@@ -12,4 +12,5 @@ in
     # performance scaling for modern AMD processors
     # allows more efficient frequency management
     boot.kernelParams = ["amd_pstate=active"]; # For Linux 6.3+
+    boot.kernelModules = ["kvm-amd"];
   }

@@ -13,11 +13,17 @@ in {
     withoutLogin = mkOption {
       type = bool;
       default = true;
-      description = ''If true, packet tracer will be run in firejail to preven login'';
+      description = ''If true, packet tracer will be run in firejail to prevent login'';
     };
   };
 
   config = mkMerge [
+    {
+      nixpkgs.config.permittedInsecurePackages = [
+        pkgs.ciscoPacketTracer8
+        "ciscoPacketTracer8-8.2.2"
+      ];
+    }
     (mkIf (cfg.enable && !cfg.withoutLogin) {
       environment.systemPackages = [pkgs.ciscoPacketTracer8];
     })

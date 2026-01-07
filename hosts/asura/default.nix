@@ -11,9 +11,7 @@
       hardware = [
         "cpu/amd"
         "gpu/amd"
-        # INFO: temporary removed
-        # Cause it need some fixes with suspending
-        # "gpu/nvidia"
+        "gpu/nvidia"
         "audio"
         "bluetooth"
         "ssd"
@@ -33,7 +31,7 @@
 
     desktop = {
       mangowc = {
-        enable = true;
+        enable = false;
         monitors = [
           {
             output = "eDP-1";
@@ -46,13 +44,15 @@
           }
         ];
       };
-      hyprland.enable = {
-        enable = true;
+      hyprland = {
+        enable = false;
+        # NOTE: tweak it further
         # ax-shell.enable = true;
         monitors = [
           {
             output = "eDP-1";
-            resolution = "1920x1080@144";
+            resolution = "1920x1080";
+            refresh_rate = 144;
             primary = true;
           }
         ];

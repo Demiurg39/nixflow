@@ -62,6 +62,7 @@ with lib; {
     environment.systemPackages = [pkgs.git pkgs.just];
 
     programs.nix-ld.enable = true;
+    programs.nh.enable = true;
 
     nix = let
       filteredInputs = filterAttrs (_: v: isType "flake" v) inputs;

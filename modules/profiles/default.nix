@@ -27,28 +27,5 @@ with lib; {
         example = "workstation";
       };
     };
-
-    nvidia.dynamicBoost.enable = mkEnableOption "NVIDIA dynamic boost enable";
-    nvidia.prime = {
-      enable = mkEnableOption "NVIDIA PRIME Render Offload";
-      amdgpuBusId = mkOption {
-        type = str;
-        default = "";
-        example = "PCI:05:0:0";
-        description = ''
-          The PCI Bus ID of the integrated AMD GPU.
-          This is required to configure PRIME Render Offload.
-        '';
-      };
-      nvidiaBusId = mkOption {
-        type = str;
-        default = "";
-        example = "PCI:05:0:0";
-        description = ''
-          The PCI Bus ID of the discrete NVIDIA GPU.
-          This is required to configure PRIME Render Offload.
-        '';
-      };
-    };
   };
 }

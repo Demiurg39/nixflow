@@ -20,13 +20,12 @@ in {
       enable = true;
       wayland = true;
       enabledExtensions = with spicepkgs.extensions; [
-        aiBandBlocker
-        playlistIcons
+        betterGenres
         keyboardShortcut
         shuffle
       ];
 
-      theme = spicepkgs.themes.hazy;
+      theme = spicepkgs.themes.defaultDynamic;
     };
   };
 }

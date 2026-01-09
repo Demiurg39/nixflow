@@ -64,7 +64,6 @@ in {
         # set rus layout
         # and set win_space_toggle
         "org/gnome/desktop/interface" = {
-          accent-color = "blue";
           color-scheme = "prefer-dark";
         };
 

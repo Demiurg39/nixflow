@@ -8,6 +8,16 @@ with lib; let
   cfg = config.modules.nvidia;
   profiles = config.modules.profiles;
   hardware = config.modules.profiles.hardware;
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+
+    export LD_LIBRARY_PATH=/run/opengl-driver/lib:/run/opengl-driver-32/lib:$LD_LIBRARY_PATH
+
+    exec "$@"
+  '';
 in {
   options.modules.nvidia = with types; {
     dynamicBoost.enable = mkEnableOption "NVIDIA dynamic boost enable";
@@ -48,6 +58,7 @@ in {
         user.extraGroups = ["video"];
         boot.kernelModules = ["nvidia_uvm"];
         boot.blacklistedKernelModules = ["nouveau"];
+        environment.systemPackages = [nvidia-offload];
 
         hardware = {
           graphics.enable = true;

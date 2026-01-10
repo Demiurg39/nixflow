@@ -59,6 +59,10 @@ in {
         boot.kernelModules = ["nvidia_uvm"];
         boot.blacklistedKernelModules = ["nouveau"];
         environment.systemPackages = [nvidia-offload];
+        boot.extraModprobeConfig = ''
+          options nvidia "NVreg_DynamicPowerManagement=0x02"
+          options nvidia "NVreg_PreserveVideoMemoryAllocations=1"
+        '';
 
         hardware = {
           graphics.enable = true;
@@ -107,6 +111,14 @@ in {
         # Turns off GPU when not in use
         powerManagement.finegrained = true;
       };
+
+      services.udev.extraRules = ''
+        ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto"
+        ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto"
+        ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto"
+        ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="auto"
+        ACTION=="bind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="auto"
+      '';
     })
     {
       assertions = [

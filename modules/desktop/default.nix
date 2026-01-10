@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -29,6 +30,7 @@ in {
 
   config = mkMerge [
     (mkIf (config.modules.desktop.type == "wayland") {
+      environment.systemPackages = [pkgs.wl-clipboard];
       home.services.cliphist = {
         enable = true;
         extraOptions = [

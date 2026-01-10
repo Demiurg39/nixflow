@@ -9,6 +9,7 @@ with lib; let
 in {
   imports = [
     ./browsers
+    ./games
     ./media
     ./office
     ./terminal

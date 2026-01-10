@@ -75,7 +75,12 @@
           zoxide.enable = true;
         };
       };
-      # games.enable = true;
+      games = {
+        steam.enable = true;
+        gamemode.enable = true;
+        gamescope.enable = true;
+        lutris.enable = true;
+      };
       media.spotify.enable = true;
       office.zathura.enable = true;
       office.onlyoffice.enable = true;

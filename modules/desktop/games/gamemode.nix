@@ -13,12 +13,17 @@ in {
   config = mkIf (cfg.enable) {
     programs.gamemode = {
       enable = true;
+      enableRenice = true;
       settings = {
         general = {
           softrealtime = "auto";
-          renice = 15;
+          renice = 10;
+          inhibit_screensaver = 1;
+          disable_splitlock = 1;
         };
       };
     };
+
+    user.extraGroups = ["gamemode"];
   };
 }

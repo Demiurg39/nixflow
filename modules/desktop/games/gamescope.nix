@@ -25,7 +25,7 @@ in {
             "--grab"
             "--force-grab-cursor"
           ]
-          ++ optionals (config.modules.desktop.type) ["--expose-wayland"];
+          ++ optionals (config.modules.desktop.type == "wayland") ["--expose-wayland"];
       };
     };
   };

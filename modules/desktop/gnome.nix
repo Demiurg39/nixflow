@@ -9,11 +9,12 @@ with lib; let
   hasPrime = config.modules.nvidia.prime.enable;
 
   extensions = [
-    pkgs.gnomeExtensions.blur-my-shell
     pkgs.gnomeExtensions.appindicator
-    pkgs.gnomeExtensions.clipboard-indicator
     pkgs.gnomeExtensions.caffeine
+    pkgs.gnomeExtensions.clipboard-indicator
+    pkgs.gnomeExtensions.blur-my-shell
     pkgs.gnomeExtensions.just-perfection
+    pkgs.gnomeExtensions.rounded-window-corners-reborn
     pkgs.gnomeExtensions.vitals
   ];
 in {
@@ -27,6 +28,9 @@ in {
         papirus-icon-theme
         bibata-cursors
         refine # instead of gnome tweaks
+        glib
+        gtk3
+        gsettings-desktop-schemas
       ]
       ++ extensions;
 
@@ -34,6 +38,13 @@ in {
     services.displayManager.gdm.wayland = true;
 
     services.desktopManager.gnome.enable = true;
+
+    environment.sessionVariables = {
+      XDG_DATA_DIRS = [
+        "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+        "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+      ];
+    };
 
     # Removing unneded gnome packages
     services.gnome.core-developer-tools.enable = false;

@@ -14,6 +14,7 @@
         "gpu/nvidia"
         "audio"
         "bluetooth"
+        "tablet"
         "ssd"
         "wifi"
         "zram"

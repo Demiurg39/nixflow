@@ -6,6 +6,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./ssd.nix
+    ./tablet.nix
     ./wifi.nix
     ./zram.nix
   ];

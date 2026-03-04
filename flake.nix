@@ -63,6 +63,10 @@
       inputs.nvchad-starter.follows = "nvim-dots";
     };
 
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak.inputs.nixpkgs.follows = "nixpkgs";
+
     mango = {
       url = "github:DreamMaoMao/mango";
       inputs.nixpkgs.follows = "nixpkgs";

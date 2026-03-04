@@ -13,6 +13,7 @@ with lib; {
     ./development
     ./profiles
     ./security
+    ./system/flatpak.nix
     ./home.nix
   ];
 

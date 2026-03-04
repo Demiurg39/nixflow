@@ -83,6 +83,7 @@
         lutris.enable = true;
       };
       media.spotify.enable = true;
+      media.blender.enable = true;
       office.zathura.enable = true;
       office.onlyoffice.enable = true;
 
@@ -96,6 +97,8 @@
       networks.packettracer.enable = true;
       #   adb.enable = true;
     };
+
+    system.flatpak.enable = true;
 
     # security = {
     #   usbguard = {

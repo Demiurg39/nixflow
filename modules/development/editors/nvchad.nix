@@ -33,7 +33,7 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    home-manager.users.${config.user.name}.imports = [inputs.nix4nvchad.homeManagerModule];
+    home.modules = [inputs.nix4nvchad.homeManagerModule];
 
     home.packages = [
       pkgs.cargo

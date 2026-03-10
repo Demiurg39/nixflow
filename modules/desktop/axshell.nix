@@ -35,32 +35,30 @@ in {
 
   config = mkIf (cfg.enable) {
     nixpkgs.overlays = [inputs.ax-shell.overlays.default];
-    home-manager.users.${config.user.name} = {
-      imports = [inputs.ax-shell.homeManagerModules.default];
+    home.modules = [inputs.ax-shell.homeManagerModules.default];
 
-      programs.ax-shell = {
-        enable = true;
-        settings = {
-          # --- Cursor ---
-          # cursor = {
-          #   package = pkgs.oreo-cursors-plus;
-          #   name = "oreo_black_cursors";
-          #   size = 24;
-          # };
+    home.programs.ax-shell = {
+      enable = true;
+      settings = {
+        # --- Cursor ---
+        # cursor = {
+        #   package = pkgs.oreo-cursors-plus;
+        #   name = "oreo_black_cursors";
+        #   size = 24;
+        # };
 
-          # --- Bar & Dock ---
-          bar = {
-            position = "Top"; # "Top", "Bottom", "Left", "Right"
-            theme = "Pills"; # "Pills", "Dense", "Edge"
-          };
-          dock.enable = false; # Disable the dock
-          panel.theme = "Notch"; # "Notch", "Panel"
+        # --- Bar & Dock ---
+        bar = {
+          position = "Top"; # "Top", "Bottom", "Left", "Right"
+          theme = "Pills"; # "Pills", "Dense", "Edge"
+        };
+        dock.enable = false; # Disable the dock
+        panel.theme = "Notch"; # "Notch", "Panel"
 
-          # --- Keybindings ---
-          keybindings.launcher = {
-            prefix = "SUPER";
-            suffix = "SPACE";
-          };
+        # --- Keybindings ---
+        keybindings.launcher = {
+          prefix = "SUPER";
+          suffix = "SPACE";
         };
       };
     };

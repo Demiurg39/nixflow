@@ -77,7 +77,7 @@ in {
     ];
 
     # Add mango hm module
-    home-manager.users.${config.user.name}.imports = [inputs.mango.hmModules.mango];
+    home.modules = [inputs.mango.hmModules.mango];
 
     home.mutableConfigFile = {
       "mango/userconfig/config.conf" = "${config.flake.configDirStr}/mango/config.conf";

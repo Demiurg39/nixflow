@@ -35,6 +35,8 @@ in {
     programs = mkOpt' attrs {} "Declarative configuration for user programs via home-manager";
     services = mkOpt' attrs {} "Declarative configuration for user services via home-manager";
 
+    modules = mkOpt' (listOf unspecified) [] "External Home Manager modules to import.";
+
     extraConfig = mkOpt' attrs {} "Arbitrary, low-priority settings to pass directly to Home Manager.";
   };
 
@@ -57,21 +59,28 @@ in {
 
     home.file =
       mapAttrs' (k: v: nameValuePair "${config.home.fakeDir}/${k}" v)
-      config.home.fakeFile;
+      cfg.fakeFile;
 
     home-manager = {
       backupFileExtension = "hm-backup";
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.${config.user.name} = {...} @ hmArgs:
-        lib.mkMerge [
+      users.${config.user.name} = {
+        osConfig,
+        config,
+        ...
+      }: {
+        imports = cfg.modules;
+
+        config = lib.mkMerge [
           {
             home = {
               file = mkAliasDefinitions options.home.file;
               packages = mkAliasDefinitions options.home.packages;
-              stateVersion = config.system.stateVersion;
+              stateVersion = osConfig.system.stateVersion;
             };
             xdg = {
+              enable = true;
               configFile = mkAliasDefinitions options.home.configFile;
               dataFile = mkAliasDefinitions options.home.dataFile;
 
@@ -87,14 +96,15 @@ in {
 
           {
             xdg.configFile =
-              mapAttrs (name: path: {
-                source = hmArgs.config.lib.file.mkOutOfStoreSymlink path;
+              mapAttrs (name: file_path: {
+                source = config.lib.file.mkOutOfStoreSymlink file_path;
               })
               cfg.mutableConfigFile;
           }
 
           cfg.extraConfig
         ];
+      };
     };
   };
 }

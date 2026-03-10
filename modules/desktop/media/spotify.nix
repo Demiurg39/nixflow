@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    home-manager.users.${config.user.name}.imports = [inputs.spicetify-nix.homeManagerModules.default];
+    home.modules = [inputs.spicetify-nix.homeManagerModules.default];
 
     home.programs.spicetify = let
       spicepkgs = inputs.spicetify-nix.legacyPackages.${config.hostPlatform};

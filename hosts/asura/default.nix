@@ -31,30 +31,16 @@
     };
 
     desktop = {
-      mangowc = {
-        enable = false;
+      niri = {
+        enable = true;
         monitors = [
           {
-            output = "eDP-1";
-            width = "1920";
-            height = "1080";
-            refresh_rate = "144";
-            x = 0;
-            y = 0;
-            scale = 1.0;
-          }
-        ];
-      };
-      hyprland = {
-        enable = false;
-        # NOTE: tweak it further
-        # ax-shell.enable = true;
-        monitors = [
-          {
+            enable = true;
             output = "eDP-1";
             resolution = "1920x1080";
-            refresh_rate = 144;
+            refresh_rate = 144.0;
             primary = true;
+            vrr.enable = true;
           }
         ];
       };

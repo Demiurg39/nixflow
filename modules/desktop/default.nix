@@ -19,6 +19,7 @@ in {
     ./gnome.nix
     ./hyprland.nix
     ./mangowc.nix
+    ./niri.nix
   ];
   options.modules.desktop = with types; {
     type = mkOption {

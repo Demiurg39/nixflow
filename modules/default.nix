@@ -19,27 +19,13 @@ with lib; {
 
   options = with types; {
     flake = {
-      configDir = mkOption {
-        type = path;
-        readOnly = true;
-        default = "${self}/config";
-        description = "Path to flake config directory (nix-store path)";
-      };
-      configDirStr = mkOption {
-        type = str;
-        readOnly = true;
-        default = "/home/${config.user.name}/nixflow/config";
-        description = "String path to flake config directory (primarly use for mutable links)";
-      };
+      path = mkOpt' path "${self}" "Path to flake";
+      pathStr = mkOpt' str "/home/${config.user.name}/nixflow" "String path to flake";
+      configDir = mkOpt' path "${self}/config" "Path to flake config directory (nix-store path)";
+      configDirStr = mkOpt' str "/home/${config.user.name}/nixflow/config" "String path to flake config directory (primarly use for mutable links)";
     };
-    hostPlatform = mkOption {
-      type = str;
-      default = "";
-    };
-    user = mkOption {
-      type = attrs;
-      default = {name = "";};
-    };
+    hostPlatform = mkOpt str "";
+    user = mkOpt attrs {name = "";};
   };
 
   config = {
@@ -59,11 +45,15 @@ with lib; {
       uid = 1000;
     };
     users.users.${config.user.name} = mkAliasDefinitions options.user;
-    environment.variables.FLAKE = "${config.user.home}/nixflow";
+    environment.variables.NH_FLAKE = config.flake.pathStr;
     environment.systemPackages = [pkgs.git pkgs.just];
 
     programs.nix-ld.enable = true;
-    programs.nh.enable = true;
+    programs.nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep 3 --keep-since 3d";
+    };
 
     nix = let
       filteredInputs = filterAttrs (_: v: isType "flake" v) inputs;

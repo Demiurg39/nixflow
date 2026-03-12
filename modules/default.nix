@@ -13,6 +13,7 @@ with lib; {
     ./development
     ./profiles
     ./security
+    ./services/tailscale.nix
     ./system/flatpak.nix
     ./home.nix
   ];

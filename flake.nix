@@ -32,9 +32,6 @@
     # pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     # pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
 
-    # ags.url = "github:Aylur/ags/v1";
-    # ags.inputs.nixpkgs.follows = "nixpkgs";
-
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "";
@@ -74,12 +71,6 @@
       url = "github:poogas/Ax-Shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # quickshell = {
-    #   # add ?ref=<tag> to track a tag
-    #   url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     dms = {
       url = "github:AvengeMedia/DankMaterialShell/stable";

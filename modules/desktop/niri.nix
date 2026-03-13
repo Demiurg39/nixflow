@@ -177,7 +177,7 @@ in {
         window-rules = [];
 
         switch-events = {
-          # TODO: make something
+          # TODO: make something but only if workstation/laptop
           # lid-close.action.spawn = [];
           # lid-open.action.spawn = [];
         };
@@ -232,17 +232,19 @@ in {
           "Mod+D".hotkey-overlay.title = "Open clipboard manager";
 
           "Mod+Shift+M".action.spawn = dms_bind "dash toggle media";
-          # "Mod+Shift+M".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+M".hotkey-overlay.title = "Open media menu";
           "Mod+Shift+N".action.spawn = dms_bind "notifications toggle";
-          # "Mod+Shift+N".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+N".hotkey-overlay.title = "Open notifications menu";
           "Mod+Shift+E".action.spawn = dms_bind "dankdash wallpaper";
-          # "Mod+Shift+E".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+E".hotkey-overlay.title = "Open wallpaper switcher";
           "Mod+Shift+I".action.spawn = dms_bind "control-center toggle";
-          # "Mod+Shift+I".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+I".hotkey-overlay.title = "Open control center";
+          "Mod+Shift+O".action.spawn = dms_bind "dash toggle ";
+          "Mod+Shift+O".hotkey-overlay.title = "Open overview";
           "Mod+Shift+P".action.spawn = dms_bind "powermenu toggle";
-          # "Mod+Shift+P".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+P".hotkey-overlay.title = "Open powermenu";
           "Mod+Shift+L".action.spawn = dms_bind "lock lock";
-          # "Mod+Shift+L".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+L".hotkey-overlay.title = "Lock machine";
 
           "Mod+O".action.toggle-overview = {};
           "Mod+O".repeat = false;

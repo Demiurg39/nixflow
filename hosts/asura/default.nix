@@ -86,6 +86,8 @@
 
     system.flatpak.enable = true;
 
+    services.tailscale.enable = true;
+
     # security = {
     #   usbguard = {
     #     enable = true;

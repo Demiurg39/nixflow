@@ -1,0 +1,316 @@
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.desktop.niri;
+  role = config.modules.profiles.role;
+
+  dms_bind = cmd: ["dms" "ipc" "call"] ++ (splitString " " cmd);
+in {
+  imports = [
+    inputs.niri.nixosModules.niri
+    inputs.dms.nixosModules.dank-material-shell
+    inputs.dms.nixosModules.greeter
+  ];
+
+  options.modules.desktop.niri = with types; {
+    enable = mkEnableOption "Enable scrollable-tiling window manager";
+    monitors = mkOpt (listOf (submodule {
+      options = {
+        enable = mkOpt bool false;
+        output = mkOpt str "";
+        resolution = mkOpt' str "1920x1080" "Enter monitor in format <width>x<height>";
+        refresh_rate = mkOpt float 60;
+        scale = mkOpt int 1;
+        primary = mkOpt bool false;
+        vrr = {
+          enable = mkOpt' bool false "Whether to enable variable refresh rate (VRR) on this output";
+          on-demand = mkOpt' bool false "\"on-demand\" will enable VRR only when a window with window-rules.*.variable-refresh-rate is present on this output.";
+        };
+      };
+    })) [{}];
+  };
+
+  config = mkIf (cfg.enable) {
+    home.modules = [
+      inputs.dms.homeModules.dank-material-shell
+      inputs.dms.homeModules.niri
+    ];
+
+    nixpkgs.overlays = [inputs.niri.overlays.niri];
+    modules.desktop.type = "wayland";
+
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      MOZ_ENABLE_WAYLAND = "1";
+      WLR_NO_HARDWARE_CURSORS = "1";
+    };
+
+    environment.systemPackages = [pkgs.bibata-cursors];
+
+    programs.niri.enable = true;
+    programs.niri.package = pkgs.niri-unstable;
+
+    home.programs.niri = {
+      settings = {
+        input = {
+          mod-key = "Super";
+
+          keyboard.xkb = {
+            layout = "us,ru";
+            variant = "colemak_dh,";
+            options = "grp:win_space_toggle";
+          };
+
+          touchpad = mkIf (hasPrefix "workstation/laptop" role) {
+            enable = true;
+            tap = true;
+            tap-button-map = "left-right-middle";
+            natural-scroll = true;
+            scroll-method = "two-finger";
+            drag = true;
+          };
+
+          warp-mouse-to-focus = {};
+          focus-follows-mouse.enable = true;
+        };
+
+        layout = {
+          border = {
+            enable = false;
+            width = 8;
+            active = {};
+            inactive = {};
+            urgent = "";
+          };
+          gaps = 12;
+        };
+
+        gestures.hot-corners.enable = false;
+
+        outputs = listToAttrs (map (m: let
+          selectByCondition = conditions: default:
+            if conditions == []
+            then default
+            else let
+              first = builtins.head conditions;
+            in
+              if first.condition
+              then first.value
+              else selectByCondition (builtins.tail conditions) default;
+
+          parsed = splitString "x" m.resolution;
+          width = toInt (builtins.elemAt parsed 0);
+          height = toInt (builtins.elemAt parsed 1);
+
+          vrr =
+            selectByCondition [
+              {
+                condition = m.vrr.enable;
+                value = true;
+              }
+              {
+                condition = m.vrr.enable && m.vrr.on-demand;
+                value = "on-demand";
+              }
+            ]
+            false;
+        in {
+          name = m.output;
+          value = {
+            mode = {
+              width = width;
+              height = height;
+              refresh = m.refresh_rate;
+            };
+            scale = m.scale;
+            focus-at-startup = m.primary;
+            variable-refresh-rate = vrr;
+          };
+        }) (filter (m: m.enable && m.output != "") cfg.monitors));
+
+        screenshot-path = "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png";
+
+        cursor = {
+          size = 24;
+          theme = "Bibata-Modern-Ice";
+          hide-after-inactive-ms = 500;
+        };
+
+        environment = {
+          QT_QPA_PLATFORM = "wayland";
+          GDK_BACKEND = "wayland";
+        };
+
+        animations = {
+          enable = true;
+          workspace-switch = {
+            enable = true;
+            kind.spring = {
+              damping-ratio = 0.8;
+              stiffness = 1000;
+              epsilon = 0.0001;
+            };
+          };
+        };
+
+        workspaces = {
+          "1" = {};
+          "2" = {};
+          "3" = {};
+          "4" = {};
+          "5" = {};
+          "6" = {};
+          "7" = {};
+          "8" = {};
+          "9" = {};
+          "10" = {};
+        };
+
+        spawn-at-startup = [];
+
+        window-rules = [];
+
+        switch-events = {
+          # TODO: make something
+          # lid-close.action.spawn = [];
+          # lid-open.action.spawn = [];
+        };
+
+        # TODO: port my hyprland binds to here
+        binds = {
+          "Mod+1".action.focus-workspace = 1;
+          "Mod+2".action.focus-workspace = 2;
+          "Mod+3".action.focus-workspace = 3;
+          "Mod+4".action.focus-workspace = 4;
+          "Mod+5".action.focus-workspace = 5;
+          "Mod+6".action.focus-workspace = 6;
+          "Mod+7".action.focus-workspace = 7;
+          "Mod+8".action.focus-workspace = 8;
+          "Mod+9".action.focus-workspace = 9;
+          "Mod+0".action.focus-workspace = 10;
+
+          "Mod+Shift+1".action.move-column-to-workspace = 1;
+          "Mod+Shift+2".action.move-column-to-workspace = 2;
+          "Mod+Shift+3".action.move-column-to-workspace = 3;
+          "Mod+Shift+4".action.move-column-to-workspace = 4;
+          "Mod+Shift+5".action.move-column-to-workspace = 5;
+          "Mod+Shift+6".action.move-column-to-workspace = 6;
+          "Mod+Shift+7".action.move-column-to-workspace = 7;
+          "Mod+Shift+8".action.move-column-to-workspace = 8;
+          "Mod+Shift+9".action.move-column-to-workspace = 9;
+          "Mod+Shift+0".action.move-column-to-workspace = 10;
+
+          "Mod+Return".action.spawn = ["kitty"];
+          "Mod+Shift+C".action.close-window = {};
+          "Mod+Shift+C".repeat = false;
+          "Ctrl+Alt+Delete".action.quit = {};
+          "Ctrl+Alt+Bracketright".action.spawn = dms_bind "wallpaper next";
+          "Ctrl+Alt+Bracketleft".action.spawn = dms_bind "wallpaper prev";
+          "Mod+Shift+Escape".action.toggle-keyboard-shortcuts-inhibit = {};
+
+          # Media
+          # TODO: make something
+          # "Mod+Shift+K".action.spawn = dms_bind "mpris playPause";
+          # "Mod+Shift+J".action.spawn = dms_bind "mpris previous";
+          # "Mod+Shift+L".action.spawn = dms_bind "mpris next";
+
+          "Print".action.screenshot = {};
+          "Alt+P".action.screenshot-screen = {};
+          "Alt+Print".action.screenshot-screen = {show-pointer = false;};
+          "Mod+Ctrl+P".action.screenshot-window = {};
+
+          "Mod+Tab".action.spawn = dms_bind "spotlight toggle";
+          "Mod+Tab".hotkey-overlay.title = "Open spotlight search";
+
+          "Mod+D".action.spawn = dms_bind "clipboard toggle";
+          "Mod+D".hotkey-overlay.title = "Open clipboard manager";
+
+          "Mod+Shift+M".action.spawn = dms_bind "dash toggle media";
+          # "Mod+Shift+M".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+N".action.spawn = dms_bind "notifications toggle";
+          # "Mod+Shift+N".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+E".action.spawn = dms_bind "dankdash wallpaper";
+          # "Mod+Shift+E".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+I".action.spawn = dms_bind "control-center toggle";
+          # "Mod+Shift+I".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+P".action.spawn = dms_bind "powermenu toggle";
+          # "Mod+Shift+P".hotkey-overlay.title = "Open clipboard manager";
+          "Mod+Shift+L".action.spawn = dms_bind "lock lock";
+          # "Mod+Shift+L".hotkey-overlay.title = "Open clipboard manager";
+
+          "Mod+O".action.toggle-overview = {};
+          "Mod+O".repeat = false;
+
+          "Mod+Shift+Slash".action.spawn = dms_bind "keybinds toggle niri";
+
+          # Change focus
+          "Mod+Bracketleft".action.focus-column-left = {};
+          "Mod+J".action.focus-workspace-down = {};
+          "Mod+K".action.focus-workspace-up = {};
+          "Mod+Bracketright".action.focus-column-right = {};
+
+          "Mod+Shift+Bracketleft".action.move-column-left = {};
+          "Mod+Shift+J".action.move-column-to-workspace-down = {};
+          "Mod+Shift+K".action.move-column-to-workspace-up = {};
+          "Mod+Shift+Bracketright".action.move-column-right = {};
+
+          # Move window
+          # "Mod+Shift+H".action.move-column-left = {};
+          # "Mod+Shift+J".action.move-window-down = {};
+          # "Mod+Shift+K".action.move-window-up = {};
+          # "Mod+Shift+L".action.move-column-right = {};
+
+          "XF86AudioRaiseVolume".action.spawn = dms_bind "audio increment 5%";
+          "XF86AudioRaiseVolume".allow-when-locked = true;
+          "XF86AudioRaiseVolume".hotkey-overlay.title = "Increase volume";
+
+          "XF86AudioLowerVolume".action.spawn = dms_bind "audio decrement 5%";
+          "XF86AudioLowerVolume".allow-when-locked = true;
+          "XF86AudioLowerVolume".hotkey-overlay.title = "Decrease volume";
+
+          "XF86AudioMute".action.spawn = dms_bind "audio mute";
+          "XF86AudioMute".allow-when-locked = true;
+          "XF86AudioMute".hotkey-overlay.title = "Mute audio";
+
+          "XF86AudioMicMute".action.spawn = dms_bind "audio micmute";
+          "XF86AudioMicMute".allow-when-locked = true;
+          "XF86AudioMicMute".hotkey-overlay.title = "Mute microphone";
+
+          "XF86MonBrightnessUp".action.spawn = dms_bind "brightness increment 5% ";
+          "XF86MonBrightnessUp".allow-when-locked = true;
+          "XF86MonBrightnessUp".hotkey-overlay.title = "Increase brightness";
+
+          "XF86MonBrightnessDown".action.spawn = dms_bind "brightness decrement 5% ";
+          "XF86MonBrightnessDown".allow-when-locked = true;
+          "XF86MonBrightnessDown".hotkey-overlay.title = "Decrease brightness";
+        };
+      };
+    };
+
+    # TODO: tweak dms to suit my needs
+    systemd.user.services.niri-flake-polkit.enable = false; # Use dms polkit
+    programs.dank-material-shell = {
+      enable = true;
+      greeter = {
+        enable = true;
+        compositor.name = "niri";
+      };
+    };
+
+    home.programs.dank-material-shell = {
+      enable = true;
+      niri = {
+        enableSpawn = true;
+        includes = {
+          enable = true;
+        };
+      };
+    };
+  };
+}

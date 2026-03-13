@@ -8,22 +8,26 @@
   ...
 }:
 with lib; {
-  imports = [
-    ./desktop
-    ./development
-    ./profiles
-    ./security
-    ./services/tailscale.nix
-    ./system/flatpak.nix
-    ./home.nix
-  ];
+  imports =
+    [
+      ./desktop
+      ./development
+      ./profiles
+      ./security
+      ./services/tailscale.nix
+      ./system/flatpak.nix
+      ./home.nix
+    ]
+    ++ [
+      inputs.nix-index-database.nixosModules.default
+    ];
 
   options = with types; {
     flake = {
       path = mkOpt' path "${self}" "Path to flake";
-      pathStr = mkOpt' str "/home/${config.user.name}/nixflow" "String path to flake";
+      pathStr = mkOpt' str "${config.user.home}/nixflow" "String path to flake";
       configDir = mkOpt' path "${self}/config" "Path to flake config directory (nix-store path)";
-      configDirStr = mkOpt' str "/home/${config.user.name}/nixflow/config" "String path to flake config directory (primarly use for mutable links)";
+      configDirStr = mkOpt' str "${config.user.home}/nixflow/config" "String path to flake config directory (primarly use for mutable links)";
     };
     hostPlatform = mkOpt str "";
     user = mkOpt attrs {name = "";};
@@ -50,6 +54,7 @@ with lib; {
     environment.systemPackages = [pkgs.git pkgs.just];
 
     programs.nix-ld.enable = true;
+    programs.nix-index-database.comma.enable = true;
     programs.nh = {
       enable = true;
       clean.enable = true;

@@ -1,61 +1,33 @@
 {
-  self,
   inputs,
+  self,
+  lib,
   ...
-}: {
-  flake.nixosConfigurations = let
-    inherit (inputs.nixpkgs.lib) nixosSystem;
-
-    homeImports = import "${self}/home/profiles";
-
-    mod = "${self}/system";
-
-    # get the basic config to build on top of
-    inherit (import mod) laptop;
-
-    # get these into the module system
-    specialArgs = {inherit inputs self;};
-  in {
-    asura = nixosSystem {
-      inherit specialArgs;
+}: let
+  mkHost = name: system:
+    lib.nixosSystem {
       modules =
-        laptop
-        ++ [
-          ./asura
-          ./asura/secrets.nix
-
-          "${mod}/core/lanzaboote.nix"
-
-          "${mod}/hardware/nvidia-laptop.nix"
-
-          "${mod}/network/localsend.nix"
-          "${mod}/network/packettracer.nix"
-
-          "${mod}/programs/gamemode.nix"
-          "${mod}/programs/gaming.nix"
-          "${mod}/programs/hyprland"
-          "${mod}/programs/adb.nix"
-          "${mod}/programs/diagnostics.nix"
-          "${mod}/programs/arion.nix"
-
-          "${mod}/services/kanata"
-          "${mod}/services/syncthing.nix"
-          "${mod}/services/postgresql.nix"
-          inputs.agenix.nixosModules.default
-
+        [
           {
+            networking.hostName = lib.mkDefault name;
+            nixpkgs.hostPlatform = lib.mkDefault system;
             environment.systemPackages = [
-              inputs.agenix.packages.x86_64-linux.default
+              inputs.agenix.packages.${system}.default
             ];
+            hostPlatform = lib.mkDefault system;
           }
+          ./${name}
 
-          {
-            home-manager = {
-              users.demi.imports = homeImports."demi@asura";
-              extraSpecialArgs = specialArgs;
-            };
-          }
-        ];
+          inputs.agenix.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+        ]
+        ++ builtins.attrValues self.nixosModules;
+
+      # This allows to easily access flake inputs and outputs
+      # from nixos modules, so it's a little bit cleaner
+      # TODO: make my theme module
+      specialArgs = {inherit inputs self lib;};
     };
-  };
+in {
+  asura = mkHost "asura" "x86_64-linux";
 }

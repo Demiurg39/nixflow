@@ -6,36 +6,28 @@
 }:
 with lib; let
   cfg = config.modules.development.networks.packettracer;
+  pt = pkgs.ciscoPacketTracer9;
+  ver = "9";
 in {
   options.modules.development.networks.packettracer = with types; {
     enable = mkEnableOption "Enable Cisco packet tracer";
-
-    withoutLogin = mkOption {
-      type = bool;
-      default = true;
-      description = ''If true, packet tracer will be run in firejail to prevent login'';
-    };
+    withoutLogin = mkOpt' bool true "Enclose packet tracer in firejail to prevent login";
   };
 
   config = mkMerge [
-    {
-      nixpkgs.config.permittedInsecurePackages = [
-        pkgs.ciscoPacketTracer8
-        "ciscoPacketTracer8-8.2.2"
-      ];
-    }
     (mkIf (cfg.enable && !cfg.withoutLogin) {
-      environment.systemPackages = [pkgs.ciscoPacketTracer8];
+      environment.systemPackages = [pt];
     })
     (mkIf (cfg.enable && cfg.withoutLogin) {
       programs.firejail = {
         enable = true;
         wrappedBinaries = {
-          packettracer8 = {
-            executable = getExe pkgs.ciscoPacketTracer8;
+          packettracer = {
+            executable = getExe pt;
 
             # Will still want a .desktop entry as the package is not directly added
-            desktop = "${pkgs.ciscoPacketTracer8}/share/applications/cisco-pt8.desktop.desktop";
+            # FIX: as for pt9 it can not work same
+            desktop = "${pt}/share/applications/cisco-pt${ver}.desktop.desktop";
 
             extraArgs = [
               # This should make it run in isolated netns, preventing internet access

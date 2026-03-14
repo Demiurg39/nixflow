@@ -16,6 +16,7 @@ in {
     home.programs.yazi = {
       enable = true;
       enableNushellIntegration = nushellCfg.enable;
+      shellWrapperName = "yy";
       extraPackages = with pkgs; [
         mediainfo
         exiftool

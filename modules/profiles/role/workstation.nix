@@ -30,20 +30,17 @@ in
       {
         services.resolved = {
           enable = true;
-          dnsovertls = "true";
-          # See systemd/systemd#10579
-          dnssec = "false";
 
-          # TODO: insert my nextdns server
-          extraConfig = ''
+          settings.Resolve = {
+            DNSOverTLS = true;
+            # See systemd/systemd#10579
+            DNSSEC = false;
+            # TODO: insert my nextdns server
             # Quad9 by default
-            DNS=9.9.9.9 2620:fe::fe
-            TLSHostname=dns.quad9.net
-          '';
-
-          fallbackDns = [
-            "1.1.1.1#cloudflare-dns.com"
-          ];
+            Domains = ["dns.quad9.net"];
+            DNS = ["9.9.9.9 2620:fe::fe"];
+            FallbackDNS = ["1.1.1.1#cloudflare-dns.com"];
+          };
         };
 
         networking.networkmanager = {

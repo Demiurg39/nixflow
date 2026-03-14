@@ -299,6 +299,8 @@ in {
     systemd.user.services.niri-flake-polkit.enable = false; # Use dms polkit
     programs.dank-material-shell = {
       enable = true;
+      # TODO: make use native dms from nixpkgs module and tweak with this
+      # package = inputs.dms.packages.${config.hostPlatform}.default;
       greeter = {
         enable = true;
         compositor.name = "niri";

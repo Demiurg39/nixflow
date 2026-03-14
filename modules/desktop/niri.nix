@@ -172,7 +172,9 @@ in {
           "10" = {};
         };
 
-        spawn-at-startup = [];
+        spawn-at-startup = [
+          {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
+        ];
 
         window-rules = [];
 
@@ -184,6 +186,7 @@ in {
 
         # TODO: port my hyprland binds to here
         binds = {
+          # Workspace
           "Mod+1".action.focus-workspace = 1;
           "Mod+2".action.focus-workspace = 2;
           "Mod+3".action.focus-workspace = 3;
@@ -210,20 +213,27 @@ in {
           "Mod+Shift+C".action.close-window = {};
           "Mod+Shift+C".repeat = false;
           "Ctrl+Alt+Delete".action.quit = {};
+          "Ctrl+Alt+Escape".action.stop-cast = {};
+          "Ctrl+Shift+Escape".action.spawn = ["dgop"];
           "Ctrl+Alt+Bracketright".action.spawn = dms_bind "wallpaper next";
           "Ctrl+Alt+Bracketleft".action.spawn = dms_bind "wallpaper prev";
-          "Mod+Shift+Escape".action.toggle-keyboard-shortcuts-inhibit = {};
+          "Mod+Escape".action.toggle-keyboard-shortcuts-inhibit = {};
+          "Mod+Shift+F".action.fullscreen-window = {};
 
           # Media
-          # TODO: make something
-          # "Mod+Shift+K".action.spawn = dms_bind "mpris playPause";
-          # "Mod+Shift+J".action.spawn = dms_bind "mpris previous";
-          # "Mod+Shift+L".action.spawn = dms_bind "mpris next";
+          "Alt+Shift+K".action.spawn = dms_bind "mpris playPause";
+          "Alt+Shift+J".action.spawn = dms_bind "mpris previous";
+          "Alt+Shift+L".action.spawn = dms_bind "mpris next";
 
           "Print".action.screenshot = {};
-          "Alt+P".action.screenshot-screen = {};
+          "Print".hotkey-overlay.title = "Open interactive screenshot tool";
+          "Mod+Alt+P".action.screenshot-screen = {};
+          "Mod+Alt+P".hotkey-overlay.title = "Screenshot screen";
           "Alt+Print".action.screenshot-screen = {show-pointer = false;};
+          "Alt+Print".hotkey-overlay.title = "Screenshot screen without pointer";
+          "Mod+Alt+P".action.screenshot-screen = {};
           "Mod+Ctrl+P".action.screenshot-window = {};
+          "Mod+Ctrl+P".hotkey-overlay.title = "Screenshot window";
 
           "Mod+Tab".action.spawn = dms_bind "spotlight toggle";
           "Mod+Tab".hotkey-overlay.title = "Open spotlight search";
@@ -231,6 +241,7 @@ in {
           "Mod+D".action.spawn = dms_bind "clipboard toggle";
           "Mod+D".hotkey-overlay.title = "Open clipboard manager";
 
+          # Menus, dashs and etc
           "Mod+Shift+M".action.spawn = dms_bind "dash toggle media";
           "Mod+Shift+M".hotkey-overlay.title = "Open media menu";
           "Mod+Shift+N".action.spawn = dms_bind "notifications toggle";
@@ -246,27 +257,33 @@ in {
           "Mod+Shift+L".action.spawn = dms_bind "lock lock";
           "Mod+Shift+L".hotkey-overlay.title = "Lock machine";
 
+          "Mod+Shift+Slash".action.spawn = dms_bind "keybinds toggle niri";
+
+          "Mod+Shift+Comma".action.maximize-window-to-edges = {};
+          "Mod+Shift+Period".action.maximize-column = {};
+
           "Mod+O".action.toggle-overview = {};
           "Mod+O".repeat = false;
 
-          "Mod+Shift+Slash".action.spawn = dms_bind "keybinds toggle niri";
-
-          # Change focus
-          "Mod+Bracketleft".action.focus-column-left = {};
+          # Navigation
+          "Mod+Bracketleft".action.focus-column-or-monitor-left = {};
           "Mod+J".action.focus-workspace-down = {};
           "Mod+K".action.focus-workspace-up = {};
-          "Mod+Bracketright".action.focus-column-right = {};
+          "Mod+Bracketright".action.focus-column-or-monitor-right = {};
 
           "Mod+Shift+Bracketleft".action.move-column-left = {};
           "Mod+Shift+J".action.move-column-to-workspace-down = {};
           "Mod+Shift+K".action.move-column-to-workspace-up = {};
           "Mod+Shift+Bracketright".action.move-column-right = {};
 
-          # Move window
-          # "Mod+Shift+H".action.move-column-left = {};
-          # "Mod+Shift+J".action.move-window-down = {};
-          # "Mod+Shift+K".action.move-window-up = {};
-          # "Mod+Shift+L".action.move-column-right = {};
+          # OSD's
+          "Mod+Shift+Comma".action.spawn = dms_bind "audio increment 5%";
+          "Mod+Shift+Comma".allow-when-locked = true;
+          "Mod+Shift+Comma".hotkey-overlay.title = "Increase volume";
+
+          "Mod+Shift+Period".action.spawn = dms_bind "audio decrement 5%";
+          "Mod+Shift+Period".allow-when-locked = true;
+          "Mod+Shift+Period".hotkey-overlay.title = "Decrease volume";
 
           "XF86AudioRaiseVolume".action.spawn = dms_bind "audio increment 5%";
           "XF86AudioRaiseVolume".allow-when-locked = true;
@@ -299,12 +316,10 @@ in {
     systemd.user.services.niri-flake-polkit.enable = false; # Use dms polkit
     programs.dank-material-shell = {
       enable = true;
-      # TODO: make use native dms from nixpkgs module and tweak with this
-      # package = inputs.dms.packages.${config.hostPlatform}.default;
-      greeter = {
-        enable = true;
-        compositor.name = "niri";
-      };
+      enableSystemMonitoring = true;
+      dgop.package = inputs.dgop.packages.${config.hostPlatform}.default;
+      greeter.enable = true;
+      greeter.compositor.name = "niri";
     };
 
     home.programs.dank-material-shell = {

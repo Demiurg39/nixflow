@@ -15,7 +15,6 @@ in {
     ./terminal
     ./programs
     ./virt/virt-manager.nix
-    ./axshell.nix
     ./gnome.nix
     ./hyprland.nix
     ./mangowc.nix

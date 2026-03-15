@@ -67,9 +67,6 @@
     mango.url = "github:DreamMaoMao/mango";
     mango.inputs.nixpkgs.follows = "nixpkgs";
 
-    ax-shell.url = "github:poogas/Ax-Shell";
-    ax-shell.inputs.nixpkgs.follows = "nixpkgs";
-
     dms.url = "github:AvengeMedia/DankMaterialShell/stable";
     dms.inputs.nixpkgs.follows = "nixpkgs";
 

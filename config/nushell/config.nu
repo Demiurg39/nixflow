@@ -55,7 +55,6 @@ load-env {
 
 # Sources {
 
-source extract.nu
 source completions.nu
 
 # }

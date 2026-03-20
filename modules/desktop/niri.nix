@@ -9,7 +9,16 @@ with lib; let
   cfg = config.modules.desktop.niri;
   role = config.modules.profiles.role;
 
+  dms_settings = builtins.readFile "${config.flake.configDir}/dms/dank.json";
   dms_bind = cmd: ["dms" "ipc" "call"] ++ (splitString " " cmd);
+  dms_reboot_cmd = [
+    "sh"
+    "-c"
+    "systemctl --user stop dms.service;
+    pkill dms; pkill quickshell;
+    rm -rf $XDG_RUNTIME_DIR/quickshell;
+    systemctl --user start dms.service"
+  ];
 in {
   imports = [
     inputs.niri.nixosModules.niri
@@ -19,6 +28,7 @@ in {
 
   options.modules.desktop.niri = with types; {
     enable = mkEnableOption "Enable scrollable-tiling window manager";
+    xwayland.enable = mkEnableOption "Enable xwayland support wia xwayland-satellite package";
     monitors = mkOpt (listOf (submodule {
       options = {
         enable = mkOpt bool false;
@@ -44,13 +54,7 @@ in {
     nixpkgs.overlays = [inputs.niri.overlays.niri];
     modules.desktop.type = "wayland";
 
-    environment.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      MOZ_ENABLE_WAYLAND = "1";
-      WLR_NO_HARDWARE_CURSORS = "1";
-    };
-
+    # TODO: add here standart media apps like file explorer, media viewer and etc
     environment.systemPackages = [pkgs.bibata-cursors];
 
     programs.niri.enable = true;
@@ -142,10 +146,18 @@ in {
           hide-after-inactive-ms = 500;
         };
 
-        environment = {
-          QT_QPA_PLATFORM = "wayland";
-          GDK_BACKEND = "wayland";
-        };
+        environment =
+          {
+            QT_QPA_PLATFORM = "wayland";
+            GDK_BACKEND = "wayland";
+            NIXOS_OZONE_WL = "1";
+            ELECTRON_OZONE_PLATFORM_HINT = "auto";
+          }
+          // optionalAttrs cfg.xwayland.enable {DISPLAY = ":0";}
+          // optionalAttrs cfg.xwayland.enable {
+            XCURSOR_THEME = "Bibata-Modern-Ice";
+            XCURSOR_SIZE = "24";
+          };
 
         animations = {
           enable = true;
@@ -169,22 +181,43 @@ in {
           "7" = {};
           "8" = {};
           "9" = {};
-          "10" = {};
         };
 
-        spawn-at-startup = [
-          {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
+        spawn-at-startup =
+          [
+          ]
+          ++ optionals cfg.xwayland.enable [{command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}];
+
+        window-rules = [
+          {
+            matches = [{app-id = "com\.(ayu|tele)gram\.desktop";}];
+            open-on-workspace = "4";
+          }
+          {
+            matches = [{app-id = "steam";}];
+            open-on-workspace = "6"; # Actualy opens on 6
+            open-maximized = true;
+          }
+          {
+            matches = [
+              {app-id = "steam";}
+              {title = "Friends List";}
+            ];
+            open-on-workspace = "6";
+            open-floating = true;
+          }
+          {
+            matches = [{app-id = "spotify";}];
+            open-on-workspace = "9";
+          }
         ];
 
-        window-rules = [];
-
         switch-events = {
-          # TODO: make something but only if workstation/laptop
+          # TODO: make something but only if workstation/laptop (if needed)
           # lid-close.action.spawn = [];
           # lid-open.action.spawn = [];
         };
 
-        # TODO: port my hyprland binds to here
         binds = {
           # Workspace
           "Mod+1".action.focus-workspace = 1;
@@ -212,18 +245,46 @@ in {
           "Mod+Return".action.spawn = ["kitty"];
           "Mod+Shift+C".action.close-window = {};
           "Mod+Shift+C".repeat = false;
-          "Ctrl+Alt+Delete".action.quit = {};
-          "Ctrl+Alt+Escape".action.stop-cast = {};
-          "Ctrl+Shift+Escape".action.spawn = ["dgop"];
+          "Ctrl+Alt+Backspace".action.quit = {};
           "Ctrl+Alt+Bracketright".action.spawn = dms_bind "wallpaper next";
           "Ctrl+Alt+Bracketleft".action.spawn = dms_bind "wallpaper prev";
           "Mod+Escape".action.toggle-keyboard-shortcuts-inhibit = {};
           "Mod+Shift+F".action.fullscreen-window = {};
 
+          # # The following binds move the focused window in and out of a column.
+          # # If the window is alone, they will consume it into the nearby column to the side.
+          # # If the window is already in a column, they will expel it out.
+          # Mod+BracketLeft  { consume-or-expel-window-left; }
+          # Mod+BracketRight { consume-or-expel-window-right; }
+          #
+          # # Consume one window from the right to the bottom of the focused column.
+          # Mod+Comma  { consume-window-into-column; }
+          # # Expel the bottom window from the focused column to the right.
+          # Mod+Period { expel-window-from-column; }
+          #
+          # Mod+R { switch-preset-column-width; }
+          # # Cycling through the presets in reverse order is also possible.
+          # # Mod+R { switch-preset-column-width-back; }
+          # Mod+Shift+R { switch-preset-window-height; }
+          # Mod+Ctrl+R { reset-window-height; }
+          # Mod+F { maximize-column; }
+          # Mod+Shift+F { fullscreen-window; }
+          # Mod+M { maximize-window-to-edges; }
+          #
+          # # Expand the focused column to space not taken up by other fully visible columns.
+          # # Makes the column "fill the rest of the space".
+          # Mod+Ctrl+F { expand-column-to-available-width; }
+          #
+          # Mod+C { center-column; }
+          #
+          # # Center all fully visible columns on screen.
+          # Mod+Ctrl+C { center-visible-columns; }
+
           # Media
           "Alt+Shift+K".action.spawn = dms_bind "mpris playPause";
           "Alt+Shift+J".action.spawn = dms_bind "mpris previous";
           "Alt+Shift+L".action.spawn = dms_bind "mpris next";
+          "Alt+Shift+Backspace".action.spawn = dms_bind "mpris stop";
 
           "Print".action.screenshot = {};
           "Print".hotkey-overlay.title = "Open interactive screenshot tool";
@@ -256,11 +317,12 @@ in {
           "Mod+Shift+P".hotkey-overlay.title = "Open powermenu";
           "Mod+Shift+L".action.spawn = dms_bind "lock lock";
           "Mod+Shift+L".hotkey-overlay.title = "Lock machine";
-
           "Mod+Shift+Slash".action.spawn = dms_bind "keybinds toggle niri";
+          "Mod+Shift+Delete".action.spawn = dms_reboot_cmd;
 
-          "Mod+Shift+Comma".action.maximize-window-to-edges = {};
-          "Mod+Shift+Period".action.maximize-column = {};
+          "Mod+Alt+Comma".action.maximize-window-to-edges = {};
+          "Mod+Alt+Period".action.maximize-column = {};
+          "Mod+Alt+R".action.switch-preset-column-width = {};
 
           "Mod+O".action.toggle-overview = {};
           "Mod+O".repeat = false;
@@ -277,13 +339,13 @@ in {
           "Mod+Shift+Bracketright".action.move-column-right = {};
 
           # OSD's
-          "Mod+Shift+Comma".action.spawn = dms_bind "audio increment 5%";
-          "Mod+Shift+Comma".allow-when-locked = true;
-          "Mod+Shift+Comma".hotkey-overlay.title = "Increase volume";
-
-          "Mod+Shift+Period".action.spawn = dms_bind "audio decrement 5%";
+          "Mod+Shift+Period".action.spawn = dms_bind "audio increment 5%";
           "Mod+Shift+Period".allow-when-locked = true;
-          "Mod+Shift+Period".hotkey-overlay.title = "Decrease volume";
+          "Mod+Shift+Period".hotkey-overlay.title = "Increase volume";
+
+          "Mod+Shift+Comma".action.spawn = dms_bind "audio decrement 5%";
+          "Mod+Shift+Comma".allow-when-locked = true;
+          "Mod+Shift+Comma".hotkey-overlay.title = "Decrease volume";
 
           "XF86AudioRaiseVolume".action.spawn = dms_bind "audio increment 5%";
           "XF86AudioRaiseVolume".allow-when-locked = true;
@@ -312,24 +374,18 @@ in {
       };
     };
 
-    # TODO: tweak dms to suit my needs
-    systemd.user.services.niri-flake-polkit.enable = false; # Use dms polkit
+    systemd.user.services.niri-flake-polkit.enable = false;
     programs.dank-material-shell = {
       enable = true;
-      enableSystemMonitoring = true;
-      dgop.package = inputs.dgop.packages.${config.hostPlatform}.default;
       greeter.enable = true;
       greeter.compositor.name = "niri";
     };
 
     home.programs.dank-material-shell = {
       enable = true;
-      niri = {
-        enableSpawn = true;
-        includes = {
-          enable = true;
-        };
-      };
+      settings = builtins.fromJSON dms_settings;
+      niri.enableSpawn = true;
+      niri.includes.enable = true;
     };
   };
 }

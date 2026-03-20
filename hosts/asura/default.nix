@@ -32,6 +32,7 @@
     desktop = {
       niri = {
         enable = true;
+        xwayland.enable = true;
         monitors = [
           {
             enable = true;

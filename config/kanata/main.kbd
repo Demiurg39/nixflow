@@ -1,43 +1,66 @@
+(defcfg
+  process-unmapped-keys yes
+)
+
 (defsrc
-grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-caps a    s    d    f    g    h    j    k    l    ;    '    ret
-lsft z    x    c    v    b    n    m    ,    .    /    rsft
-lctl lmet lalt           spc            ralt rmet rctl
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
 )
 
 (defvar
-tap 100
-hold 200
+  tap-time 200
+  hold-time 220
 )
 
-(deftemplate triple-tap-layer-switch (key layer-name)
-$key (tap-dance 200 (
-    $key
-    (macro $key $key)
-    (layer-switch $layer-name)
-))
+(defalias
+  ;; Home row mods
+  a_mod (tap-hold-release $tap-time $hold-time a lalt)
+  s_mod (tap-hold-release $tap-time $hold-time s lmet)
+  d_mod (tap-hold-release $tap-time $hold-time d lsft)
+  f_mod (tap-hold-release $tap-time $hold-time f lctl)
+
+  j_mod (tap-hold-release $tap-time $hold-time j lctl)
+  k_mod (tap-hold-release $tap-time $hold-time k lsft)
+  l_mod (tap-hold-release $tap-time $hold-time l lmet)
+  scl_mod (tap-hold-release $tap-time $hold-time ; lalt)
+
+  ;; Special keys
+  cw (caps-word 2000)
+  lsft_mod (tap-dance 200 (lsft @cw))
+  cap_esc (tap-hold 200 200 esc lctl)
+  esc_caps (tap-dance 200 (esc caps))
+)
+
+(deftemplate triple-tap-layer-switch (key_to_send layer_to_switch)
+  (tap-dance 300 (
+    $key_to_send
+    (macro $key_to_send $key_to_send)
+    (layer-switch $layer_to_switch)
+  ))
 )
 
 (deflayermap (default)
-caps (tap-hold $tap $hold esc lctl)
-esc (tap-dance 200 (
-    esc
-    caps
-))
+  caps @cap_esc
+  esc  @esc_caps
 
-a (tap-hold $tap $hold a lalt)
-s (tap-hold $tap $hold s lmet)
-d (tap-hold $tap $hold d lsft)
-f (tap-hold $tap $hold f lctl)
-j (tap-hold $tap $hold j lctl)
-k (tap-hold $tap $hold k lsft)
-l (tap-hold $tap $hold l lmet)
-; (tap-hold $tap $hold ; lalt)
+  grv (template-expand triple-tap-layer-switch grv default)
 
-(template-expand triple-tap-layer-switch grv transparent)
+  ;; HRM
+  a @a_mod
+  s @s_mod
+  d @d_mod
+  f @f_mod
+  j @j_mod
+  k @k_mod
+  l @l_mod
+  ; @scl_mod
+
+  lsft @lsft_mod
 )
 
 (deflayermap (transparent)
-(template-expand triple-tap-layer-switch grv default)
+  grv (template-expand triple-tap-layer-switch grv default)
 )

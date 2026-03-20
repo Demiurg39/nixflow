@@ -68,16 +68,21 @@ in {
       users.${config.user.name} = {
         osConfig,
         config,
+        lib,
         ...
       }: {
         imports = cfg.modules;
-
         config = lib.mkMerge [
           {
             home = {
               file = mkAliasDefinitions options.home.file;
               packages = mkAliasDefinitions options.home.packages;
               stateVersion = osConfig.system.stateVersion;
+              activation = {
+                createFakeHome = lib.hm.dag.entryAfter ["writeBoundary"] ''
+                  $DRY_RUN_CMD mkdir -p "${cfg.fakeDir}"
+                '';
+              };
             };
             xdg = {
               enable = true;

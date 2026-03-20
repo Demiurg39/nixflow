@@ -79,5 +79,7 @@
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     spicetify-nix.inputs.nixpkgs.follows = "nixpkgs";
     spicetify-nix.inputs.systems.follows = "systems";
+
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
   };
 }

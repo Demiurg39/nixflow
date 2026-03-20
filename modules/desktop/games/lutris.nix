@@ -19,6 +19,7 @@ with lib; let
           __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           __VK_LAYER_NV_optimus = "NVIDIA_only";
+          VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         };
       }
     else pkgs.lutris;
@@ -33,7 +34,7 @@ in {
   config = mkIf (cfg.enable) {
     home.programs.lutris = {
       enable = true;
-      extraPackages = [pkgs.mangohud];
+      extraPackages = [pkgs.mangohud pkgs.vulkan-tools];
       steamPackage =
         if (steamCfg.enable)
         then steamCfg.package
@@ -42,6 +43,6 @@ in {
       winePackages = cfg.winePackages;
     };
 
-    environment.systemPackages = [protonupPackage];
+    environment.systemPackages = [protonupPackage] ++ cfg.winePackages;
   };
 }

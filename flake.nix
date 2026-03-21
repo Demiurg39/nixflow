@@ -28,6 +28,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     systems.url = "github:nix-systems/default";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
 
     # pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     # pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";

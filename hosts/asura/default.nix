@@ -52,6 +52,8 @@
         ayugram.enable = true;
       };
       browsers.qutebrowser.enable = true;
+      browsers.qutebrowser.widevine.enable = true;
+      browsers.qutebrowser.setDefault = true;
       terminal = {
         kitty.enable = true;
         shells.nushell.enable = true;

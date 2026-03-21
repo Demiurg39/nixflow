@@ -15,7 +15,7 @@ with lib; {
       ./profiles
       ./security
       ./services/tailscale.nix
-      ./system/flatpak.nix
+      ./system
       ./home.nix
     ]
     ++ [
@@ -53,6 +53,7 @@ with lib; {
     environment.variables.NH_FLAKE = config.flake.pathStr;
     environment.systemPackages = [pkgs.git pkgs.just];
 
+    modules.system.ccache.enable = true;
     programs.nix-ld.enable = true;
     programs.nix-index-database.comma.enable = true;
     programs.nh = {
@@ -73,7 +74,7 @@ with lib; {
 
       settings = {
         auto-optimise-store = true;
-        # use binary cache, its not gentoo
+        # Use binary cache, its not gentoo
         builders-use-substitutes = true;
         # Enable flakes support
         experimental-features = ["nix-command" "flakes"];

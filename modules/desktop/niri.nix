@@ -29,6 +29,7 @@ in {
   options.modules.desktop.niri = with types; {
     enable = mkEnableOption "Enable scrollable-tiling window manager";
     xwayland.enable = mkEnableOption "Enable xwayland support wia xwayland-satellite package";
+    xwayland.package = mkOpt package pkgs.xwayland-satellite;
     monitors = mkOpt (listOf (submodule {
       options = {
         enable = mkOpt bool false;
@@ -187,10 +188,12 @@ in {
           "9" = {};
         };
 
-        spawn-at-startup =
-          [
-          ]
-          ++ optionals cfg.xwayland.enable [{command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}];
+        spawn-at-startup = [];
+
+        xwayland-satellite = {
+          enable = cfg.xwayland.enable;
+          path = lib.getExe cfg.xwayland.package;
+        };
 
         window-rules = [
           {

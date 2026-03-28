@@ -249,7 +249,7 @@ in {
           "Mod+Shift+9".action.move-column-to-workspace = 9;
           "Mod+Shift+0".action.move-column-to-workspace = 10;
 
-          "Mod+Return".action.spawn = ["kitty"];
+          "Mod+Return".action.spawn = [config.modules.desktop.terminal.spawnCmd];
           "Mod+Shift+C".action.close-window = {};
           "Mod+Shift+C".repeat = false;
           "Ctrl+Alt+Backspace".action.quit = {};

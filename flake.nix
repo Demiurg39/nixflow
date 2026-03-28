@@ -8,7 +8,10 @@
     ...
   } @ inputs: let
     eachSystem = nixpkgs.lib.genAttrs (import systems);
-    lib = import ./lib {lib = nixpkgs.lib;};
+    lib = import ./lib {
+      lib = nixpkgs.lib;
+      inherit inputs;
+    };
   in {
     nixosConfigurations = import ./hosts {inherit inputs self lib nixpkgs;};
 

@@ -35,6 +35,7 @@ in {
     programs = mkOpt' attrs {} "Declarative configuration for user programs via home-manager";
     services = mkOpt' attrs {} "Declarative configuration for user services via home-manager";
 
+    activation = mkOpt' attrs {} "";
     modules = mkOpt' (listOf unspecified) [] "External Home Manager modules to import.";
 
     extraConfig = mkOpt' attrs {} "Arbitrary, low-priority settings to pass directly to Home Manager.";
@@ -68,7 +69,6 @@ in {
       users.${config.user.name} = {
         osConfig,
         config,
-        lib,
         ...
       }: {
         imports = cfg.modules;
@@ -78,11 +78,13 @@ in {
               file = mkAliasDefinitions options.home.file;
               packages = mkAliasDefinitions options.home.packages;
               stateVersion = osConfig.system.stateVersion;
-              activation = {
-                createFakeHome = lib.hm.dag.entryAfter ["writeBoundary"] ''
-                  $DRY_RUN_CMD mkdir -p "${cfg.fakeDir}"
-                '';
-              };
+              activation =
+                mkAliasDefinitions options.home.activation
+                // {
+                  createFakeHome = lib.hm.dag.entryAfter ["writeBoundary"] ''
+                    $DRY_RUN_CMD mkdir -p "${cfg.fakeDir}"
+                  '';
+                };
             };
             xdg = {
               enable = true;

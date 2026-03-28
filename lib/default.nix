@@ -1,8 +1,14 @@
 # ./lib/default.nix
-{lib, ...}:
+{
+  inputs,
+  lib,
+  ...
+}:
 lib.extend (self: super: {
   # "super" = default lib
   # "self" = with my funcs lib
+
+  hm = inputs.home-manager.lib.hm;
 
   mkOpt = type: default:
     super.mkOption {inherit type default;};

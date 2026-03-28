@@ -68,7 +68,10 @@ in {
 
           keyboard.xkb = {
             layout = "us,ru";
-            variant = "colemak_dh,";
+            variant =
+              if config.user.name == "demi"
+              then "colemak_dh,"
+              else "";
             options = "grp:win_space_toggle";
           };
 

@@ -75,53 +75,53 @@
   "privacyShowScreenShareIcon": false,
   "controlCenterWidgets": [
     {
+      "enabled": true,
       "id": "volumeSlider",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "brightnessSlider",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "wifi",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "bluetooth",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "audioOutput",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "audioInput",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "nightMode",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "darkMode",
-      "enabled": true,
       "width": 50
     },
     {
+      "enabled": true,
       "id": "doNotDisturb",
-      "enabled": true,
       "width": 50
     },
     {
-      "id": "idleInhibitor",
       "enabled": true,
+      "id": "idleInhibitor",
       "width": 50
     }
   ],
@@ -218,25 +218,25 @@
   "dankLauncherV2BorderColor": "primary",
   "dankLauncherV2ShowFooter": true,
   "dankLauncherV2UnloadOnClose": false,
-  "useAutoLocation": false,
+  "useAutoLocation": true,
   "weatherEnabled": true,
   "networkPreference": "wifi",
   "iconTheme": "Papirus-Dark",
   "cursorSettings": {
-    "theme": "System Default",
-    "size": 24,
-    "niri": {
-      "hideWhenTyping": false,
-      "hideAfterInactiveMs": 0
+    "dwl": {
+      "cursorHideTimeout": 0
     },
     "hyprland": {
       "hideOnKeyPress": false,
       "hideOnTouch": false,
       "inactiveTimeout": 0
     },
-    "dwl": {
-      "cursorHideTimeout": 0
-    }
+    "niri": {
+      "hideAfterInactiveMs": 0,
+      "hideWhenTyping": false
+    },
+    "size": 24,
+    "theme": "System Default"
   },
   "launcherLogoMode": "os",
   "launcherLogoCustomPath": "",
@@ -260,14 +260,14 @@
   "soundNewNotification": true,
   "soundVolumeChanged": true,
   "soundPluggedIn": true,
-  "acMonitorTimeout": 180,
-  "acLockTimeout": 300,
-  "acSuspendTimeout": 600,
+  "acMonitorTimeout": 300,
+  "acLockTimeout": 600,
+  "acSuspendTimeout": 900,
   "acSuspendBehavior": 0,
   "acProfileName": "2",
-  "batteryMonitorTimeout": 180,
-  "batteryLockTimeout": 300,
-  "batterySuspendTimeout": 600,
+  "batteryMonitorTimeout": 300,
+  "batteryLockTimeout": 600,
+  "batterySuspendTimeout": 900,
   "batterySuspendBehavior": 0,
   "batteryProfileName": "0",
   "batteryChargeLimit": 100,
@@ -412,34 +412,52 @@
   "displaySnapToEdge": true,
   "barConfigs": [
     {
-      "id": "default",
-      "name": "Main Bar",
-      "enabled": true,
-      "position": 0,
-      "screenPreferences": [
-        "all"
+      "autoHide": false,
+      "autoHideDelay": 250,
+      "borderColor": "surfaceText",
+      "borderEnabled": false,
+      "borderOpacity": 1,
+      "borderThickness": 1,
+      "bottomGap": 0,
+      "centerWidgets": [
+        {
+          "enabled": true,
+          "id": "music",
+          "mediaSize": 1
+        },
+        {
+          "clockCompactMode": false,
+          "enabled": true,
+          "id": "clock"
+        },
+        {
+          "enabled": true,
+          "id": "battery"
+        }
       ],
-      "showOnLastDisplay": true,
+      "clickThrough": false,
+      "enabled": true,
+      "fontScale": 1,
+      "gothCornerRadiusOverride": false,
+      "gothCornerRadiusValue": 12,
+      "gothCornersEnabled": false,
+      "iconScale": 1,
+      "id": "default",
+      "innerPadding": 4,
       "leftWidgets": [
         "launcherButton",
         "workspaceSwitcher"
       ],
-      "centerWidgets": [
-        {
-          "id": "music",
-          "enabled": true,
-          "mediaSize": 1
-        },
-        {
-          "id": "clock",
-          "enabled": true,
-          "clockCompactMode": false
-        },
-        {
-          "id": "battery",
-          "enabled": true
-        }
-      ],
+      "maximizeDetection": true,
+      "maximizeWidgetIcons": false,
+      "maximizeWidgetText": false,
+      "name": "Main Bar",
+      "noBackground": false,
+      "openOnOverview": false,
+      "popupGapsAuto": true,
+      "popupGapsManual": 4,
+      "position": 0,
+      "removeWidgetPadding": false,
       "rightWidgets": [
         {
           "id": "systemTray",
@@ -471,39 +489,21 @@
           "showBatteryIcon": false
         }
       ],
-      "spacing": 4,
-      "innerPadding": 4,
-      "bottomGap": 0,
-      "transparency": 1,
-      "widgetTransparency": 1,
-      "squareCorners": false,
-      "noBackground": false,
-      "gothCornersEnabled": false,
-      "gothCornerRadiusOverride": false,
-      "gothCornerRadiusValue": 12,
-      "borderEnabled": false,
-      "borderColor": "surfaceText",
-      "borderOpacity": 1,
-      "borderThickness": 1,
-      "fontScale": 1,
-      "autoHide": false,
-      "autoHideDelay": 250,
-      "openOnOverview": false,
-      "visible": true,
-      "popupGapsAuto": true,
-      "popupGapsManual": 4,
-      "clickThrough": false,
-      "showOnWindowsOpen": false,
-      "maximizeWidgetIcons": false,
-      "maximizeWidgetText": false,
-      "removeWidgetPadding": false,
+      "screenPreferences": [
+        "all"
+      ],
       "shadowIntensity": 0,
-      "widgetOutlineEnabled": true,
+      "showOnLastDisplay": true,
+      "showOnWindowsOpen": false,
+      "spacing": 4,
+      "squareCorners": false,
+      "transparency": 1,
+      "visible": true,
       "widgetOutlineColor": "primary",
+      "widgetOutlineEnabled": true,
       "widgetOutlineOpacity": 0.29,
       "widgetOutlineThickness": 1,
-      "maximizeDetection": true,
-      "iconScale": 1
+      "widgetTransparency": 1
     }
   ],
   "desktopClockEnabled": false,
@@ -579,8 +579,8 @@
   "desktopWidgetGroups": [],
   "builtInPluginSettings": {
     "dms_settings_search": {
-      "trigger": "?",
-      "enabled": false
+      "enabled": false,
+      "trigger": "?"
     }
   },
   "clipboardEnterToPaste": false,

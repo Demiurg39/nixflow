@@ -48,6 +48,7 @@ in {
   config = mkIf (cfg.enable) {
     home.modules = [
       inputs.dms.homeModules.dank-material-shell
+      inputs.dms-plugin-registry.modules.default
       inputs.dms.homeModules.niri
     ];
 
@@ -386,6 +387,7 @@ in {
       settings = builtins.fromJSON dms_settings;
       niri.enableSpawn = true;
       niri.includes.enable = true;
+      plugins = {dankBatteryAlerts.enable = true;};
     };
   };
 }

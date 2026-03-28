@@ -202,7 +202,7 @@ in {
           }
           {
             matches = [{app-id = "steam";}];
-            open-on-workspace = "6"; # Actualy opens on 6
+            open-on-workspace = "6";
             open-maximized = true;
           }
           {

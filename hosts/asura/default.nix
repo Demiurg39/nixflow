@@ -56,6 +56,7 @@
       browsers.qutebrowser.setDefault = true;
       terminal = {
         kitty.enable = true;
+        kitty.setDefault = true;
         shells.nushell.enable = true;
         programs = {
           atuin.enable = true;

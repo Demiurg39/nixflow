@@ -5,7 +5,7 @@
 }:
 with lib; let
   cfg = config.modules.desktop.terminal.programs.zoxide;
-  nushellCfg = config.modules.desktop.terminal.shells.nushell;
+  nushellCfg = config.modules.desktop.terminal.shell.nushell;
 in {
   options.modules.desktop.terminal.programs.zoxide = with types; {
     enable = mkEnableOption "Whether to enable zoxide";

@@ -51,13 +51,13 @@
         # syncthing.enable = true;
         ayugram.enable = true;
       };
-      browsers.qutebrowser.enable = true;
-      browsers.qutebrowser.widevine.enable = true;
-      browsers.qutebrowser.setDefault = true;
+      browser.qutebrowser.enable = true;
+      browser.qutebrowser.widevine.enable = true;
+      browser.qutebrowser.setDefault = true;
       terminal = {
         kitty.enable = true;
         kitty.setDefault = true;
-        shells.nushell.enable = true;
+        shell.nushell.enable = true;
         programs = {
           atuin.enable = true;
           direnv.enable = true;

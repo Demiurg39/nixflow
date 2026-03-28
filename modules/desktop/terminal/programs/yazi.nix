@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.modules.desktop.terminal.programs.yazi;
-  nushellCfg = config.modules.desktop.terminal.shells.nushell;
+  nushellCfg = config.modules.desktop.terminal.shell.nushell;
 in {
   options.modules.desktop.terminal.programs.yazi = {
     enable = mkEnableOption "Whether to enable yazi";

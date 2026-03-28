@@ -1,0 +1,10 @@
+{lib, ...}:
+with lib; {
+  imports = with builtins;
+    map (fn: ./${fn})
+    (filter (fn: fn != "default.nix") (attrNames (readDir ./.)));
+
+  options.modules.desktop.terminal.shell = {
+    default = mkOpt' (types.nullOr types.str) null "Shell name";
+  };
+}

@@ -8,7 +8,7 @@ with lib; let
   desktop_types = ["wayland" "x11"];
 in {
   imports = [
-    ./browsers
+    ./browser
     ./games
     ./media
     ./office

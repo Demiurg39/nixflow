@@ -5,8 +5,8 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.browsers.qutebrowser;
-  bCfg = config.modules.desktop.browsers;
+  cfg = config.modules.desktop.browser.qutebrowser;
+  bCfg = config.modules.desktop.browser;
 
   name = "qutebrowser";
 
@@ -30,7 +30,7 @@ with lib; let
     };
   };
 in {
-  options.modules.desktop.browsers.qutebrowser = {
+  options.modules.desktop.browser.qutebrowser = {
     enable = mkEnableOption "Enable qutebrowser";
     setDefault = mkOpt types.bool false;
     widevine.enable = mkEnableOption ''
@@ -42,11 +42,11 @@ in {
   };
 
   config = mkIf (cfg.enable) {
-    modules.desktop.browsers.default =
+    modules.desktop.browser.default =
       if cfg.setDefault
       then name
       else "";
-    modules.desktop.browsers.spawnCmd =
+    modules.desktop.browser.spawnCmd =
       if bCfg.default == name
       then "qutebrowser"
       else "";

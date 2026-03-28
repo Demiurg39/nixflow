@@ -11,7 +11,7 @@ with lib; let
 in {
   options.modules.desktop.terminal.ghostty = {
     enable = mkEnableOption "Whether to enable ghostty";
-    setDefault = mkOpt types.bool false;
+    setDefault = mkBoolOpt false;
   };
 
   config = mkIf (cfg.enable) {

@@ -11,7 +11,7 @@ with lib; let
 in {
   options.modules.desktop.terminal.kitty = with types; {
     enable = mkEnableOption "Enable kitty terminal";
-    setDefault = mkOpt types.bool false;
+    setDefault = mkBoolOpt false;
   };
 
   config = mkIf (cfg.enable) {

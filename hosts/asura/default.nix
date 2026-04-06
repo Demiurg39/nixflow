@@ -80,7 +80,7 @@
     };
 
     development = {
-      editors.nvchad.enable = true;
+      editor.nvchad.enable = true;
       docker-compose.enable = true;
       databases.postgresql.enable = true;
       #   adb.enable = true;

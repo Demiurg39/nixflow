@@ -57,6 +57,9 @@
     # nivix.url = "github:demiurg39/nivix";
     # nivix.inputs.nixpkgs.follows = "nixpkgs";
 
+    nvf.url = "github:notashelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
+
     nvim-dots.url = "github:demiurg39/nvchad";
     nvim-dots.flake = false;
 

@@ -40,7 +40,7 @@ in {
         wayland_titlebar_color = "system";
         cursor_shape = "block";
         shell_integration = true;
-        background_opacity = 0.98;
+        background_opacity = 0.96;
         background_blur = 64;
       };
     };

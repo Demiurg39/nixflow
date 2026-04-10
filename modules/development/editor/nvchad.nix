@@ -10,7 +10,6 @@ with lib; let
 in {
   options.modules.development.editor.nvchad = with types; {
     enable = mkEnableOption "Enable nushell";
-
   };
 
   config = mkIf (cfg.enable) {

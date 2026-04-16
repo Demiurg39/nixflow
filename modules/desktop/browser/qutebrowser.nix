@@ -10,8 +10,7 @@ with lib; let
 
   name = "qutebrowser";
 
-  def_url = "https://4get.hackliberty.org";
-  bak_url = "https://4get.ca";
+  def_url = "https://4get.ca";
   start_page = def_url;
 
   # NOTE: in case of adding new dict, you must yourself browse the url
@@ -110,7 +109,6 @@ in {
         "!nwu" = "https://nixos.wiki/index.php?search={}";
         "!nf" = "https://noogle.dev/q?term={}";
         "!ddg" = "https://duckduckgo.com/?q={}";
-        "!bak" = "${bak_url}/web?s={}";
       };
       greasemonkey = [];
       keyBindings = {

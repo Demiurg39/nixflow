@@ -27,6 +27,7 @@ in {
 
     home.programs.nvchad = {
       enable = true;
+      neovim = inputs.nixpkgs-stable.legacyPackages.${config.hostPlatform}.neovim-unwrapped;
       extraPackages = [
         pkgs.alejandra
         pkgs.asm-lsp

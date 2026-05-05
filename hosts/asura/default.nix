@@ -81,6 +81,7 @@
 
     development = {
       editor.nvchad.enable = true;
+      environment.enable = true;
       docker-compose.enable = true;
       databases.postgresql.enable = true;
       #   adb.enable = true;

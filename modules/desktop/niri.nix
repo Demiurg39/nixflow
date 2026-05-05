@@ -58,8 +58,11 @@ in {
     nixpkgs.overlays = [inputs.niri.overlays.niri];
     modules.desktop.type = "wayland";
 
-    # TODO: add here standart media apps like file explorer, media viewer and etc
-    environment.systemPackages = [pkgs.bibata-cursors];
+    # TODO: add here standard media apps like file explorer, media viewer and etc.
+    environment.systemPackages = [
+      pkgs.bibata-cursors
+      pkgs.wl-mirror # for mirroring
+    ];
 
     programs.niri.enable = true;
     programs.niri.package = pkgs.niri-unstable;
@@ -234,6 +237,7 @@ in {
 
             {
               "Mod+Return".action.spawn = [config.modules.desktop.terminal.spawnCmd];
+              "Mod+B".action.spawn = [config.modules.desktop.browser.spawnCmd];
               "Mod+Shift+C".action.close-window = {};
               "Mod+Shift+C".repeat = false;
               "Ctrl+Alt+Backspace".action.quit = {};

@@ -109,6 +109,7 @@ in {
         "!nwu" = "https://nixos.wiki/index.php?search={}";
         "!nf" = "https://noogle.dev/q?term={}";
         "!ddg" = "https://duckduckgo.com/?q={}";
+        "!tl" = "https://www.reverso.net/text-translation#sl=rus&tl=eng&text={}";
       };
       greasemonkey = [];
       keyBindings = {

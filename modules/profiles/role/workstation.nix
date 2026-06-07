@@ -1,5 +1,6 @@
 {
   config,
+pkgs,
   lib,
   ...
 }:
@@ -37,7 +38,7 @@ in
           bootspec.enable = true;
           initrd.compressor = "zstd";
 
-          kernelPackages = config.modules.system.kernel.package;
+          kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
           kernelParams = [
             "quiet"

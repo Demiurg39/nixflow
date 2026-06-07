@@ -77,7 +77,11 @@ with lib; {
         # Use binary cache, its not gentoo
         builders-use-substitutes = true;
         # Enable flakes support
-        experimental-features = ["nix-command" "flakes"];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+          "pipe-operators"
+        ];
         warn-dirty = false;
         http2 = true;
 

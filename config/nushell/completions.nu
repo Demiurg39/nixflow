@@ -1,9 +1,3 @@
-$env.PATH = ($env.PATH | split row (char esep) | prepend ($env.HOME + "/.config/carapace/bin"))
-
-def --env get-env [name] { $env | get $name }
-def --env set-env [name, value] { load-env { $name: $value } }
-def --env unset-env [name] { hide-env $name }
-
 let carapace_completer = {|spans|
   # if the current command is an alias, get it's expansion
   let expanded_alias = (scope aliases | where name == $spans.0 | get -o 0 | get -o expansion)
@@ -22,16 +16,46 @@ let carapace_completer = {|spans|
 }
 
 let fish_completer = {|spans|
-    fish --command $'complete "--do-complete=($spans | str join " ")"'
+    fish --command $"complete '--do-complete=($spans | str replace --all "'" "\\'" | str join ' ')'"
     | from tsv --flexible --noheaders --no-infer
     | rename value description
-    | update value {
-        if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
+    | update value {|row|
+      let value = $row.value
+      let need_quote = ['\' ',' '[' ']' '(' ')' ' ' '\t' "'" '"' "`"] | any {$in in $value}
+      if ($need_quote and ($value | path exists)) {
+        let expanded_path = if ($value starts-with ~) {$value | path expand --no-symlink} else {$value}
+        $'"($expanded_path | str replace --all "\"" "\\\"")"'
+      } else {$value}
     }
 }
 
-let zoxide_completer = {|spans|
-    $spans | skip 1 | zoxide query -l ...$in | lines | where {|x| $x != $env.PWD}
+def zoxide_completer [context: string] {
+    let parts = $context | str trim --left | split row " " | skip 1 | each { str downcase }
+    let completions = (
+        ^zoxide query --list --exclude $env.PWD -- ...$parts
+            | lines
+            | each { |dir|
+                if ($parts | length) <= 1 {
+                    $dir
+                } else {
+                    let dir_lower = $dir | str downcase
+                    let rem_start = $parts | drop 1 | reduce --fold 0 { |part, rem_start|
+                        ($dir_lower | str index-of --range $rem_start.. $part) + ($part | str length)
+                    }
+                    {
+                        value: ($dir | str substring $rem_start..),
+                        description: $dir
+                    }
+                }
+            })
+    {
+        options: {
+            sort: false,
+            completion_algorithm: substring,
+            case_sensitive: false,
+        },
+        completions: $completions,
+    }
 }
 
 # This completer will use carapace by default
@@ -56,7 +80,7 @@ let external_completer = {|spans|
         git => $fish_completer
 
         # use zoxide completions for zoxide commands
-        __zoxide_z | __zoxide_zi => $zoxide_completer
+        __zoxide_z | __zoxide_zi => (zoxide_completer ($spans | str join ' ')),
 
         _ => $carapace_completer
     } | do $in $spans

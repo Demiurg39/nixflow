@@ -44,7 +44,7 @@
           }
         ];
       };
-      gnome.enable = true;
+      # gnome.enable = true;
       programs = {
         kanata.enable = true;
         obs-studio.enable = true;
